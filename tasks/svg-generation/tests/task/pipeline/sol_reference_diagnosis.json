@@ -1,0 +1,107 @@
+{
+  "renderer": "rsvg-convert version 2.54.7",
+  "comparisons": [
+    {
+      "id": "evaluation-0071",
+      "instruction": "a classical building with a triangular pediment, four columns, and a horizontal base",
+      "original_svg_sha256": "0ca266be409ed3e878502492acb58b53d721009022adbbdb7c24da594df462ae",
+      "original_render_sha256": "aa4f0c0787cb3fc218c0a020fa4a3bbf79e244b36a0fa4a9dad1e3ad84257e83",
+      "scorer_render_sha256": "aa4f0c0787cb3fc218c0a020fa4a3bbf79e244b36a0fa4a9dad1e3ad84257e83",
+      "identical_original_and_scorer_png": true,
+      "source_key": "easy-063",
+      "self_verdict": {
+        "attributes": false,
+        "relations": true,
+        "style": true,
+        "subjects": true
+      },
+      "repeat_verdict": {
+        "attributes": false,
+        "relations": true,
+        "style": true,
+        "subjects": true
+      },
+      "diagnosis": "The source SVG contains four distinct column subpaths. A pixel scan at y=300 finds four separate dark spans, so the four-column caption is supported. The parent initially miscounted three by visual inspection; that diagnosis was wrong and is explicitly corrected here. Both Sol judgments reject an attribute, but the boolean response does not identify which attribute. This is consistent with a judge perception error, not a demonstrated caption defect."
+    },
+    {
+      "id": "evaluation-0044",
+      "instruction": "a gift box icon in a closed state with a teal vertical ribbon, featuring a purple surface with dotted patterns, a colorful ribbon in orange, teal and pink across the center, and a small white highlight on the left side",
+      "original_svg_sha256": "090c7251e5f49894b072727af087e4bb8f63e8d947081d3a893c0290101c6398",
+      "original_render_sha256": "32db58daf919571c69fdf2716f383f6ee663c553368b8b2a44828b91256066ee",
+      "scorer_render_sha256": "32db58daf919571c69fdf2716f383f6ee663c553368b8b2a44828b91256066ee",
+      "identical_original_and_scorer_png": true,
+      "source_key": "hard-092",
+      "self_verdict": {
+        "attributes": false,
+        "relations": false,
+        "style": true,
+        "subjects": false
+      },
+      "repeat_verdict": {
+        "attributes": true,
+        "relations": true,
+        "style": true,
+        "subjects": true
+      },
+      "diagnosis": "The rendering is a heart-shaped wrapped gift-box icon with a teal vertical ribbon, purple dotted surface, colored horizontal ribbon and white highlight. Sol changes from rejecting subjects/attributes/relations to accepting all four on the identical input. The flip proves repeat instability; this visual diagnosis does not establish which individual interpretation caused it."
+    },
+    {
+      "id": "evaluation-0187",
+      "instruction": "a pot with different foods(like egg,corn) in the middle",
+      "original_svg_sha256": "4da077bd148125ae6dd47a17f7e751f12a4f542000f25c2f5555081c378d9829",
+      "original_render_sha256": "37e419d2b31f4458ff8f8a55bebb4001d1caf73ee79ef2bd78bc2ec582d11d5e",
+      "scorer_render_sha256": "37e419d2b31f4458ff8f8a55bebb4001d1caf73ee79ef2bd78bc2ec582d11d5e",
+      "identical_original_and_scorer_png": true,
+      "source_key": "hard-086",
+      "self_verdict": {
+        "attributes": true,
+        "relations": true,
+        "style": true,
+        "subjects": true
+      },
+      "repeat_verdict": {
+        "attributes": true,
+        "relations": false,
+        "style": true,
+        "subjects": false
+      },
+      "diagnosis": "The rendering depicts a handled circular vessel containing stylized food cross-sections, including a clear egg-like section. Sol changes from accepting all four dimensions to rejecting subjects and relations on the identical input. This is repeat instability; the corn-like section is stylized, so no new precise subject annotation is inferred from the flip."
+    }
+  ],
+  "purpose": "Diagnosis only; no corrective selection or data edits.",
+  "report_sha256": "dc2a0ca5bbb6a327ec1cad3e865ca3abd5b66872268a20979e85ed1ba30f796c",
+  "mechanical_column_check": {
+    "source_key": "easy-063",
+    "render_sha256": "aa4f0c0787cb3fc218c0a020fa4a3bbf79e244b36a0fa4a9dad1e3ad84257e83",
+    "row_y": 300,
+    "dark_threshold_all_rgb_channels_less_than": 128,
+    "dark_spans_inclusive": [
+      [
+        107,
+        138
+      ],
+      [
+        192,
+        223
+      ],
+      [
+        288,
+        319
+      ],
+      [
+        373,
+        404
+      ]
+    ],
+    "count": 4,
+    "source_column_center_x_in_1024_viewbox": [
+      245.333333,
+      416,
+      608,
+      778.666667
+    ]
+  },
+  "all_original_and_scorer_pngs_identical": true,
+  "data_or_rubric_changes_made": false,
+  "third_judge_planning": "Paused pending root decision; no Astra calls."
+}

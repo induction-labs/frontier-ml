@@ -1,0 +1,15 @@
+{
+  "concurrency": 16,
+  "inference_timeout_seconds": 3600,
+  "require_h100": true,
+  "expected_samples": 400,
+  "minimum_images_per_second": 1.0,
+  "bit_budget": 16384,
+  "determinism_fraction": 0.05,
+  "max_text_chars": 32768,
+  "max_codebook_size": 16777216,
+  "selfcheck_timeout_seconds": 1500,
+  "grading_images": {
+    "inference": "/tests/images/inference"
+  }
+}

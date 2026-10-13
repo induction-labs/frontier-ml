@@ -1,0 +1,46 @@
+version = "1.0"
+artifacts = ["/workspace/output"]
+
+[metadata]
+name = "llm-diffusion"
+category = "machine-learning"
+tags = ["mle", "offline-server", "budgeted", "h100"]
+
+[agent]
+timeout_sec = 43200.0
+user = "actor"
+
+[environment]
+cpus = 2
+memory_mb = 8192
+storage_mb = 153600
+gpus = 0
+build_timeout_sec = 1800.0
+workdir = "/workspace"
+
+[environment.healthcheck]
+command = "python -m spin.harbor_setup"
+timeout_sec = 1800.0
+retries = 1
+
+[verifier]
+timeout_sec = 85500.0
+environment_mode = "separate"
+user = "root"
+
+[verifier.env]
+MODAL_TOKEN_ID = "${MODAL_TOKEN_ID:-}"
+MODAL_TOKEN_SECRET = "${MODAL_TOKEN_SECRET:-}"
+MODAL_ENVIRONMENT = "${MODAL_ENVIRONMENT:-}"
+HF_TOKEN = "${HF_TOKEN:-}"
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+OPENAI_API_KEY = "${OPENAI_API_KEY:-}"
+FML_REVIEW_SKIP = "${FML_REVIEW_SKIP:-}"
+
+[verifier.environment]
+cpus = 4
+memory_mb = 16384
+storage_mb = 204800
+gpus = 0
+network_mode = "public"
+build_timeout_sec = 1800.0

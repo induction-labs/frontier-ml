@@ -1,0 +1,21 @@
+{
+  "task": "pokemon-random-battle",
+  "artifacts": [
+    {
+      "repo": "inductionlabs/frontier-ml-tasks",
+      "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+      "repo_type": "dataset",
+      "prefix": "pokemon-random-battle/artifacts",
+      "exclude": [],
+      "to": "",
+      "optional": true
+    }
+  ],
+  "public": {
+    "repo": "inductionlabs/frontier-ml-tasks",
+    "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+    "repo_type": "dataset",
+    "prefix": "pokemon-random-battle/public",
+    "exclude": []
+  }
+}

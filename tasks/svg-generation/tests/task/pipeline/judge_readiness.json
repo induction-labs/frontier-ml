@@ -1,0 +1,26 @@
+{
+ "status": "passed",
+ "calibration": "svg-judge-calibration-v5-graded",
+ "binding": {
+  "protocol": "svg-generation-v5-graded",
+  "judge_model": "gpt-6-sol",
+  "rubric_sha256": "9cafaad1e10f5a288c5d2f84db71778fd31de1fd72dc6bb0e2415b81bd35c0af",
+  "scorer_sha256": "7d0d95aeb8b4f925efb6c7b93a1cb7c3b96a3d654e27dfde2926b7f468be301a",
+  "verifier_sha256": "4f53693b75b75b479672129a29acfce2c8a2381f9ce9b358b41e45ebe132f540",
+  "judge_client_sha256": "2b6a4db06dc7d14cb2e79e98cf7b5bdd8e777156e6747c76576051e8ecbc7af2",
+  "renderer_code_sha256": "92b1a1aa91499c987eda1a490da1303d8e53afca009b8de083804994d65a1d32",
+  "renderer_version": "rsvg-convert version 2.54.7",
+  "evaluation_sha256": "e94644bbfa3723407d6bb791e6b53f9e980253a9d7d5902694df988d89d99e1a"
+ },
+ "admission": {
+  "samples_per_group": 24,
+  "reference_minimum": 0.6,
+  "constant_maximum": 0.05,
+  "injection_maximum": 0.0,
+  "repeat_macro_difference_maximum": 0.05,
+  "repeat_item_correlation_minimum": 0.8
+ },
+ "report_sha256": "c3f8afc559c31d16312d868c045df96f3380b43ce1f12f13202c3b2e13af7de3",
+ "previous_readiness": "judge_readiness_v4_r2.json",
+ "scope": "Graded v5 scorer with the production verifier wrapper: 24 held-out references judged as their own candidate twice, a constant circle and a text injection. Judge readiness only; the normalization anchors are measured separately (task.yaml score_normalization)."
+}

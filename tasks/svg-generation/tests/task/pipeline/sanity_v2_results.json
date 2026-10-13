@@ -1,0 +1,23 @@
+{
+  "protocol": "svg-generation-v1",
+  "renderer": "rsvg-convert version 2.54.7",
+  "floor_probes": {
+    "blank_canvas": {
+      "score": 0.0,
+      "samples": 30,
+      "paid_calls": 0
+    },
+    "solid_red_canvas": {
+      "score": 0.0,
+      "samples": 30,
+      "paid_calls": 0
+    }
+  },
+  "model_baseline_measured": false,
+  "judge_calibrated": false,
+  "h100_measured": false,
+  "scope": "Mechanical rendering floors only; no semantic judge or trained model was run.",
+  "data_version": "caption-audit-v2",
+  "input_sha256": "daffae4dd71024617b07f594281ecab3a4bdab4bbd97b8f7b678cc8df4aeba95",
+  "renderer_image_id": "sha256:0da16852e69dd2aec24078571b82b62a0190d1c9ed81b4e80e0dea118633bc87"
+}

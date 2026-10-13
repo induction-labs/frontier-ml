@@ -1,0 +1,58 @@
+summary: Voice endpointing
+title: Detect when a speaker has finished talking so voice assistants reply promptly without interrupting
+modality: Audio
+shipped_examples_free: true
+prompt: |
+  Train a model that listens to a two-person conversation and predicts when each speaker has finished their turn, as opposed to pausing or hesitating mid-turn. I have provided 8 labeled example conversations.
+
+  The model has to be causal: its output at any moment can only depend on audio up to that moment.
+
+  Write a script `serve.sh` which serves the model. It should have a `POST /predict` endpoint which takes both speakers' audio and returns, for each speaker, a per-frame probability that their turn just ended. It should run offline on one H100, be ready within 300 seconds, and process audio at least 3x faster than real time.
+
+  Optimize end-of-turn recall at a 5% false-positive rate on mid-turn pauses.
+description: >-
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine. However, you are free to use the validation data samples I have provided however you want.
+  Do not use any other copy or derivative of this task's conversations or their labels, beyond the 8 shipped examples.
+interface: >-
+  POST /predict receives {"audio_format": "flac", "speaker_1_audio": "<base64>", "speaker_2_audio": "<base64>"}:
+  two aligned mono 48 kHz, 24-bit FLAC recordings of the whole conversation. Return {"speaker_1": {"hop_seconds": h,
+  "eot_probability": [p_0, p_1, ...]}, "speaker_2": {"hop_seconds": h, "eot_probability": [...]}}, where h is a
+  fixed hop per speaker between 0.02 and 0.20 s. Frame i covers (i*h, (i+1)*h] and is reported at time (i+1)*h:
+  p_i, in [0, 1], is the probability that this speaker's turn just ended, computed from either channel only through
+  (i+1)*h (lookahead means reporting later, never by backdating). Return ceil(duration / h) frames per speaker; the
+  stream must end within one hop of the audio duration.
+evaluation: |
+  Each labeled end of turn at time t gets a positive window [t - 0.25 s, min(t + 1 s, that speaker's next end of turn)], and each mid-turn pause [s, e] gets a negative window [s - 0.25 s, e]. A window's value is the highest probability reported inside it, skipping frames in that speaker's disputed regions (gold.eot_excluded in validation.jsonl) and, for pauses, frames inside a positive window. For a threshold T, recall(T) and FPR(T) are the fractions of positive and pause windows with value >= T, pooled over all held-out conversations; the score is the highest recall(T) with FPR(T) <= 0.05.
+
+  Conversations are 10 to 15 minutes long (about 100 MB of FLAC per request) and are sent one at a time. The server must handle the whole held-out pass (5.7 hours of audio) at least 3x faster than real time: at most 6,818 s of server time in total.
+metric: eot_recall_at_5pct_fpr
+concurrency: 1
+timeout: 10800
+artifacts: >-
+  You can start from any checkpoint, or from scratch (base_model "none", base_revision "from-scratch").
+  Include your data download scripts.
+review: true
+heldout: true
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: end-of-turn
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 30
+  scorer_revision: 76ccd045f121ccfa921abac2ad3107027e736911
+score_normalization:
+  aggregate: single
+  components:
+  - {name: recall_at_5pct_fpr, path: score, floor: 0.655, ceiling: 1.0}
+  provenance: >-
+    0 = 0.655, recall at 5% FPR of the shipped two-channel silence heuristic; 1 = perfect recall (2026-09-26).
+verifier:
+  base_image: python:3.12-slim
+  config:
+    verifier_lifetime_seconds: 11700
+    selfcheck_timeout_seconds: 1200
+starting_artifacts: []
+viewer:
+  datasets:
+  - {label: Conversations, title: id, chips: [duration_s], texts: [metadata, gold],
+     validation: public/validation.jsonl, heldout: private/test.jsonl}

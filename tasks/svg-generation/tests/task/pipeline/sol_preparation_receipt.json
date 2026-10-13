@@ -1,0 +1,53 @@
+{
+  "mode": "offline_preparation_only",
+  "paid_calls": 0,
+  "plan_sha256": "56aea8af5fd745d0ffad54c57945529fe4f0a599c0dfe4f52534f5841b15dc41",
+  "planned_calls": 96,
+  "data": {
+    "audit_sha256": "57a5e6b6b0e73d2498b689874521bf985f613158f7f54efeff6078519acc6008",
+    "bytes": 1335015,
+    "samples": 254,
+    "sha256": "e94644bbfa3723407d6bb791e6b53f9e980253a9d7d5902694df988d89d99e1a"
+  },
+  "audit_lock": {
+    "version": "caption-audit-v2",
+    "samples": 299,
+    "bytes": 392166,
+    "sha256": "57a5e6b6b0e73d2498b689874521bf985f613158f7f54efeff6078519acc6008"
+  },
+  "source_lock_sha256": "299704865c22abc3680db93f2dc205e3d7cbec01c0868aff33b4adf5d13d76f7",
+  "readiness_recipe_sha256": "4dcabcbb394fb9e9067b091b0ba90f4341b8d66e10049d61e87634d9f74e0754",
+  "verifier_sha256": "4544a12a1c0dc4f4e8b3545bccbaaecb4bc745b08a2e7142725500d4cf7f3adc",
+  "renderer_image_id": "sha256:0da16852e69dd2aec24078571b82b62a0190d1c9ed81b4e80e0dea118633bc87",
+  "prior": {
+    "charge_nano_usd": 28990500,
+    "ledger_sha256": "36fd1c7b13e59387adca48b9d2ea1b390b6ad474e12f0d2f78177737f3599af4",
+    "plan_sha256": "640f45f16877e5ca33f3c05c242363a0b663944275017c612f9d799bd6411ffe"
+  },
+  "reservation_usd": 5.791896,
+  "proposed_aggregate_cap_usd": 8.0,
+  "current_authorized_aggregate_cap_usd": 1,
+  "old_svg_hash_overlap": 0,
+  "old_render_hash_overlap": 0,
+  "unique_sample_count": 24,
+  "by_stratum": {
+    "simple": 8,
+    "detailed": 8,
+    "complex": 8
+  },
+  "code_hashes_unchanged": true,
+  "request_files": 96,
+  "image_files": 26,
+  "ledger_created": false,
+  "tests": "83 passed; frontier check and manifest verification passed unpublished; v2 blank and solid red floors=0 over30 rows",
+  "admission": {
+    "complete_samples_per_group": 24,
+    "constant_maximum": 0.15,
+    "finite_scores_required": true,
+    "injection_maximum": 0,
+    "note": "The exact scorer may replace the disabled Luna scorer only after all 24/group controls pass and the operator reviews evidence. No trained-model baseline or task headroom is established by these controls.",
+    "reference_minimum": 0.95,
+    "repeat_macro_score_difference_maximum": 0.041666666666666664,
+    "repeat_verdict_disagreements_maximum": 1
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "model": {
+    "repo": "deepseek-ai/DeepSeek-OCR",
+    "revision": "9f30c71f441d010e5429c532364a86705536c53a",
+    "license": "MIT",
+    "sandbox_path": "/artifacts/deepseek-ocr/weights",
+    "files": {
+      ".gitattributes": {
+        "sha256": "d986431589fb401f45eebb2bd2116c2db320b63ebee0d6abb9cf355aeb800310",
+        "bytes": 1783
+      },
+      "LICENSE": {
+        "sha256": "f2c6c602815669d292889e5be8c802f2ed950653b77999b1584e8e6aed25d040",
+        "bytes": 1084
+      },
+      "README.md": {
+        "sha256": "4f5e1d9e3b0c65c442f9c57c708e15d06ba9e277bb58db49bc9ba833f62f8f76",
+        "bytes": 6308
+      },
+      "config.json": {
+        "sha256": "ac358c28898de6a71e84e0cb959fcc97fcb9c674edae13cd24286c17b90032d8",
+        "bytes": 2666
+      },
+      "configuration_deepseek_v2.py": {
+        "sha256": "6ab21f29a4722e26fa28c8e0d4277591689a598df17cf6c712330e8f62b3fc7c",
+        "bytes": 10646
+      },
+      "conversation.py": {
+        "sha256": "ec7b6ce89bcda643de1f43269ffa66a7b2e65dc3ed30e427958f776546b4ba03",
+        "bytes": 9253
+      },
+      "deepencoder.py": {
+        "sha256": "0ae2fb6d1e5ae8cf100fc32f854830acd08c821a0a1f23a94a76588c222ddcf2",
+        "bytes": 38008
+      },
+      "model-00001-of-000001.safetensors": {
+        "sha256": "1169e7cdc28ff2fb6186556acb2175db148ad26a62097df4c45a17e523180d3f",
+        "bytes": 6672547120
+      },
+      "model.safetensors.index.json": {
+        "sha256": "b51d17cc7b282880006a162b06e3a5c4c0a566f3d3093f34a93450ca5a91bd74",
+        "bytes": 246759
+      },
+      "modeling_deepseekocr.py": {
+        "sha256": "5835e0b9e1942fe36df9123009d1d80a2b78ccbe6a2d535668a6561e3d4068b1",
+        "bytes": 40133
+      },
+      "modeling_deepseekv2.py": {
+        "sha256": "69184a0493d1fdac21c360f9f9eabc5b5af3188e0265df44cfaeafc44f9095e3",
+        "bytes": 82224
+      },
+      "processor_config.json": {
+        "sha256": "0fe7ba9aa6b967a90e4af40d43c8030cbdd3dbcfbb387b8907625d5e54f0dbbe",
+        "bytes": 460
+      },
+      "special_tokens_map.json": {
+        "sha256": "ab4bd57ce17d62e39e0a39e739de1e407484f090f0b2c7e391312bca7a5b061a",
+        "bytes": 801
+      },
+      "tokenizer.json": {
+        "sha256": "a02f8fd5228c90256bb4f6554c34a579d48f909e5beb232dc4afad870b55a8b4",
+        "bytes": 9979544
+      },
+      "tokenizer_config.json": {
+        "sha256": "a0cbe8464049da1f891b7a12676de06af4cb54c130995d42f71adc1c30c6e9f3",
+        "bytes": 165938
+      }
+    }
+  }
+}

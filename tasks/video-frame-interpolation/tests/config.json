@@ -1,0 +1,35 @@
+{
+  "concurrency": 1,
+  "inference_timeout_seconds": 3600,
+  "require_h100": true,
+  "expected_samples": 270,
+  "scoring_protocol": "vfi-lpips-flolpips-two-anchor-v2",
+  "evaluation_sha256": "375276285d8168e061004e5873daeecbb7e8db7c6e8354ef72d50ad47496e236",
+  "calibration_path": "/tests/task/calibration.json",
+  "calibration_sha256": "8c72e23cb352711cfddff07fea74a4935a99f753ea7b498dbd83a999278630ab",
+  "metric_bundle": "/opt/vfi-metrics",
+  "metric_bundle_sha256": "98e13949365e1541fbec7972317356abb77c00956c7126d0d81dd99f045d5fdd",
+  "minimum_generated_frames_per_second": 1.0,
+  "response_format": "rgb8",
+  "evaluation_selection": {
+    "method": "sha256-id-v1",
+    "per_factor": 90,
+    "seed": 0
+  },
+  "request_timeout_seconds": 300,
+  "metric_runtime": {
+    "torch": "2.5.1",
+    "torch_build": "2.5.1+cu118",
+    "cuda": "11.8",
+    "numpy": "1.26.4",
+    "pillow": "11.3.0",
+    "device": "cuda",
+    "precision": "float32",
+    "threads": 8
+  },
+  "metric_timeout_seconds": 3600,
+  "selfcheck_timeout_seconds": 1400,
+  "grading_images": {
+    "inference": "/tests/images/inference"
+  }
+}

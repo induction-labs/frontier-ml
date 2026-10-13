@@ -1,0 +1,5 @@
+FROM pytorch/pytorch:2.5.1-cuda11.8-cudnn9-runtime
+RUN /opt/conda/bin/python -m pip install --no-cache-dir numpy==1.26.4 Pillow==11.3.0
+ENV OMP_NUM_THREADS=8 MKL_NUM_THREADS=8 HF_HUB_OFFLINE=1
+# Only organizer code, locked weights and evaluation pixels are uploaded at runtime.
+# No candidate files, credentials, persistent volumes, or network access.

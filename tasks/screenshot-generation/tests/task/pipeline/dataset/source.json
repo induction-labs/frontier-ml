@@ -1,0 +1,14 @@
+{
+ "generator": "fresh web crawl (tasks/screenshot-generation/pipeline)",
+ "captured": "2026-09-22",
+ "domains": "Tranco top-1M list 8P4GV, ranks > 10000, English-leaning TLDs, minus all ScreenParse v2 registrable domains (1,437,959) and the top 10k; one page per domain",
+ "renderer": "Chromium headless shell (Playwright build 1243), 1280x720, DPR 1, en-US, UTC, light, reduced motion; Liberation 2.1.5 + Noto fonts",
+ "labels": "DOM text-node line boxes (Range.getClientRects, visible and unoccluded); OCR completeness filter with DOM imagery ignore regions",
+ "descriptions": "Qwen/Qwen3.6-27B-FP8@e89b16ebf1988b3d6befa7de50abc2d76f26eb09 draft; leak filter",
+ "questions": "7 drafted contrastive pairs; kept pairs answered correctly by the pinned judge Qwen/Qwen3.5-9B@c202236235762e1c871ad0ccb60c8ee5ba337b9a on the real screenshot (margin >= 0.3) and from the description alone; 4-6 pairs kept",
+ "human_review": "PENDING",
+ "cmmd_reference": "public/cmmd_reference.json and private/cmmd_reference.json: unmodified Z-Image-Turbo@f332072aa78be7aecdf3ee76d5c247082da564a6, 9 steps, guidance 0, seed 0",
+ "provenance": "private/provenance-val.jsonl, private/provenance-test.jsonl (url, domain, capture time, real-page T/L)",
+ "reserve": "about 390 further validated pages from distinct domains are kept outside data/ for replacements after the human pass",
+ "license_note": "Screenshots of public web pages captured for evaluation; robots.txt honoured; not redistributed publicly beyond the private benchmark dataset"
+}

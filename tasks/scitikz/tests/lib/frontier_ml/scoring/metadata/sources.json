@@ -1,0 +1,29 @@
+{
+  "qwen": {
+    "repo": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "parameters": 4659865088
+  },
+  "gpqa": {
+    "repo": "Idavidrein/gpqa",
+    "revision": "633f5ee89ab8ad4522a9f850766b73f62147ffdd",
+    "file": "gpqa_diamond.csv",
+    "rows": 198
+  },
+  "terminal_bench": {
+    "repo": "https://github.com/harbor-framework/terminal-bench-2-1",
+    "revision": "7131e4375048a0e408a8fb404b5f499d726b695b",
+    "version": "2.1",
+    "tasks": 89
+  },
+  "diffusion": {
+    "repo": "openbmb/MiniCPM5-2B",
+    "revision": "12a3808a956f869c767195e9266b59c4d21d92e2",
+    "parameters": 2516756480,
+    "minimum_tokens_per_second": null,
+    "tokenizer_sha256": {
+      "tokenizer.json": "3e065a558a034185fe299917b398685c1facd0169a9eea1e629eb30c171fed81",
+      "tokenizer_config.json": "e9b1064649e771d7a8e15637c68b2d2749724877ba3648bd74a4ece31c26303b"
+    }
+  }
+}

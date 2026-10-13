@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frontier-ml"
+version = "1.0.0"
+description = "Long-horizon, budgeted machine learning tasks for coding agents, run with Harbor"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+dependencies = [
+    "harbor[modal]==0.22.0",
+    "modal==1.5.5",
+    "httpx>=0.28,<1",
+    "pyyaml>=6",
+    "paramiko>=3.5,<6",
+    "boto3>=1.35,<2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[project.scripts]
+spin = "spin.cli:main"
+frontier-regrade = "frontier_ml.regrade:main"
+
+[project.entry-points."harbor.plugins"]
+frontier = "frontier_ml.harbor_plugin:FrontierPlugin"
+
+[tool.setuptools.packages.find]
+include = ["frontier_ml*", "spin*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.json", "*.mjs", "*.c", "*.txt", "*LICENSE*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

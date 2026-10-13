@@ -1,0 +1,60 @@
+{
+  "mode": "offline_preparation_only",
+  "paid_calls": 0,
+  "plan_sha256": "8af1707763f31dc8939c1b54b6c90a6f8b8bf51aec4ccd43f5a284aa4f9333ba",
+  "planned_calls": 96,
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "max_completion_tokens": 2048,
+  "data": {
+    "audit_sha256": "57a5e6b6b0e73d2498b689874521bf985f613158f7f54efeff6078519acc6008",
+    "bytes": 1335015,
+    "samples": 254,
+    "sha256": "e94644bbfa3723407d6bb791e6b53f9e980253a9d7d5902694df988d89d99e1a"
+  },
+  "source_lock_sha256": "299704865c22abc3680db93f2dc205e3d7cbec01c0868aff33b4adf5d13d76f7",
+  "readiness_recipe_sha256": "4dcabcbb394fb9e9067b091b0ba90f4341b8d66e10049d61e87634d9f74e0754",
+  "prior": {
+    "charge_nano_usd": 625696500,
+    "luna": {
+      "charge_nano_usd": 28990500,
+      "ledger_sha256": "36fd1c7b13e59387adca48b9d2ea1b390b6ad474e12f0d2f78177737f3599af4",
+      "plan_sha256": "640f45f16877e5ca33f3c05c242363a0b663944275017c612f9d799bd6411ffe"
+    },
+    "sol_none": {
+      "charge_nano_usd": 596706000,
+      "ledger_sha256": "f10eb67d3d6ca8f5b715eacdfd15269fe4b61b261427804455cb4fbca855831c",
+      "plan_sha256": "56aea8af5fd745d0ffad54c57945529fe4f0a599c0dfe4f52534f5841b15dc41"
+    }
+  },
+  "per_call_reservation_usd": 5.808792,
+  "approved_aggregate_cap_usd": 8,
+  "first_aggregate_reservation_usd": 6.4344885,
+  "prior_svg_hash_overlap": 0,
+  "prior_render_hash_overlap": 0,
+  "prior_unique_artworks": 48,
+  "fresh_unique_samples": 24,
+  "by_stratum": {
+    "simple": 8,
+    "detailed": 8,
+    "complex": 8
+  },
+  "same_rubric_sha256": true,
+  "same_data_as_sol_none": true,
+  "code_hashes_unchanged": true,
+  "request_files": 96,
+  "image_files": 26,
+  "ledger_created": false,
+  "tests": "88 passed; frozen dry run reload passed with no network or credentials",
+  "admission": {
+    "complete_samples_per_group": 24,
+    "constant_maximum": 0.15,
+    "finite_scores_required": true,
+    "injection_maximum": 0,
+    "note": "The exact low-reasoning scorer may replace the disabled scorer only after all 24/group controls pass and the operator reviews evidence. No trained-model baseline or task headroom is established by these controls.",
+    "reference_minimum": 0.95,
+    "repeat_macro_score_difference_maximum": 0.041666666666666664,
+    "repeat_verdict_disagreements_maximum": 1
+  },
+  "scope": "Prepared for root review only; no third-run calls or scorer promotion."
+}

@@ -1,0 +1,81 @@
+summary: Speculative-decoding draft model
+title: Train a small draft model that speeds up greedy speculative decoding for Qwen3-8B
+modality: Text
+prompt: |
+  Train a draft model for speculative decoding with Qwen3-8B as the target, run in non-thinking mode with greedy decoding. The target's tokenizer and configuration are in `/artifacts/qwen3-8b/`, and `/task/public/TARGET.json` names its revision. I have provided 40 example conversations with the target's greedy continuations.
+
+  You can start from any open-weights model that isn't a specialized speculative drafting model.
+  
+  Write a script `serve.sh` which serves the drafter. It should have a `POST /draft` endpoint which takes the token IDs of a conversation so far and returns up to 16 token IDs that it predicts the target will generate next. Run offline on one H100, ready within 300 seconds. The whole submission, including weights, code and dependencies, must be at most 1,000,000,000 bytes. The held-out set is 200 conversations, five times the public examples; each request must answer within 60 seconds, and answering all of its requests may take at most 10,800 seconds in total.
+
+  Optimize the mean acceptance length.
+description: >-
+  The drafter only proposes tokens: the verifier holds the target's greedy continuation of every held-out
+  conversation, so you do not serve the target. Answer each request from its tokens and your submitted files;
+  caching across requests (for example a prefix cache) is fine.
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark;
+  training splits and other public corpora are fine.
+interface: >-
+  POST /draft with {"tokens": [<int>, ...]}: the target tokenizer's ids for the conversation formatted with its chat
+  template (add_generation_prompt=True, enable_thinking=False), followed by the part of the target's continuation
+  accepted so far. Return {"draft": [<int>, ...]} with 0 to 16 token ids. Conversation prompts are at most 1,536
+  tokens and continuations at most 256 tokens.
+evaluation: >-
+  The held-out set is 200 new conversations like the public examples, in the same eight categories, with 44,314 continuation tokens: five times the 40 public conversations (8,784 tokens). For each one the
+  verifier replays greedy speculative decoding against the target's greedy continuation (at most 256 tokens, ending
+  with <|im_end|> when the target stops): the target accepts the longest prefix of your draft that matches its
+  continuation, then adds one token of its own, and the next request carries everything accepted. The mean
+  acceptance length tau is continuation tokens divided by verification steps over the whole held-out set, and the
+  score is (tau - 4.6) / 2.4, clamped to [0, 1]. Every unfinished conversation has one request in flight at a time, up to 32 at once.
+  Each request must answer within 60 seconds; one that has not is failed without a retry, scores as an empty draft
+  (the target adds its own token and the conversation continues), still counts its 60 seconds against the serving
+  budget, and counts toward the limit of one failed request in twenty. A
+  submission over 1,000,000,000 bytes (every file counted) scores zero before it is started, and so does a server
+  whose total request time over the held-out evaluation exceeds 10,800 seconds; validate.py reports your public serving
+  time scaled to the held-out size. The public examples are not in the held-out set, so memorizing them does not help.
+metric: mean_acceptance_length
+concurrency: 32
+timeout: 14400
+artifacts: >-
+  /artifacts/qwen3-8b/ holds the tokenizer and configuration of the target, Qwen/Qwen3-8B at revision
+  b968826d9c46dd6066d109eabc6255188de91218 (its weights are on Hugging Face at that revision). No drafter
+  checkpoint is prescribed. Record the checkpoint you started from in architecture.json as base_model and base_revision (an immutable commit), or "none" and "from-scratch" if you use no pretrained model. Keep your data download scripts and training logs with the submission: the review checks where your training data came from.
+review: true
+heldout: true
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: speculative-drafting
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 200
+score_normalization:
+  aggregate: single
+  components:
+  - {name: mean_acceptance_length, path: details.tau, floor: 4.6, ceiling: 7.0}
+  provenance: >-
+    0 = tau 4.6, the strongest drafter that needs no training: untouched Qwen/Qwen3-1.7B served greedily with
+    4-bit linear layers (vLLM bitsandbytes) measured tau 4.60 on the held-out set (2026-09-28). With its tied
+    embedding also at 4 bits it fits the byte cap (a 4-bit Qwen3-1.7B submission packed to 887 MB). For comparison:
+    bf16 Qwen3-1.7B 4.99 (over the cap), Qwen3-0.6B fp8 3.86, prompt-lookup n-gram 1.35, empty drafts 1.0. 1 = tau
+    7, an owner-set target (2026-09-28): six accepted draft tokens per step on average. Replaces tau 1 -> 7
+    (empty drafts as the floor), under which serving an untouched download scored about 0.6.
+inference:
+  pip: [torch==2.8.0, transformers==4.57.1]
+  index_url: https://download.pytorch.org/whl/cu128
+verifier:
+  base_image: python:3.12-slim
+  config:
+    max_submission_bytes: 1000000000
+    serving_budget_seconds: 10800
+    evaluation_sha256: e17c604f71f5f272ff5a7b3aa78d1a0ed0059e5e8c9a656176c385a8387619ea
+    selfcheck_timeout_seconds: 1400
+
+starting_artifacts:
+- repo: Qwen/Qwen3-8B
+  revision: b968826d9c46dd6066d109eabc6255188de91218
+  to: qwen3-8b
+  exclude: ["*.safetensors", "model.safetensors.index.json"]
+
+viewer:
+  metric_label: Mean acceptance length tau, normalized 4.6 -> 0 (untouched 4-bit Qwen3-1.7B), 7 -> 1
+  gates: ["≤ 1,000,000,000 submission bytes", "≤ 10,800 s serving"]

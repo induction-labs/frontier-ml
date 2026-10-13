@@ -1,0 +1,11 @@
+{
+  "concurrency": 16,
+  "inference_timeout_seconds": 900,
+  "require_h100": true,
+  "expected_samples": 271,
+  "evaluation_sha256": "3b63922146f5d102fec7178a4647ebe16d9d785cf930fb30bb2072cc6ffbfba0",
+  "max_submission_bytes": 1000000000,
+  "grading_images": {
+    "inference": "/tests/images/inference"
+  }
+}

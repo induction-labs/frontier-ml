@@ -1,0 +1,34 @@
+{
+  "repo": "livecodebench/code_generation_lite",
+  "revision": "0fe84c3912ea0c4d4a78037083943e8f0c4dd505",
+  "release": "release_v6",
+  "problems": 1055,
+  "upstream_repo": "https://github.com/LiveCodeBench/LiveCodeBench",
+  "upstream_revision": "28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24",
+  "files": {
+    "test.jsonl": {
+      "bytes": 1252609773,
+      "sha256": "2bd02b38beb48e8c46b5b9987095d999ff38cd8efc255ea5d58974317c48f63f"
+    },
+    "test2.jsonl": {
+      "bytes": 713377060,
+      "sha256": "095df7c5daf15f882c51a9deb84085cff1e073495a5dbcf95015a564d485f3a3"
+    },
+    "test3.jsonl": {
+      "bytes": 623360766,
+      "sha256": "28ed26cc83363ce3f1fe2d5fad9f8393077beb1907b167a31bd3b32f80801b79"
+    },
+    "test4.jsonl": {
+      "bytes": 1204644685,
+      "sha256": "d711138ddaebfcf5f8ec6a4283ee677298c0f5c5d374a235af92aaf0584510da"
+    },
+    "test5.jsonl": {
+      "bytes": 557699297,
+      "sha256": "7f77571c2a6df0c2a72a3277650309f67e01e0008e18117e624633df53f81214"
+    },
+    "test6.jsonl": {
+      "bytes": 134303240,
+      "sha256": "bb4c364f71921c4495a6ad15abe1a927350b720009f4933e2e71f8af0f6fd1f5"
+    }
+  }
+}

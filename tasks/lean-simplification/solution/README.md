@@ -1,0 +1,1 @@
+This is an interface smoke reference, not an oracle or trained model. It returns empty spans/answers and cannot pass architecture gates. It is provided to test packaging and server startup without model downloads.

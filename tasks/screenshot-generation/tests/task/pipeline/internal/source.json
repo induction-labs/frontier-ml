@@ -1,0 +1,10 @@
+{
+ "source": "internal screen recordings: /scratch/data/ocr_screens_v2_described_with_images (433,536 1280x720 WebP frames, <= 5 frames per video, 86,711 videos; Google Cloud Vision OCR per frame)",
+ "selection": "one salted frame per source video; 4,000 frames extracted; 941 with safe text-free drafts were processed by reference_ocr.py",
+ "texts": "pinned PP-OCRv5 (rapidocr 3.9.2) full-page detections on the real screenshot, requested only when Google Cloud Vision confirms the string (spaces aside) and the metric's crop recognizer reads it identically; text and box are PP-OCRv5's own output; other text becomes neutral ignore_regions; pages need >= 6 requested lines, >= 50% of detected characters requested and <= 25% ignore area",
+ "personal_identifiers": "not filtered (owner decision 2026-09-24); a regex flagged 118 of 777 eligible pages (emails, phone-like numbers, long IDs)",
+ "descriptions": "text-free, drafted by Qwen/Qwen3.6-27B-FP8@e89b16ebf1988b3d6befa7de50abc2d76f26eb09 from the image; leak filter against the requested lines",
+ "split": "pool of 525 stratified by drafted screen_type (web_page 35%, desktop_app 35%, ide_terminal 12%, mobile 6%, other 12%, shortfalls filled), then a seeded random 25 as public validation and 500 held-out; video-disjoint",
+ "human_review": "PENDING",
+ "published": "inductionlabs/frontier-ml-tasks (public dataset; private/ is downloadable too)"
+}

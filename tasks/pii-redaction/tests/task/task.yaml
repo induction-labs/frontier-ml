@@ -1,0 +1,55 @@
+summary: PII redaction model
+title: Redact personal information and secrets from documents
+modality: Text
+shipped_examples_free: true
+prompt: |
+  Train a model that finds the personal identifiers, private contact and account details, credentials and other secrets in a document so they can be redacted. I have provided 39 labeled example documents for validation.
+
+  Write a script `serve.sh` which serves the model. It should have a `POST /redact` endpoint which takes a document and returns the character spans to redact, run offline on one H100, be ready within 300 seconds, and handle at least five documents per second. You can start from any open-weights model that isn't a specialized PII redaction model.
+
+  Optimize the mean document R-score: redact everything sensitive without touching unrelated text.
+description: >-
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine. However, you are free to use the validation data samples I have provided however you want.
+interface: >-
+  POST /redact with {"id":"doc-1","text":"..."}; return {"id":"doc-1","spans":[{"start":0,"end":4}]}.
+  Offsets are zero-based Unicode code points, end-exclusive. Spans must be sorted, nonempty, nonoverlapping
+  and within the text, with only start and end keys; a response with an invalid span is malformed and scores
+  zero for that document only, under the request policy in Submission.
+evaluation: >-
+  Your model is scored on its mean document R-score. Mandatory spans must be covered; contextual spans can be
+  left alone or fully redacted, but partial coverage is penalized, and so is redacting unrelated text. A
+  document whose request failed or whose response was malformed counts as zero in that mean.
+  Throughput must reach five documents/second at 32 concurrent requests.
+metric: mean_document_r_score
+concurrency: 32
+timeout: 3600
+artifacts: >-
+  Record the checkpoint you started from in architecture.json as base_model and base_revision (an immutable
+  commit), or use "none" and "from-scratch" if you train from scratch.
+review: true
+heldout: true
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: pii-redaction
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 161
+score_normalization:
+  aggregate: single
+  components:
+  - {name: document_r_score, path: score, floor: 0.23513437569925957, ceiling: 1.0}
+  provenance: >-
+    0 = 0.2351, one span covering each whole document, scored on the 161 held-out documents with
+    validate.score (empty spans score 0.0621); 1 = gold spans, which score 1.0 (2026-09-26).
+verifier:
+  base_image: python:3.12-slim
+  config: {}
+
+starting_artifacts: []
+
+viewer:
+  metric_label: Mean document R-score
+  gates: ["≥ 5 docs/s", "code review"]
+  datasets:
+  - {key: pii, label: RedactionBench, kind: pii, category_label: Category,
+     validation: public/validation.jsonl, heldout: private/test.jsonl}

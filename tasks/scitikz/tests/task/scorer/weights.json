@@ -1,0 +1,56 @@
+{
+  "dino_revision": "7c446df5b9f45747937fb0d72314eb9f7b66930a",
+  "files": {
+    "clip/config.json": "8a09b467700c58138c29d53c605b34ebc69beaadd13274a8a2af8ad2c2f4032a",
+    "clip/merges.txt": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+    "clip/model.safetensors": "a2bf730a0c7debf160f7a6b50b3aaf3703e7e88ac73de7a314903141db026dcb",
+    "clip/preprocessor_config.json": "910e70b3956ac9879ebc90b22fb3bc8a75b6a0677814500101a4c072bd7857bd",
+    "clip/special_tokens_map.json": "f8c0d6c39aee3f8431078ef6646567b0aba7f2246e9c54b8b99d55c22b707cbf",
+    "clip/tokenizer.json": "a83e0809aa4c3af7208b2df632a7a69668c6d48775b3c3fe4e1b1199d1f8b8f4",
+    "clip/tokenizer_config.json": "deef455e52fa5e8151e339add0582e4235f066009601360999d3a9cda83b1129",
+    "clip/vocab.json": "3f0c4f7d2086b61b38487075278ea9ed04edb53a03cbb045b86c27190fa8fb69",
+    "dreamsim/checkpoints/dino_vitbase16_pretrain.pth": "bf34ad0f424b9029b593e8dc3ed553bf26e88bcba0d32bf3e62a6209cb64c85e",
+    "dreamsim/clip_vitb16_pretrain.pth.tar": "21bb58dddc9747d635638eaef19a50404fa71ef62b837c4181c92568a5d78779",
+    "dreamsim/dino_vitb16_pretrain.pth": "491ec6200b350dd7d532cea1b040846cbc1b4ae038299331168fdd3e0361e262",
+    "dreamsim/ensemble_lora/adapter_config.json": "188f2c0640295f91a4375efd0a1594e5985bb38c90a9040cec8c5f4b9f8f0e20",
+    "dreamsim/ensemble_lora/adapter_model.safetensors": "a33ba2cbfc52a96f1fa220d7d036fd17e00d5fc9b467be2f97a5482e8a2b09c1",
+    "dreamsim/facebookresearch_dino_main/.github/CODE_OF_CONDUCT.md": "1ce27940af665ed0b061c37de87b728100f1f548d9dccd4fd78158d2cf8f51f0",
+    "dreamsim/facebookresearch_dino_main/.github/CONTRIBUTING.md": "5122afb7a6734e0456d6ac64d10216db41e5a0d7abd164e0bcfc7077d9df36ea",
+    "dreamsim/facebookresearch_dino_main/.github/attention_maps.png": "2e5c9ee7de5f3b79bb726be1c38ec664c8ce4a4602e4887a873528fc193646e1",
+    "dreamsim/facebookresearch_dino_main/.github/dino.gif": "cf3edf41ecdf602727269007cb4a51672e11f6adf87d766ae039527735beeca2",
+    "dreamsim/facebookresearch_dino_main/LICENSE": "50e6751797c50dedd75ef1b8a0d9e42f5f8472e9fbce91f34718e9f97b0c780a",
+    "dreamsim/facebookresearch_dino_main/README.md": "9d78f02b2f2770f6f6169e33b2387c5997614a1b4f8009c6fa99cc3118e31442",
+    "dreamsim/facebookresearch_dino_main/eval_copy_detection.py": "77b44b8a82114c156dc945b4aa77157ff5582ec35736e552299e4cb03b12898c",
+    "dreamsim/facebookresearch_dino_main/eval_image_retrieval.py": "5a8d661ec0b3b6384a8cffc8970835a038b09d162a77eaf3f42a10b6c5586f8f",
+    "dreamsim/facebookresearch_dino_main/eval_knn.py": "b23ec5ca3cb64b1453be8e4dacdc41b24e035a98e081e707aacbcc650d6b3d0e",
+    "dreamsim/facebookresearch_dino_main/eval_linear.py": "747e8a8861d65fc675d4d382f48678febd352e2ddaa07c1bd91eef53c176884b",
+    "dreamsim/facebookresearch_dino_main/eval_video_segmentation.py": "f17eb52954b89e3bc5cef99186fafe23826bd97810c9de6953715832b94b1d67",
+    "dreamsim/facebookresearch_dino_main/hubconf.py": "fa80babf82c71d2123e23b05061eb1991a1fbc9877238f250b2a25023e910f72",
+    "dreamsim/facebookresearch_dino_main/main_dino.py": "74ef2afb9e16ab859370e1eb18455de0797d1202851c92d8191f06ccc05b28c7",
+    "dreamsim/facebookresearch_dino_main/run_with_submitit.py": "fb14a2c6e90702f768fa7d70c63688c7c7d05ec3fcb2e2a4002ca5daa800e104",
+    "dreamsim/facebookresearch_dino_main/utils.py": "962a97e1acda1c986dfd921275325e4083f9016dddadcf018f1ccf03fa600eab",
+    "dreamsim/facebookresearch_dino_main/video_generation.py": "26a02a7c52f9ddd47c1f4516426426c73d35a8fbaf0c26417ebc6b0d6a1c433c",
+    "dreamsim/facebookresearch_dino_main/vision_transformer.py": "b1f998d5f49ab43666b9fc6d007c5f6540c3ead2e8645e144f74045f63ff44d7",
+    "dreamsim/facebookresearch_dino_main/visualize_attention.py": "f908e5c1857ef36d7f24c86a9c5a22dae2628bf1b6c46af4b9f608f839a7d6c1",
+    "dreamsim/open_clip_vitb16_pretrain.pth.tar": "963c665c8ba6edd6ef7a7549f3f72fe20586494223300030f5b2efbe36f04319",
+    "dreamsim/trusted_list": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "siglip/config.json": "adc04928d8fd19a61822584fe0cf2e813e5ebac17f3e49fb1ea096860ae6457b",
+    "siglip/model.safetensors": "ea2abad2b7f8a9c1aa5e49a244d5d57ffa71c56f720c94bc5d240ef4d6e1d94a",
+    "siglip/preprocessor_config.json": "f59da2f87c3cd079bd4f8f3037e81b277c60c498e279a8020331f67a5a3157e8",
+    "siglip/special_tokens_map.json": "2b6a1ff67a27e0df9ac0c7d93250fc0d87431c7b366b3d5669217104f9088a26",
+    "siglip/spiece.model": "1e5036bed065526c3c212dfbe288752391797c4bb1a284aa18c9a0b23fcaf8ec",
+    "siglip/tokenizer.json": "c6e405cb7c670d56636a9402c81023a55bc6c3c53d89cf02b92f5c5005bfe920",
+    "siglip/tokenizer_config.json": "d6423dae508cc3a129d22ea443841c111832a1a73125b8f25ea8736951698bcb",
+    "torch/checkpoints/alexnet-owt-7be5be79.pth": "7be5be791159472b1fbf3c69796f7cb30dca7ad8466c2df70058c37116cdee02"
+  },
+  "models": {
+    "clip": [
+      "openai/clip-vit-large-patch14",
+      "32bd64288804d66eefd0ccbe215aa642df71cc41"
+    ],
+    "siglip": [
+      "google/siglip-so400m-patch14-384",
+      "9fdffc58afc957d1a03a25b10dba0329ab15c2a3"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "concurrency": 1,
+  "inference_timeout_seconds": 3600,
+  "require_h100": true,
+  "expected_samples": 43,
+  "request_timeout_seconds": 300,
+  "selfcheck_timeout_seconds": 1200,
+  "grading_images": {
+    "inference": "/tests/images/inference"
+  }
+}

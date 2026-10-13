@@ -1,0 +1,9 @@
+{
+ "base_model": "openai/gpt-oss-20b",
+ "base_revision": "6cee5e81ee83917806bbde320786a8fb61efebee",
+ "tokenizer_json": {
+  "bytes": 27868174,
+  "sha256": "0614fe83cadab421296e664e1f48f4261fa8fef6e03e63bb75c20f38e37d07d3"
+ },
+ "note": "config.json is the base config without quantization_config (bf16 weights); the other files are the base revision's, unchanged"
+}

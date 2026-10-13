@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "binding": {
+    "protocol": "svg-generation-v3-sol-low",
+    "judge_model": "gpt-6-sol",
+    "rubric_sha256": "cd6e1c857468d056e7035d5e9835ec926456f950ece5a13e9c8757d7e6431690",
+    "scorer_sha256": "99ddf2e2fb2c788fa202d155836209aa968605e854ff0aadd3df19a5fc325f31",
+    "verifier_sha256": "8fc46dad14146754f18ee04a6be7941b412fcbbb317e6fe6077a731bcba26c07",
+    "judge_client_sha256": "2b6a4db06dc7d14cb2e79e98cf7b5bdd8e777156e6747c76576051e8ecbc7af2",
+    "renderer_code_sha256": "92837d13118208fb2406ab477064852919c58f73082a760d1e852e5341238a33",
+    "renderer_version": "rsvg-convert version 2.54.7",
+    "evaluation_sha256": "e94644bbfa3723407d6bb791e6b53f9e980253a9d7d5902694df988d89d99e1a"
+  },
+  "report_sha256": "b1f6d0f76d67c23fb5d1759936ad629a347611214cc96c5a079a7b0f05662539",
+  "wire_replay_sha256": "9b3d0b10a07cea148a4f273f1410f17620e83290788b9b76945448199f08905b",
+  "plan_sha256": "8af1707763f31dc8939c1b54b6c90a6f8b8bf51aec4ccd43f5a284aa4f9333ba",
+  "readiness_recipe_sha256": "4dcabcbb394fb9e9067b091b0ba90f4341b8d66e10049d61e87634d9f74e0754",
+  "scope": "Exact Sol low-reasoning scorer; complete 24/group preregistered controls plus 96-payload offline canonical-JSON and archived-response replay. Judge calibration only; trained-model baseline and $50 headroom remain unmeasured."
+}

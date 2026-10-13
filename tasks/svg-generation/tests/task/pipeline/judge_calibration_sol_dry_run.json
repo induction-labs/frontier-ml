@@ -1,0 +1,164 @@
+{
+  "admission": {
+    "complete_samples_per_group": 24,
+    "constant_maximum": 0.15,
+    "finite_scores_required": true,
+    "injection_maximum": 0,
+    "note": "The exact scorer may replace the disabled Luna scorer only after all 24/group controls pass and the operator reviews evidence. No trained-model baseline or task headroom is established by these controls.",
+    "reference_minimum": 0.95,
+    "repeat_macro_score_difference_maximum": 0.041666666666666664,
+    "repeat_verdict_disagreements_maximum": 1
+  },
+  "authorization": "Prepared only. No new calls until operator review of plan, exact token envelope and shared ledger.",
+  "bounds": {
+    "aggregate_input_including_both_images": 1050000,
+    "basis": "Full documented 1,050,000-token context bound, including images and framing. Highest Standard long-context cache-write/output rates plus 10% regional margin. No image formula or tokenizer estimate is assumed.",
+    "input_nano_usd_per_token": 5500,
+    "output_nano_usd_per_token": 16500,
+    "output_tokens_including_reasoning": 1024,
+    "text_utf8_bytes_maximum": 2501
+  },
+  "budget_note": "Proposed shared $8 lifetime cap includes the original 96 Luna calls. Current authorization remains $1: new execution requires explicit user approval of the raised cap. Sequential durable reservations; confirmed usage releases conservative headroom. Stop on uncertain receipt or insufficient remaining headroom; never retry.",
+  "code_sha256": {
+    "pipeline/calibrate_sol.py": "b5f706842323b8e2331e4276d438a0ec1622a5703f6619e9f6c902cc6597263b",
+    "pipeline/luna_v1/pipeline/calibrate_judge.py": "67bfd3b7c36b175c17c82ba01cf3735c8299eec2d4f16ef12b5659cc4627b0b1",
+    "pipeline/luna_v1/svg_render.py": "92837d13118208fb2406ab477064852919c58f73082a760d1e852e5341238a33",
+    "pipeline/luna_v1/validate.py": "92af25d7c75f6846aa3b0d332b4c38b9f1c87c50c79b9b7403dbb4fbacdc6a56",
+    "pipeline/sol_validate.py": "302b7c8f71f007d97d82eeea7ee204a186cf2f35761b2dfc4240f8645c086608",
+    "svg_render.py": "92837d13118208fb2406ab477064852919c58f73082a760d1e852e5341238a33"
+  },
+  "completion_guaranteed": false,
+  "endpoint": "https://api.openai.com/v1/chat/completions",
+  "input": {
+    "audit_sha256": "57a5e6b6b0e73d2498b689874521bf985f613158f7f54efeff6078519acc6008",
+    "bytes": 1335015,
+    "samples": 254,
+    "sha256": "e94644bbfa3723407d6bb791e6b53f9e980253a9d7d5902694df988d89d99e1a"
+  },
+  "lifetime_cap_usd": 8.0,
+  "mode": "dry_run",
+  "model": "gpt-6-sol",
+  "paid_calls": 0,
+  "per_call_reservation_usd": 5.791896,
+  "plan_sha256": "56aea8af5fd745d0ffad54c57945529fe4f0a599c0dfe4f52534f5841b15dc41",
+  "planned_calls": 96,
+  "pricing_sources": {
+    "cache_write_accounting": "https://developers.openai.com/api/docs/guides/prompt-caching",
+    "checked_on": "2026-09-25",
+    "images": "https://developers.openai.com/api/docs/guides/images-vision",
+    "model": "https://developers.openai.com/api/docs/models/gpt-6-sol",
+    "rates": "https://developers.openai.com/api/docs/pricing",
+    "settings": "https://developers.openai.com/api/docs/guides/deployment-checklist"
+  },
+  "prior_charge_upper_bound_usd": 0.0289905,
+  "probes": {
+    "constant_circle": 24,
+    "reference_repeat": 24,
+    "reference_self": 24,
+    "text_injection": 24
+  },
+  "quality_scores": null,
+  "recipe": "svg-judge-calibration-v2-sol-audited",
+  "remaining_aggregate_budget_usd": 7.9710095,
+  "renderer": "rsvg-convert version 2.54.7",
+  "renderer_image_id": "sha256:0da16852e69dd2aec24078571b82b62a0190d1c9ed81b4e80e0dea118633bc87",
+  "selected_samples": [
+    {
+      "id": "evaluation-0178",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0164",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0008",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0183",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0153",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0014",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0071",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0001",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0044",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0236",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0127",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0198",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0113",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0211",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0158",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0200",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0012",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0187",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0219",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0110",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0167",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0109",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0090",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0206",
+      "stratum": "complex"
+    }
+  ],
+  "unconstrained_new_96_call_worst_case_usd": 556.022016
+}

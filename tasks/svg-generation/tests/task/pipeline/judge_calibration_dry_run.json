@@ -1,0 +1,147 @@
+{
+  "authorization": "Prepared only; separate user approval required before --execute.",
+  "bounds": {
+    "aggregate_input_including_both_images": 1050000,
+    "basis": "Full documented context bound; Luna-specific image sizing is not documented. Highest Standard long-context cache-write/output rates plus 10% regional margin.",
+    "input_nano_usd_per_token": 275,
+    "output": 1024,
+    "output_nano_usd_per_token": 825
+  },
+  "budget_note": "96 fixed planned calls, at most $1 total. Confirmed usage releases reservation headroom conservatively. Unresolved calls retain the full bound and are never retried; execution stops on an unresolved call or insufficient headroom.",
+  "code_sha256": {
+    "pipeline/calibrate_judge.py": "67bfd3b7c36b175c17c82ba01cf3735c8299eec2d4f16ef12b5659cc4627b0b1",
+    "svg_render.py": "92837d13118208fb2406ab477064852919c58f73082a760d1e852e5341238a33",
+    "validate.py": "92af25d7c75f6846aa3b0d332b4c38b9f1c87c50c79b9b7403dbb4fbacdc6a56"
+  },
+  "completion_guaranteed": false,
+  "endpoint": "https://api.openai.com/v1/chat/completions",
+  "input": {
+    "bytes": 1413642,
+    "samples": 268,
+    "sha256": "a328e4fa9a25ecc6a6f95be7821c067d78150376e083b9772eb44889974c6666"
+  },
+  "lifetime_cap_usd": 1.0,
+  "mode": "dry_run",
+  "model": "gpt-6-luna",
+  "paid_calls": 0,
+  "per_call_reservation_usd": 0.2895948,
+  "plan_sha256": "640f45f16877e5ca33f3c05c242363a0b663944275017c612f9d799bd6411ffe",
+  "planned_calls": 96,
+  "pricing_sources": {
+    "checked_on": "2026-09-25",
+    "model_context": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+    "rates": "https://developers.openai.com/api/docs/pricing",
+    "usage_and_service_tier": "https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create",
+    "vision_context_accounting": "https://developers.openai.com/api/docs/guides/images-vision"
+  },
+  "probes": {
+    "constant_circle": 24,
+    "reference_repeat": 24,
+    "reference_self": 24,
+    "text_injection": 24
+  },
+  "quality_scores": null,
+  "recipe": "svg-judge-calibration-v1",
+  "renderer": "rsvg-convert version 2.54.7",
+  "renderer_image_id": "sha256:0da16852e69dd2aec24078571b82b62a0190d1c9ed81b4e80e0dea118633bc87",
+  "selected_samples": [
+    {
+      "id": "evaluation-0203",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0246",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0264",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0255",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0225",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0151",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0171",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0106",
+      "stratum": "simple"
+    },
+    {
+      "id": "evaluation-0002",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0029",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0193",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0242",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0254",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0030",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0185",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0125",
+      "stratum": "detailed"
+    },
+    {
+      "id": "evaluation-0142",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0095",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0232",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0239",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0123",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0014",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0049",
+      "stratum": "complex"
+    },
+    {
+      "id": "evaluation-0240",
+      "stratum": "complex"
+    }
+  ],
+  "unconstrained_96_call_worst_case_usd": 27.8011008,
+  "unique_rendered_images": 26
+}

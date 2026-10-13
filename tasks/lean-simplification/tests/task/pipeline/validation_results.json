@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-24",
+  "split": "public_validation",
+  "samples": 55,
+  "data_sha256": "f9938c49df8eddbe5fc2cbf112d2f1597559d35fbb7753ec8f7833f93df0ed78",
+  "metric": "mean_valid_token_reduction",
+  "checker": {
+    "protocol": "lean-simplification-v1",
+    "lean": "4.15.0",
+    "mathlib": "9837ca9d65d9de6fad1ef4381750ca688774e608",
+    "fingerprint": "f060a0afbb613e68f2907a1ad63bc75a6414a9f0ff15a728ed8f1432e1b2cae8"
+  },
+  "release_ready": false,
+  "limitations": [
+    "External API probe does not satisfy offline submission constraints.",
+    "No current-best permitted baseline or $50 improvement pilot has been established.",
+    "Generation timing is not the serving deadline calibration."
+  ],
+  "deepseek_prover_v2_7b": {
+    "model": "deepseek-ai/DeepSeek-Prover-V2-7B",
+    "revision": "a8d9e14432b2e8dd9df2a4d4e70f1ba9bc8d9b7b",
+    "samples_per_proof": 4,
+    "red_at_1": 0.007575757575757575,
+    "best_of_4": 0.012354406865584483
+  },
+  "gpt6_astra": {
+    "model": "gpt-6-astra",
+    "settings": {
+      "reasoning_effort": "high",
+      "max_output_tokens": 16384,
+      "samples_per_proof": 1,
+      "tools": [],
+      "compiler_feedback": false,
+      "retries": 0,
+      "service_tier": "default"
+    },
+    "score": 0.24274814105111228,
+    "valid_count": 45,
+    "shorter_valid_count": 32,
+    "standard_error": 0.03460646331211613,
+    "score_bootstrap_95ci": [
+      0.176446237739731,
+      0.30994692923796024
+    ],
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20260924,
+    "paired_gain_over_deepseek_red_at_1": 0.2351723834753547,
+    "paired_gain_bootstrap_95ci": [
+      0.1706159811955948,
+      0.30192484304521056
+    ],
+    "usage": {
+      "input_tokens": 29680,
+      "output_tokens": 89226,
+      "total_tokens": 118906,
+      "reasoning_tokens": 84375,
+      "cached_input_tokens": 0,
+      "cache_write_tokens": 1370
+    },
+    "estimated_cost_usd": 4.761525,
+    "generation_seconds": 348.4435501769185,
+    "api_error_count": 0,
+    "incomplete_count": 0,
+    "pricing": {
+      "input_per_million": 10.0,
+      "cached_input_per_million": 1.0,
+      "cache_write_per_million": 12.5,
+      "output_per_million": 50.0,
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "checked_date": "2026-09-24"
+    }
+  }
+}

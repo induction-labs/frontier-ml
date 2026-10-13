@@ -1,0 +1,72 @@
+{
+  "repo": "WUJUNCHAO/DetectRL-X",
+  "revision": "ccc9a0a74793dd3448e0da1650b430f5df1b0402",
+  "license": "MIT (dataset card)",
+  "access": "public, ungated",
+  "files": {
+    "Binary/binary_backtranslation_open.json": {
+      "bytes": 879760299,
+      "sha256": "280a5cf3673bcb8d63106f0045b4c62ed2f1b87bc944b532b818651487c13367"
+    },
+    "Binary/binary_character_deletion_open.json": {
+      "bytes": 1107656939,
+      "sha256": "57836c424c11959e83a966d248c1e2e0c2113c8e40991b44691cc4a58b178d8d"
+    },
+    "Binary/binary_character_insertion_open.json": {
+      "bytes": 1123303258,
+      "sha256": "44141a1fef0a136d3c35c692219ea4b84790faf1883ecb26a6477a0318f1852a"
+    },
+    "Binary/binary_character_substitution_open.json": {
+      "bytes": 1181471214,
+      "sha256": "cdb94d650ec7bce8c6feb32863f1f70c9f8fc98c2b2e586a6fc55ad163cf7ba8"
+    },
+    "Binary/binary_condensing_open.json": {
+      "bytes": 837655318,
+      "sha256": "6ebf5640a696e7b47f71a1e932b90320fe85d97aec4a20e6c25c4704580075e4"
+    },
+    "Binary/binary_decoder_paraphrasing_open.json": {
+      "bytes": 859818880,
+      "sha256": "95ce677961f9cb9de51226f40aa515bcc36f6d036b4181bcd14dc1f35641ca58"
+    },
+    "Binary/binary_encoder_paraphrasing_open.json": {
+      "bytes": 882761565,
+      "sha256": "bf5d38a8e17f3da25fc604d421553848686f2e884debd0ced2268bc90a9339b5"
+    },
+    "Binary/binary_expanding_open.json": {
+      "bytes": 1017914092,
+      "sha256": "e1c1348c607c54f2896a08f29e5176b031139a4dd5b76c1560df8e34231c53f3"
+    },
+    "Binary/binary_general_128_open.json": {
+      "bytes": 718262539,
+      "sha256": "95e80109bb9a9d9a4f1dfbff15162af8fdd21e994504eaa3e41b1ee1dbf6cf8b"
+    },
+    "Binary/binary_general_256_open.json": {
+      "bytes": 775337623,
+      "sha256": "9b3fe5250b85ee02749282600a803c843e0205e0c411dea8460bea6eb21262ff"
+    },
+    "Binary/binary_general_512_open.json": {
+      "bytes": 844708030,
+      "sha256": "550f053095afd37f5f8a039c6624ccf689ad2d17b30c80514e2975a1b5dd2215"
+    },
+    "Binary/binary_general_64_open.json": {
+      "bytes": 690305977,
+      "sha256": "b1d6e839724dd7292421f7e9bd51d9d5dceb5bf87da31e8aab9534fc881b4a7f"
+    },
+    "Binary/binary_general_open.json": {
+      "bytes": 878631989,
+      "sha256": "815be1667a5e7404d9e513ab339c214c713bd7ac4eb46f375fa0a26bf2dfc15f"
+    },
+    "Binary/binary_polishing_open.json": {
+      "bytes": 878983479,
+      "sha256": "2df191654f380cf3055dac25df9cfc88d502b6ef0564ba647b9a9f1baea377fc"
+    },
+    "Binary/binary_seq2seq_paraphrasing_open.json": {
+      "bytes": 973163349,
+      "sha256": "6777d20a26597d69867b55da5e26a51bcf5e8abb409ae394307af8145aab17a6"
+    },
+    "Binary/binary_zero_width_insertion_open.json": {
+      "bytes": 1015970173,
+      "sha256": "7eb1cdc6d6d662188100a00d56bc7224c718c4102ee76e1195e319ac8e843504"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "protocol": "svg-generation-v1",
+  "renderer": "rsvg-convert version 2.58.0",
+  "floor_probes": {
+    "blank_canvas": {
+      "score": 0.0,
+      "samples": 30,
+      "paid_calls": 0
+    },
+    "solid_red_canvas": {
+      "score": 0.0,
+      "samples": 30,
+      "paid_calls": 0
+    }
+  },
+  "model_baseline_measured": false,
+  "judge_calibrated": false,
+  "h100_measured": false,
+  "scope": "Mechanical rendering floors only; no semantic judge or trained model was run."
+}

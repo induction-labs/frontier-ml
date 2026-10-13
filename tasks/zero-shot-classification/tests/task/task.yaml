@@ -1,0 +1,82 @@
+summary: Fast calibrated zero-shot classifier
+title: Train a fast calibrated zero-shot text classifier
+modality: Text
+prompt: |
+  Train a zero-shot text classifier that works with any set of label descriptions. I have provided 500 labeled examples for checking your server locally; do not train, calibrate or select on them.
+
+  Don't use any split of BTZSC or its source datasets (listed in `/task/public/DATA_POLICY.md`). Start from any pretrained LLM or encoder, but not one fine-tuned on those datasets, and don't use models from open-source reproductions of TypeSafe's JEV.
+
+  Write a script `serve.sh` which serves the classifier. It should have a `POST /classify` endpoint which takes a text and a list of label descriptions and returns a probability for each label. It should run offline on one H100, be ready within 300 seconds, and handle at least 50 documents per second.
+
+  Optimize macro-F1 * (1 - ECE), averaged over datasets.
+description: >-
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine.
+  The 500 examples in /task/public/validation.jsonl are rows of the DBpedia-14 test split and fall under this rule:
+  use them only to check your server locally (`python /task/validate.py`); do not train, fine-tune, distill or
+  calibrate on them, and do not pick models, prompts or hyperparameters by their score on them.
+interface: >-
+  POST /classify with {"text": "...", "labels": ["description A", "description B", ...]} (2 to 256 distinct labels);
+  return exactly {"probabilities": [...]}, one probability per label in request order, summing to 1 within 1e-6.
+  Each request is independent: use only its text, labels and your trained weights, with no dataset-specific logic
+  and no caching (not even label embeddings) or adaptation across requests. Batching concurrent requests is fine.
+evaluation: >-
+  The score is macro-F1 * (1 - ECE) per dataset, averaged over datasets; ECE uses top-label confidence and
+  15 equal-width bins. Throughput must reach 50 documents/second at 32 concurrent requests. A request that
+  fails after the retries counts as a confidently wrong answer.
+metric: mean_calibrated_macro_f1
+concurrency: 32
+timeout: 600
+artifacts: >-
+  Include training_manifest.json (format in /task/public/SCHEMA.md) and the training code, config, logs and
+  trained weights it lists.
+review: true
+heldout: true
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: zero-shot-classification
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 4400
+score_normalization:
+  aggregate: mean
+  components:
+  - {name: agnews, path: details.per_dataset.agnews.score, floor: 0.22345217791499883, ceiling: 1.0}
+  - {name: amazonpolarity, path: details.per_dataset.amazonpolarity.score, floor: 0.5221149034130718, ceiling: 1.0}
+  - {name: appreviews, path: details.per_dataset.appreviews.score, floor: 0.5214145954521417, ceiling: 1.0}
+  - {name: banking77, path: details.per_dataset.banking77.score, floor: 0.014166541962838258, ceiling: 1.0}
+  - {name: biasframes_intent, path: details.per_dataset.biasframes_intent.score, floor: 0.5270409237944783, ceiling: 1.0}
+  - {name: biasframes_offensive, path: details.per_dataset.biasframes_offensive.score, floor: 0.45589999999999997, ceiling: 1.0}
+  - {name: biasframes_sex, path: details.per_dataset.biasframes_sex.score, floor: 0.36942973423555947, ceiling: 1.0}
+  - {name: capsotu, path: details.per_dataset.capsotu.score, floor: 0.016632905013857398, ceiling: 1.0}
+  - {name: emotiondair, path: details.per_dataset.emotiondair.score, floor: 0.1324502488699348, ceiling: 1.0}
+  - {name: empathetic, path: details.per_dataset.empathetic.score, floor: 0.029970037843187514, ceiling: 1.0}
+  - {name: financialphrasebank, path: details.per_dataset.financialphrasebank.score, floor: 0.30040083422809927, ceiling: 1.0}
+  - {name: imdb, path: details.per_dataset.imdb.score, floor: 0.5096, ceiling: 1.0}
+  - {name: manifesto, path: details.per_dataset.manifesto.score, floor: 0.009569397203325773, ceiling: 1.0}
+  - {name: massive, path: details.per_dataset.massive.score, floor: 0.019877537517224386, ceiling: 1.0}
+  - {name: rottentomatoes, path: details.per_dataset.rottentomatoes.score, floor: 0.5091762586327695, ceiling: 1.0}
+  - {name: trueteacher, path: details.per_dataset.trueteacher.score, floor: 0.43346889952153106, ceiling: 1.0}
+  - {name: wikitoxic_insult, path: details.per_dataset.wikitoxic_insult.score, floor: 0.5113069760456559, ceiling: 1.0}
+  - {name: wikitoxic_obscene, path: details.per_dataset.wikitoxic_obscene.score, floor: 0.5139175670268108, ceiling: 1.0}
+  - {name: wikitoxic_threat, path: details.per_dataset.wikitoxic_threat.score, floor: 0.3596725571725572, ceiling: 1.0}
+  - {name: wikitoxic_toxicaggregated, path: details.per_dataset.wikitoxic_toxicaggregated.score, floor: 0.507900441589723, ceiling: 1.0}
+  - {name: yahootopics, path: details.per_dataset.yahootopics.score, floor: 0.0647429308111679, ceiling: 1.0}
+  - {name: yelpreviews, path: details.per_dataset.yelpreviews.score, floor: 0.513369391025641, ceiling: 1.0}
+  provenance: >-
+    0 = per dataset, uniform probabilities over the labels (pipeline/baselines.py 'uniform'; the argmax tie
+    goes to the first label) on the 4,400 held-out rows, overall 0.3212 as in pipeline/sanity_results.json;
+    1 = one-hot gold, which scores 1.0 (2026-09-26).
+verifier:
+  base_image: python:3.12-slim
+  config:
+    verifier_lifetime_seconds: 1800
+starting_artifacts: []
+viewer:
+  metric_label: Calibrated macro-F1
+  gates: ["≥ 50 documents/second on H100"]
+  datasets:
+  - label: Zero-shot classification
+    title: id
+    texts: [text]
+    validation: public/validation.jsonl
+    heldout: private/test.jsonl

@@ -1,0 +1,33 @@
+{
+  "task": "maple-vlm",
+  "artifacts": [
+    {
+      "repo": "deepgrove/maple-preview",
+      "revision": "ac1ddd79d2b5cb4406f5d2bebdf95406ce505a07",
+      "repo_type": "model",
+      "prefix": "",
+      "exclude": [
+        "README.md",
+        ".gitattributes",
+        "assets/*"
+      ],
+      "to": "maple/weights"
+    },
+    {
+      "repo": "inductionlabs/frontier-ml-tasks",
+      "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+      "repo_type": "dataset",
+      "prefix": "maple-vlm/artifacts",
+      "exclude": [],
+      "to": "",
+      "optional": true
+    }
+  ],
+  "public": {
+    "repo": "inductionlabs/frontier-ml-tasks",
+    "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+    "repo_type": "dataset",
+    "prefix": "maple-vlm/public",
+    "exclude": []
+  }
+}

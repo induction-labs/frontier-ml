@@ -1,0 +1,5 @@
+# Pinned trusted scorer stack: PP-OCRv5 (text and layout). Faithfulness and realism use the gpt-6-luna API judge.
+rapidocr==3.9.2
+onnxruntime-gpu[cuda,cudnn]==1.23.2
+pillow>=11,<13
+numpy>=2,<3

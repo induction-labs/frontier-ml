@@ -1,0 +1,74 @@
+title: Transcribe multi-instrument music into notes labelled with pitch, timing and instrument
+summary: Multi-instrument music transcription
+modality: Audio
+shipped_examples_free: true
+prompt: |
+  Train a model that transcribes multi-instrument music. Given a 30-second audio clip, it lists every pitched note with its onset, offset, MIDI pitch and instrument class. I have provided 10 labeled example clips.
+
+  Write a script `serve.sh` which serves the model. It should have a `POST /transcribe` endpoint which takes a FLAC clip and returns its notes. It needs to run offline on one H100, be ready within 300 seconds, and transcribe at least 50x faster than real time. The whole submission, including weights, code and dependencies, must be at most 1,000,000,000 bytes.
+
+  Optimize note-onset F1, averaged over the nine instrument classes.
+description: >-
+  There are nine instrument classes: piano (acoustic and electric pianos), mallets (celesta, glockenspiel, music box,
+  vibraphone, marimba, xylophone), organ (organs and accordion), guitar (nylon, steel, jazz, clean, muted,
+  overdriven and distorted guitars), bass (acoustic, electric, fretless, slap and synth bass), strings (violin, viola,
+  cello, string ensemble, including tremolo and pizzicato), brass (trumpet, including muted trumpet, trombone,
+  tuba, French horn, brass section), reed (saxophones, oboe, English horn, bassoon, clarinet) and pipe (piccolo,
+  flute, recorder, pan flute, ocarina). Clips may contain multiple parts of the same class, sometimes with an
+  unpitched drum kit that is not transcribed. The held-out clips use different compositions and mixes from
+  the examples, with a range of instrument sounds. Simultaneous notes of the same class and pitch count as one note.
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark;
+  training splits and other public corpora are fine. However, you are free to use the validation data samples I have provided however you want.
+interface: >-
+  POST /transcribe with {"audio_format": "flac", "audio": "<base64>"}: a 30-second mono 44.1 kHz 16-bit FLAC clip.
+  Return {"notes": [{"onset": <seconds>, "offset": <seconds>, "pitch": <int>, "instrument": "<class>"}, ...]}:
+  times in seconds from the start of the clip with 0 <= onset < offset, pitch an integer MIDI note number 0-127
+  (60 is middle C), instrument one of piano, mallets, organ, guitar, bass, strings, brass, reed, pipe; at most
+  10,000 notes per clip, in any order. Any other shape is a failed request.
+evaluation: >-
+  A predicted note matches a reference note when both have the same instrument class and pitch and their onsets
+  differ by at most 50 ms; each note matches at most once, and the number of matches is a maximum matching (the
+  onset-only note metric of mir_eval, applied per class). For each class, matches, predicted notes and reference
+  notes are summed over all 271 held-out clips; the class F1 is 2 x matches / (predicted + reference), and the score
+  is the mean of the nine class F1s. Offsets are not scored. Reference onsets are the times the notes are played;
+  rapid repeated notes are retained. A failed request counts as a clip with no notes.
+  The 271 clips (135.5 minutes of audio) are sent 16 at a time, and the whole pass must finish within
+  162.6 seconds (50x real time), or the score is zero. A submission over 1,000,000,000 bytes (every file counted:
+  weights, code, vendored wheels) scores zero before it is started.
+metric: instrument_macro_onset_f1
+concurrency: 16
+timeout: 900
+artifacts: >-
+  No starting model is prescribed: start from any public checkpoint, or from scratch (base_model "none",
+  base_revision "from-scratch").
+review: true
+heldout: true
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: music-transcription
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 271
+inference:
+  pip: [torch==2.8.0, torchaudio==2.8.0, soundfile==0.13.1, requests==2.34.2, urllib3==2.8.0, idna==3.20, certifi==2026.7.22, charset-normalizer==3.5.1]
+  index_url: https://download.pytorch.org/whl/cu128
+score_normalization:
+  aggregate: single
+  components:
+  - {name: instrument_macro_onset_f1, path: score, floor: 0.553, ceiling: 1.0}
+  provenance: >-
+    0 = 0.553 macro onset F1, the strongest transcriber that needs no training: the untouched YourMT3+ checkpoint
+    (mimbres/YourMT3 YPTF.MoE+Multi (noPS) at 5e66c1ea, existing program mapping) measured 0.552948 on the
+    271-clip held-out split, evaluation SHA-256 3b639221 (2026-09-29, amt_yourmt3.py, direct batched inference at
+    365.81x real time; HTTP serving and the byte cap not exercised). 1 = 1.0, the exact-reference oracle.
+    Replaces the raw F1, under which serving the untouched download scored about 0.55.
+verifier:
+  base_image: python:3.12-slim
+  config:
+    evaluation_sha256: 3b63922146f5d102fec7178a4647ebe16d9d785cf930fb30bb2072cc6ffbfba0
+    max_submission_bytes: 1000000000
+starting_artifacts: []
+
+viewer:
+  metric_label: Mean over 9 instrument classes of pooled note-onset F1 (50 ms, same pitch and class), normalized 0.553 -> 0 (untouched YourMT3+), 1 -> 1
+  gates: ["≥ 50x real time (271 clips in 162.6 s)", "≤ 1,000,000,000 submission bytes", "architecture review"]

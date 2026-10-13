@@ -1,0 +1,56 @@
+{
+  "judge_model": "gpt-6-luna",
+  "pairs": 14,
+  "rounds": 5,
+  "data": "/tmp/sdfetch/screen-difference/private/test.jsonl",
+  "conditions": [
+    {
+      "condition": "cursor",
+      "score": 0.02619047619047619,
+      "per_round": [
+        0.023809523809523808,
+        0.041666666666666664,
+        0.0,
+        0.023809523809523808,
+        0.041666666666666664
+      ],
+      "description": "The cursor moved."
+    },
+    {
+      "condition": "generic",
+      "score": 0.06,
+      "per_round": [
+        0.06547619047619048,
+        0.06547619047619048,
+        0.023809523809523808,
+        0.07142857142857142,
+        0.0738095238095238
+      ],
+      "description": "The cursor moved to a different position. Some text was typed, edited or deleted. A menu, dropdown, dialog or panel opened or closed. The page or view scrolled. An element was highlighted, selected or hovered. The zoom level changed."
+    },
+    {
+      "condition": "exhaustive",
+      "score": 0.3199489795918367,
+      "per_round": [
+        0.3090986394557823,
+        0.3443027210884354,
+        0.2888605442176871,
+        0.37755102040816324,
+        0.27993197278911564
+      ],
+      "description": "The mouse cursor moved to a new position and now hovers over a different element, which is highlighted. Text in a field or editor was typed, edited, selected or deleted, and the text cursor moved. A menu, dropdown, context menu, tooltip, popup, dialog, sidebar or panel appeared or disappeared. The page, list or document scrolled, so different content is visible. A button, tab, checkbox or item was clicked, selected or toggled and its color or outline changed. A new tab, window or page opened, or the view switched to another page. The zoom level, window size or layout changed. Numbers, labels, a status indicator, a timestamp or a progress indicator changed. An image, icon or video frame changed. Everything else stays the same."
+    },
+    {
+      "condition": "reference",
+      "score": 1.0,
+      "per_round": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "description": null
+    }
+  ]
+}

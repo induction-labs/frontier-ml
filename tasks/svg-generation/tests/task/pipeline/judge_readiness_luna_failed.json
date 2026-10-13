@@ -1,0 +1,20 @@
+{
+  "status": "failed",
+  "binding": {
+    "protocol": "svg-generation-v1",
+    "judge_model": "gpt-6-luna",
+    "rubric_sha256": "cd6e1c857468d056e7035d5e9835ec926456f950ece5a13e9c8757d7e6431690",
+    "scorer_sha256": "92af25d7c75f6846aa3b0d332b4c38b9f1c87c50c79b9b7403dbb4fbacdc6a56",
+    "renderer_code_sha256": "92837d13118208fb2406ab477064852919c58f73082a760d1e852e5341238a33",
+    "renderer_version": "rsvg-convert version 2.54.7",
+    "evaluation_sha256": "a328e4fa9a25ecc6a6f95be7821c067d78150376e083b9772eb44889974c6666"
+  },
+  "report_sha256": "4298240db73e61098f6e81bc5dd512e1a5d9f0b1279a576561f2ae6d703107f4",
+  "reasons": [
+    "Reference self-score 0.861111 < 0.95",
+    "Constant-circle score 0.236111 > 0.15",
+    "Text-only injection score 0.361111 > 0",
+    "Two of 24 repeated verdicts differed despite identical aggregate score"
+  ],
+  "requires": "Fresh independent calibration and review before official scoring is enabled."
+}

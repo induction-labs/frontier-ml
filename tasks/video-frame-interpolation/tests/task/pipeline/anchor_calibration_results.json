@@ -1,0 +1,116 @@
+{
+  "status": "complete",
+  "run_id": "43f2d875de1a491aba3d136b78f90691",
+  "source_data_run": "2cb05727f37f43efbbe4a2943d5831ea",
+  "zero_prediction_run": "62ad35e881a74d7e822f0920a0009f21",
+  "target_prediction_run": "2cb05727f37f43efbbe4a2943d5831ea",
+  "gpu": {
+    "name": "NVIDIA H100 80GB HBM3",
+    "memory_mib": 81079
+  },
+  "metric_code_sha256": "e162b3aeb5a3249d1409d88c85d2843d5be52aa6e62148b094a67405d3fee346",
+  "calibration_sha256": "8c72e23cb352711cfddff07fea74a4935a99f753ea7b498dbd83a999278630ab",
+  "staging_seconds": 223.072054782,
+  "files": 7796,
+  "bytes": 13193913649,
+  "total_seconds": 1015.326092049,
+  "controls": {
+    "zero": 0.0,
+    "target": 1.0,
+    "midpoint": 0.49999999999999994,
+    "worse": 0.0,
+    "beyond_target": 1.0
+  },
+  "metric_seconds": {
+    "zero": 395.3109553029999,
+    "target": 384.93288590400016
+  },
+  "prediction_generation": false,
+  "target_is_permitted_initialization": false,
+  "permitted_50_dollar_trained_target_demonstrated": false,
+  "modal_app": "https://modal.com/apps/induction/main/ap-CdeDLFBdC4byEHw96Is6wZ",
+  "modal_environment": "main",
+  "modal_volume": "frontier-vfi-baseline",
+  "call_id": "fc-01M3WYAS0Y0PFSCDEX24P2PNJS",
+  "remote_artifacts": "43f2d875de1a491aba3d136b78f90691",
+  "runner_sha256": "46dab8cab44b33cbce83004048c4ae56ef90dad5d9c90907073c7c60cec0ad54",
+  "scoring_protocol": "vfi-lpips-flolpips-two-anchor-v2",
+  "zero_reference": {
+    "protocol": "vfi-lpips-alex01-flolpips-sequence-v1",
+    "evaluation_sha256": "375276285d8168e061004e5873daeecbb7e8db7c6e8354ef72d50ad47496e236",
+    "metric_bundle_sha256": "98e13949365e1541fbec7972317356abb77c00956c7126d0d81dd99f045d5fdd",
+    "metric_code_sha256": "e162b3aeb5a3249d1409d88c85d2843d5be52aa6e62148b094a67405d3fee346",
+    "runtime": {
+      "torch": "2.5.1",
+      "numpy": "1.26.4",
+      "pillow": "11.3.0",
+      "device": "cuda",
+      "precision": "float32",
+      "threads": 8,
+      "torch_build": "2.5.1+cu118",
+      "cuda": "11.8"
+    },
+    "prediction_manifest_sha256": "e252216cbae441bc442f433f0643c5416a0ae95c5a32e90d25634ff5095f9478",
+    "baseline": {
+      "4": {
+        "lpips": 0.04162831213325262,
+        "flolpips": 0.05501670343283978
+      },
+      "8": {
+        "lpips": 0.05581610326559121,
+        "flolpips": 0.07831669894092354
+      },
+      "16": {
+        "lpips": 0.08391549384169694,
+        "flolpips": 0.12332129700759348
+      }
+    },
+    "baseline_id": "permitted-standalone-RAFT-deterministic-synthesis",
+    "baseline_revision": "a49e8861e793942150e6221de5293592a7c349d72edff2f34f7f8e20b8ea7737"
+  },
+  "target_reference": {
+    "protocol": "vfi-lpips-alex01-flolpips-sequence-v1",
+    "evaluation_sha256": "375276285d8168e061004e5873daeecbb7e8db7c6e8354ef72d50ad47496e236",
+    "metric_bundle_sha256": "98e13949365e1541fbec7972317356abb77c00956c7126d0d81dd99f045d5fdd",
+    "metric_code_sha256": "e162b3aeb5a3249d1409d88c85d2843d5be52aa6e62148b094a67405d3fee346",
+    "runtime": {
+      "torch": "2.5.1",
+      "numpy": "1.26.4",
+      "pillow": "11.3.0",
+      "device": "cuda",
+      "precision": "float32",
+      "threads": 8,
+      "torch_build": "2.5.1+cu118",
+      "cuda": "11.8"
+    },
+    "prediction_manifest_sha256": "377f66f4bce02c2beecb8d3eaf59c769cc24b43acc10e489417c1a719e76134c",
+    "baseline": {
+      "4": {
+        "lpips": 0.019468467705883084,
+        "flolpips": 0.02447411679636894
+      },
+      "8": {
+        "lpips": 0.030890089628981456,
+        "flolpips": 0.04003089423834657
+      },
+      "16": {
+        "lpips": 0.051868076057483746,
+        "flolpips": 0.07500480028053667
+      }
+    },
+    "baseline_id": "GIMM-VFI-R-P",
+    "baseline_revision": "07c4793d00b2850c2b9354fe631538bae090982f547c51f5651a1236525f029e"
+  },
+  "target_selected_by_operator": "Measured GIMM quality is score 1; specialist weights remain prohibited.",
+  "limitations": [
+    "No permitted $50-trained system has yet demonstrated the score-1 target.",
+    "Original generation timing is loopback HTTP; this run only rescores saved pixels.",
+    "Upstream pretrained metric parity and full corruption controls remain release checks."
+  ],
+  "report_delivery": {
+    "modal_function_return": "failed: offline container could not upload the report bundle to blob storage",
+    "saved_reports": "committed to volume before return failure",
+    "recovery": "downloaded six JSON reports through modal volume get; no GPU rerun",
+    "production_worker": "uses report-file download rather than this one-off Modal function return"
+  }
+}

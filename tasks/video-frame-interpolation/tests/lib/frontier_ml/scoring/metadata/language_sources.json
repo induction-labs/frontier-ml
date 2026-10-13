@@ -1,0 +1,61 @@
+{
+  "math500": {
+    "repo": "HuggingFaceH4/MATH-500",
+    "revision": "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
+    "files": {
+      "README.md": {
+        "sha256": "5d32f78943f75423da61419c5bb98cee964d5a29183b11a5294f661fb96f69f7",
+        "bytes": 412
+      },
+      "test.jsonl": {
+        "sha256": "35dc41080a3680858b27fa7e0533d2d547825316fc5dafe5d316f4ccc5a06132",
+        "bytes": 446564
+      }
+    },
+    "source_url": "https://huggingface.co/datasets/HuggingFaceH4/MATH-500/tree/6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
+    "license": "mit",
+    "license_note": "The Hugging Face dataset card carries no license tag. The split is OpenAI's MATH-500 test subset from PRM800K (github.com/openai/prm800k, MIT) of Hendrycks et al.'s MATH (github.com/hendrycks/math, MIT).",
+    "source_kind": "hf_mirror_of_openai_prm800k_math500_test_split",
+    "prepared": {
+      "file": "math500.jsonl",
+      "sha256": "0e43812c2fe84e560d1b41ee16a423393eaaa0ae301d632d109b99864f40c8d6",
+      "bytes": 166785,
+      "samples": 500
+    },
+    "normalization": "Upstream test.jsonl order; id math500-NNNN by position; question = problem, answer, subject and level unchanged; source_id = upstream unique_id; the worked solution is dropped."
+  },
+  "mmlu-pro": {
+    "repo": "TIGER-Lab/MMLU-Pro",
+    "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be",
+    "files": {
+      "README.md": {
+        "sha256": "4bd710f67da3fa359a33edce1b4b5816b3de416c823c2624ba5e89c2557d2a47",
+        "bytes": 11723
+      },
+      "data/test-00000-of-00001.parquet": {
+        "sha256": "0e24a191921c2f453518a537a8b2117bd137e7714d4ef1565e9ba06c1ecb9ad8",
+        "bytes": 4144185
+      },
+      "data/validation-00000-of-00001.parquet": {
+        "sha256": "139423c23722e480c807ac4a191409a710cfce4eba744c1d641cf88e730e2078",
+        "bytes": 42857
+      }
+    },
+    "source_url": "https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro/tree/b189ec765aa7ed75c8acfea42df31fdae71f97be",
+    "license": "mit",
+    "source_kind": "official_dataset_author_repository",
+    "prepared": {
+      "file": "mmlu-pro.jsonl",
+      "sha256": "081763ed7650ed24d44276b4be59f8b9a84a6b594c24d22b9f92ed2d942f8d5c",
+      "bytes": 9392567,
+      "samples": 12032
+    },
+    "validation_prepared": {
+      "file": "mmlu-pro-validation.jsonl",
+      "sha256": "9d96b4643c26a72142c171c1cb89d998f10a42ca543292a401c3f19ca716efa0",
+      "bytes": 65777,
+      "samples": 70
+    },
+    "normalization": "Preserve official questions, option order and labels; remove literal N/A padding (21 validation rows only), preserving all correct option indices. Validation CoT text retained."
+  }
+}

@@ -1,0 +1,85 @@
+summary: Data-efficient pretraining
+title: Pretrain a language model from scratch on 10M words
+modality: Text
+prompt: |
+  Train a causal language model from scratch, tokenizer included, using only the 10M-word corpus in `/task/public/corpus/`.
+
+  Submit code, not weights: a script `train.sh` which trains the model and a script `serve.sh` which serves its normalized next-token probabilities. I'll run `train.sh` myself, offline on one H100, and it has to finish within 60 minutes. The server should be ready within 300 seconds.
+
+  Minimize bits per byte.
+
+  This task was inspired by NanoGPT Slowrun (https://github.com/qlabs-eng/slowrun). Looking it up is cheating: do not search for it, and do not open, download or read it, its forks or other derivative repositories, or pages about it. I will check your session transcript for this.
+description: >-
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine.
+  Here, though, the corpus is the only data allowed, and your code can't contain precomputed weights, vocabularies,
+  word lists, statistics or other data.
+  This task was inspired by NanoGPT Slowrun (https://github.com/qlabs-eng/slowrun).
+  Looking it up is cheating: do not search for it, and do not open, download or read it, its forks or other derivative repositories, or pages about it. I will check your session transcript for this.
+submission_instructions: >-
+  Put train.sh, serve.sh and their source code in /workspace/output/, which is mounted read-only at /submission.
+
+  `bash /submission/train.sh` runs as an unprivileged user with CORPUS_DIR=/corpus (a read-only copy of
+  /task/public/corpus/), OUTPUT_DIR=/replay/output (empty and writable), HOME and TMPDIR on scratch, REPLAY_START
+  (integer epoch seconds, as `date +%s`) and TRAIN_BUDGET_SECONDS=3600. Read data only from CORPUS_DIR and write everything serving needs
+  to OUTPUT_DIR. It must exit 0 within 3600 wall-clock seconds, including tokenization, compilation and saving.
+
+  Training and serving each get one H100 80GB SXM, 8 CPU cores and 80 GiB RAM, with Python 3.11 at /opt/conda/bin,
+  PyTorch 2.8.0 (CUDA 12.8), numpy 2.2.6, tokenizers 0.22.1 and safetensors 0.5.3. There are no other Python
+  packages and no network.
+
+  After training, OUTPUT_DIR becomes read-only and the corpus and other scratch are removed. `bash /submission/serve.sh`
+  then starts with WEIGHTS_DIR=/replay/output, HOST=0.0.0.0 and PORT=8000, and may load only those training outputs.
+  GET /health must return 200 within 300 seconds, including loading and compilation. The server is also restarted
+  with empty scratch and must answer the same way afterwards.
+interface: >-
+  GET /vocab returns {"tokens":[...]}: each token's bytes as lowercase hex, or null for special tokens that
+  never appear in text.
+
+  POST /score {"text":str} returns {"token_ids":[int],"logprobs":[float]}. The token bytes must concatenate to
+  the exact UTF-8 input, and logprobs[i] = ln p(token_i | tokens_0..i-1).
+
+  POST /dist {"prefix_tokens":[int]} returns {"logprobs":[float]} over the entire vocabulary, with
+  |logsumexp| <= 1e-3. An empty prefix starts a document.
+
+  /score and /dist must agree within 0.02 nats, with mean(score - dist) <= 0.002 nats. Scoring a truncated text
+  must keep the log-probabilities of its shared token prefix within 0.02 nats. Each request is independent: no
+  caching across requests.
+
+  Each request must answer within 120 seconds, and the whole evaluation (every /score request, a server restart,
+  then the /dist and truncation audits, 8 requests in flight) within 3,600 seconds. A request that fails or times
+  out follows the retry rule below and scores its document as uniform bytes (8 bits per byte); a timed-out audit
+  request is skipped.
+evaluation: >-
+  Bits per UTF-8 byte from /score: bpb = sum(-logprobs) / ln(2) / total bytes.
+  Breaking any interface rule fails the run.
+metric: bits_per_byte_reward
+concurrency: 8
+timeout: 9000
+artifacts: >-
+  In architecture.json, set base_model="none" and base_revision="from-scratch".
+review: true
+heldout: true
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: babylm-replay
+  evaluation_file: /tests/private/heldout.jsonl
+  expected_samples: 551
+score_normalization:
+  aggregate: single
+  components:
+  - {name: bpb, path: details.bpb, floor: 1.461, ceiling: 1.25}
+  provenance: >-
+    0 = 1.461 bpb, the naive 7-minute GPT-2 recipe (organizer baseline); 1 = 1.25 bpb, owner-set target
+    (2026-09-26). Replaces the old reward 2^-bpb.
+verifier:
+  base_image: python:3.12-slim
+  config: {selfcheck_timeout_seconds: 1500}
+
+starting_artifacts: []
+
+viewer:
+  order: 4
+  datasets:
+  - {label: BabyLM text, title: text, category: genre, category_label: Genre, texts: [text],
+     validation: public/validation.jsonl, heldout: private/heldout.jsonl}

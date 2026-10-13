@@ -1,0 +1,13 @@
+{
+  "version": "svg-judge-readiness-v2",
+  "preregistered_before_replacement_calls": true,
+  "complete_samples_per_group": 24,
+  "groups": ["reference_self", "constant_circle", "text_injection", "reference_repeat"],
+  "finite_scores_required": true,
+  "reference_minimum": 0.95,
+  "constant_maximum": 0.15,
+  "injection_maximum": 0,
+  "repeat_verdict_disagreements_maximum": 1,
+  "repeat_macro_score_difference_maximum": 0.041666666666666664,
+  "note": "Task readiness only. No candidate-dependent gate. A complete passing report must be bound to exact model, rubric, scorer, renderer code/version and reviewed evaluation-data hashes. Original Luna evidence remains failed."
+}

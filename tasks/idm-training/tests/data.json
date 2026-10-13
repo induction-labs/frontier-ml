@@ -1,0 +1,7 @@
+{
+  "repo": "inductionlabs/frontier-ml-tasks",
+  "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+  "repo_type": "dataset",
+  "prefix": "idm-training/private",
+  "exclude": []
+}

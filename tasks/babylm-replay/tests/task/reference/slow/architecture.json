@@ -1,0 +1,6 @@
+{
+  "base_model": "none",
+  "base_revision": "from-scratch",
+  "training_evidence_files": ["train.sh", "train.py", "lm.py"],
+  "inference_evidence_files": ["serve.sh", "server.py", "lm.py"]
+}

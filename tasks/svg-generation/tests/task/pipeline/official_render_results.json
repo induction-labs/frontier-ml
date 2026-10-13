@@ -1,0 +1,72 @@
+{
+  "protocol": "svg-generation-v1",
+  "passed": true,
+  "checked_at_utc": "2026-09-25T02:04:20.165590+00:00",
+  "base_image": "python:3.12-slim-bookworm",
+  "renderer": "rsvg-convert version 2.54.7",
+  "official_version_check": true,
+  "packages": [
+    "fonts-dejavu-core 2.37-6",
+    "librsvg2-bin 2.54.7+dfsg-1~deb12u1"
+  ],
+  "inputs": {
+    "public/validation.jsonl": {
+      "samples": 30,
+      "bytes": 34639,
+      "sha256": "5c82a17a857c86d0baca4e932652fb59cbd66f25c71913357dcf66ca6def02a8"
+    },
+    "private/test.jsonl": {
+      "samples": 268,
+      "bytes": 1413642,
+      "sha256": "a328e4fa9a25ecc6a6f95be7821c067d78150376e083b9772eb44889974c6666"
+    }
+  },
+  "references": {
+    "rendered": 298,
+    "nonuniform": 298,
+    "failed": 0,
+    "strata": {
+      "complex": 100,
+      "detailed": 99,
+      "simple": 99
+    },
+    "ordered_render_fingerprints_sha256": "3a18251e8552c17d94a767f6b141ab200b3055657094514964a209fe190a68c3"
+  },
+  "per_render_limits": {
+    "cpu_seconds": 3,
+    "wall_seconds": 5,
+    "address_space_bytes": 536870912,
+    "output_bytes": 2097152
+  },
+  "container": {
+    "network": "none",
+    "read_only": true,
+    "cpus": 2,
+    "memory_bytes": 1073741824
+  },
+  "floor_probes": {
+    "blank_canvas": {
+      "samples": 30,
+      "score": 0.0,
+      "paid_calls": 0
+    },
+    "solid_red_canvas": {
+      "samples": 30,
+      "score": 0.0,
+      "paid_calls": 0
+    }
+  },
+  "code_sha256": {
+    "svg_render.py": "92837d13118208fb2406ab477064852919c58f73082a760d1e852e5341238a33",
+    "validate.py": "92af25d7c75f6846aa3b0d332b4c38b9f1c87c50c79b9b7403dbb4fbacdc6a56",
+    "check_references.py": "e4551791aa65534846fdf0a97dd093342610e9d2b12d6c05d8df7b20017dc7e2"
+  },
+  "elapsed_seconds": 51.966,
+  "paid_calls": 0,
+  "model_baseline_measured": false,
+  "judge_calibrated": false,
+  "scope": "Official-version rendering and real scoring floors only; no model inference or paid judge.",
+  "diagnostic_image_id": "sha256:0da16852e69dd2aec24078571b82b62a0190d1c9ed81b4e80e0dea118633bc87",
+  "base_image_digest": "sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e",
+  "dockerfile_sha256": "f536e55a264fec6370bc9f2e9e2def607b8e10a3c9c31fb841676c498a89bc34"
+}

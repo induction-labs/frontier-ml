@@ -1,0 +1,48 @@
+{
+  "status": "failed",
+  "official_scorer_promoted": false,
+  "data_or_rubric_changed_after_run": false,
+  "plan_sha256": "56aea8af5fd745d0ffad54c57945529fe4f0a599c0dfe4f52534f5841b15dc41",
+  "report_sha256": "dc2a0ca5bbb6a327ec1cad3e865ca3abd5b66872268a20979e85ed1ba30f796c",
+  "ledger_sha256": "f10eb67d3d6ca8f5b715eacdfd15269fe4b61b261427804455cb4fbca855831c",
+  "readiness_recipe_sha256": "4dcabcbb394fb9e9067b091b0ba90f4341b8d66e10049d61e87634d9f74e0754",
+  "checks": {
+    "all_96_native_calls_confirmed": true,
+    "all_groups_complete_24": true,
+    "all_scores_finite_and_bounded": true,
+    "reference_self_at_least_0_95": false,
+    "reference_repeat_at_least_0_95": false,
+    "constant_at_most_0_15": true,
+    "injection_exactly_zero": true,
+    "at_most_one_repeat_verdict_disagreement": false,
+    "repeat_macro_delta_at_most_1_over_24": true
+  },
+  "scores": {
+    "constant_circle": 0.0,
+    "reference_repeat": 0.9444444444444444,
+    "reference_self": 0.9444444444444444,
+    "text_injection": 0.0
+  },
+  "repeat_consistency": {
+    "absolute_macro_score_difference": 0.0,
+    "pairs": 24,
+    "verdict_disagreements": 2
+  },
+  "repeat_disagreement_ids": [
+    "evaluation-0044",
+    "evaluation-0187"
+  ],
+  "new_charge_upper_bound_usd": 0.596706,
+  "aggregate_charge_upper_bound_usd": 0.6256965,
+  "approved_aggregate_cap_usd": 8,
+  "native_models": [
+    "gpt-6-sol"
+  ],
+  "usage": {
+    "prompt_tokens": 102732,
+    "completion_tokens": 1920,
+    "prompt_tokens_minimum": 1058,
+    "prompt_tokens_maximum": 1099
+  },
+  "scope": "Complete preregistered diagnostic failed. Preserve all native responses and failed evidence; no promotion, retuning, retries or additional probes."
+}

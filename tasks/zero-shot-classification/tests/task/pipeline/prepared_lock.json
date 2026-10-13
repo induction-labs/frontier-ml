@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "protocol": "zero-shot-classification-v2",
+  "files": {
+    "public/validation.jsonl": {
+      "bytes": 469207,
+      "sha256": "df3d0c125fdb1faf4c01f73669ffd27eb6bc53c5b3aec5b8af189817bfbdcd81"
+    },
+    "private/test.jsonl": {
+      "bytes": 6905506,
+      "sha256": "c707d116f7730d2f0a3311c09a5a17327779703002536761356d8dace9315976"
+    }
+  },
+  "splits": {
+    "validation": 500,
+    "heldout": 4400
+  },
+  "datasets": {
+    "agnews": 200,
+    "amazonpolarity": 200,
+    "appreviews": 200,
+    "banking77": 200,
+    "biasframes_intent": 200,
+    "biasframes_offensive": 200,
+    "biasframes_sex": 200,
+    "capsotu": 200,
+    "emotiondair": 200,
+    "empathetic": 200,
+    "financialphrasebank": 200,
+    "imdb": 200,
+    "manifesto": 200,
+    "massive": 200,
+    "rottentomatoes": 200,
+    "trueteacher": 200,
+    "wikitoxic_insult": 200,
+    "wikitoxic_obscene": 200,
+    "wikitoxic_threat": 200,
+    "wikitoxic_toxicaggregated": 200,
+    "yahootopics": 200,
+    "yelpreviews": 200
+  }
+}

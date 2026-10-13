@@ -1,0 +1,105 @@
+summary: LLM post-training
+title: Post-train Qwen3-4B-Base into a strong chat model
+modality: Text
+prompt: |
+  Post-train the pretrained Qwen3-4B-Base checkpoint in `/artifacts/qwen3-4b-base/` into a chat model that solves science, math and coding problems as well as you can make it. How you get there is up to you. The one rule is that the weights you submit must descend from that checkpoint and from no other model's weights.
+
+  Write `serve.sh` to serve the result through an OpenAI-compatible chat endpoint offline on one H100, ready within 300 seconds, and put the trained weights in `/workspace/output/model/`.
+
+  Optimize the mean of language and coding benchmark scores. Our eval setup lets the model reason before it answers, with up to 16,384 generated tokens per request at temperature 0.7.
+description: >-
+  The submitted weights must descend from the pinned Qwen3-4B-Base checkpoint alone: do not start from, merge in or
+  serve any other checkpoint's weights (that includes other post-trained versions of this model).
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine.
+  That includes their prompts without answers, rewrites of them, and model answers to them.
+  The examples in /task/public/benchmarks/ are for evaluation only.
+interface: >-
+  OpenAI-compatible POST /v1/chat/completions with model=submission, supporting a 20,480-token context (input plus
+  output). Only message.content is scored: return the model's reasoning in reasoning_content (for example with a
+  reasoning parser) or before the final answer in content.
+evaluation: >-
+  First, a weight audit reads the checkpoint in output/model/: it must consist of exactly Qwen3-4B-Base's tensors
+  (the pinned names and shapes, in bf16, fp16 or fp32; the output head may be untied by adding lm_head.weight), or
+  the score is zero. The review then establishes from your training evidence and your session that these weights
+  descend from the pinned base and from no other checkpoint.
+
+  The score is the mean of accuracy/pass@1 across four benchmarks, two of which are GPQA-Diamond and LCB v6,
+  each normalized from the untouched Qwen3-4B-Base's performance (0; chance level where the base scores below chance)
+  to the performance of a strong post-trained model of the same size (1).
+  Requests use max_tokens=16384 and temperature=0.7 and arrive up to 32 at a time, and each gets 250 seconds. A reply
+  cut off at max_tokens scores zero for its item, as does a request that times out (it is not retried) or that still
+  fails after two retries; failed requests do not stop the evaluation.
+metric: gpqa_math500_lcbv6_mmlupro_mean
+request_failure_policy: per_item
+concurrency: 32
+timeout: 28800
+artifacts: >-
+  /artifacts/qwen3-4b-base/ holds Qwen/Qwen3-4B-Base at the revision in /task/public/STARTING_ARTIFACT.json; take
+  architecture.json's base_model and base_revision from there. Put the final trained weights in output/model/ as
+  unquantized bf16, fp16 or fp32 safetensors with the original tensor names and shapes, next to config.json and the
+  tokenizer files; only output/model/*.safetensors are audited. serve.sh may serve those weights directly or a
+  quantized copy derived from them that you also keep in output/.
+
+  In your training evidence, record the datasets, splits and data-generation recipes you used, and every model you
+  ran or called to generate, score or filter data.
+review: true
+heldout: true
+requires_env: [FRONTIER_JUDGE_API_KEY]
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: llm-post-train
+  evaluation_file: /tests/private/benchmarks/gpqa_diamond.csv
+score_normalization:
+  aggregate: mean
+  components:
+  - {name: gpqa_diamond, path: details.benchmarks.gpqa_diamond.score, floor: 0.25, ceiling: 0.5959595959595959}
+  - {name: math_500, path: details.benchmarks.math_500.score, floor: 0.622, ceiling: 0.956}
+  - {name: livecodebench_v6, path: details.benchmarks.livecodebench_v6.score, floor: 0.2, ceiling: 0.4900473933649289}
+  - {name: mmlu_pro, path: details.benchmarks.mmlu_pro.score, floor: 0.3607142857142857, ceiling: 0.6992857142857143}
+  provenance: >-
+    Both anchors were measured 2026-10-01 under exactly this task's settings (suite v6: zero-shot MMLU-Pro; 16,384
+    output tokens, temperature 0.7, 32 concurrent, 20,480-token context; measured with an 1,800 s request timeout before
+    the task's was set to 250 s, which changes nothing: the slowest request in either run took 170 s) with each model's own
+    chat template and generation_config sampling defaults, served by vLLM 0.11.0 (the frontier-ctr-student:vllm-0.11.0
+    image, two data-parallel replicas on this host's H100s), one sample per item, MATH-500 judged by gpt-6-luna.
+    0 = Qwen/Qwen3-4B-Base@906bfd4b: GPQA 28/198 = 0.1414 (below chance, so the floor is chance, 1/4), MATH-500
+    311/500 = 0.622, LiveCodeBench 211/1,055 = 0.2000, MMLU-Pro 505/1,400 = 0.3607; raw harmonic mean 0.2431. The
+    base answers MMLU-Pro with a bare letter (median 7 completion tokens), rambles past its GPQA answer without the
+    ANSWER: marker (33 of 198 cut off), and still solves 62% of MATH-500 zero-shot. 1 = Qwen/Qwen3-4B-Instruct-2507
+    @cdbee75f: GPQA 118/198 = 0.5960, MATH-500 478/500 = 0.956, LiveCodeBench 517/1,055 = 0.4900, MMLU-Pro
+    979/1,400 = 0.6993; raw harmonic mean 0.6457 (model card, Qwen's harness: GPQA 62.0, MMLU-Pro 69.6, LCB v6 35.1).
+    Tool: scripts/language_anchors_local.py (generation) and scripts/language_anchors_modal.py score
+    (judging); raw outputs and judged results under work/llm-post-train-anchors/. Generation took 6 min (base) and
+    31 min (instruct); judging 475 + 498 gpt-6-luna calls (about $0.3).
+
+verifier:
+  base_image: python:3.12-slim
+  config:
+    verifier_lifetime_seconds: 36000
+    language_suite: gpqa-math500-lcbv6-mmlupro-v6
+    benchmark_paths:
+      gpqa_diamond: /tests/private/benchmarks/gpqa_diamond.csv
+      math_500: /tests/private/benchmarks/math500.jsonl
+      livecodebench_v6: /tests/private/benchmarks/livecodebench-v6
+      mmlu_pro: /tests/private/benchmarks/mmlu-pro.jsonl
+    livecodebench: {}
+    failed_request_limit_percent: null
+    generation_concurrency: 32
+    max_tokens: 16384
+    temperature: 0.7
+    request_timeout_seconds: 250
+    judge_model: gpt-6-luna
+    judge_timeout_seconds: 120
+
+starting_artifacts:
+- repo: Qwen/Qwen3-4B-Base
+  revision: 906bfd4b4dc7f14ee4320094d8b41684abff8539
+  to: qwen3-4b-base
+
+viewer:
+  order: 8
+  metric_label: Mean of 4 normalized benchmarks
+  gates: ["output/model is Qwen3-4B-Base's architecture", "review: trained here from the pinned base"]
+  steps:
+  - {label: Weight audit, detail: [pinned tensor inventory of output/model]}

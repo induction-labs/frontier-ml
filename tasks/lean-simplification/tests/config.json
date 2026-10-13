@@ -1,0 +1,13 @@
+{
+  "concurrency": 8,
+  "inference_timeout_seconds": 2700,
+  "require_h100": true,
+  "expected_samples": 354,
+  "batch_budget_seconds": 2700,
+  "proof_timeout_seconds": 60,
+  "preflight_timeout_seconds": 1800,
+  "verifier_lifetime_seconds": 5400,
+  "grading_images": {
+    "inference": "/tests/images/inference"
+  }
+}

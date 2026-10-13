@@ -1,0 +1,51 @@
+{
+  "protocol": "vfi-lpips-alex01-flolpips-sequence-v1",
+  "evaluation_sha256": "375276285d8168e061004e5873daeecbb7e8db7c6e8354ef72d50ad47496e236",
+  "metric_bundle_sha256": "98e13949365e1541fbec7972317356abb77c00956c7126d0d81dd99f045d5fdd",
+  "metric_code_sha256": "e162b3aeb5a3249d1409d88c85d2843d5be52aa6e62148b094a67405d3fee346",
+  "runtime": {
+    "torch": "2.5.1",
+    "numpy": "1.26.4",
+    "pillow": "11.3.0",
+    "device": "cuda",
+    "precision": "float32",
+    "threads": 8,
+    "torch_build": "2.5.1+cu118",
+    "cuda": "11.8"
+  },
+  "prediction_manifest_sha256": "e252216cbae441bc442f433f0643c5416a0ae95c5a32e90d25634ff5095f9478",
+  "baseline": {
+    "4": {
+      "lpips": 0.04162831213325262,
+      "flolpips": 0.05501670343283978
+    },
+    "8": {
+      "lpips": 0.05581610326559121,
+      "flolpips": 0.07831669894092354
+    },
+    "16": {
+      "lpips": 0.08391549384169694,
+      "flolpips": 0.12332129700759348
+    }
+  },
+  "baseline_id": "permitted-standalone-RAFT-deterministic-synthesis",
+  "baseline_revision": "a49e8861e793942150e6221de5293592a7c349d72edff2f34f7f8e20b8ea7737",
+  "scoring_protocol": "vfi-lpips-flolpips-two-anchor-v2",
+  "target": {
+    "4": {
+      "lpips": 0.019468467705883084,
+      "flolpips": 0.02447411679636894
+    },
+    "8": {
+      "lpips": 0.030890089628981456,
+      "flolpips": 0.04003089423834657
+    },
+    "16": {
+      "lpips": 0.051868076057483746,
+      "flolpips": 0.07500480028053667
+    }
+  },
+  "target_id": "GIMM-VFI-R-P",
+  "target_revision": "07c4793d00b2850c2b9354fe631538bae090982f547c51f5651a1236525f029e",
+  "target_prediction_manifest_sha256": "377f66f4bce02c2beecb8d3eaf59c769cc24b43acc10e489417c1a719e76134c"
+}

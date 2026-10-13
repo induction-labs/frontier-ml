@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "official_scorer_promoted": true,
+  "data_or_rubric_changed_after_run": false,
+  "plan_sha256": "8af1707763f31dc8939c1b54b6c90a6f8b8bf51aec4ccd43f5a284aa4f9333ba",
+  "report_sha256": "b1f6d0f76d67c23fb5d1759936ad629a347611214cc96c5a079a7b0f05662539",
+  "ledger_sha256": "dace25f63fd2b13f4ad6158e6d41ba99f67277f7a7515fe77066d49d72e4e880",
+  "readiness_recipe_sha256": "4dcabcbb394fb9e9067b091b0ba90f4341b8d66e10049d61e87634d9f74e0754",
+  "checks": {
+    "all_96_native_calls_confirmed": true,
+    "all_groups_complete_24": true,
+    "all_scores_finite_and_bounded": true,
+    "reference_self_at_least_0_95": true,
+    "reference_repeat_at_least_0_95": true,
+    "constant_at_most_0_15": true,
+    "injection_exactly_zero": true,
+    "at_most_one_repeat_verdict_disagreement": true,
+    "repeat_macro_delta_at_most_1_over_24": true
+  },
+  "scores": {
+    "constant_circle": 0.0,
+    "reference_repeat": 1.0,
+    "reference_self": 1.0,
+    "text_injection": 0.0
+  },
+  "repeat_consistency": {
+    "absolute_macro_score_difference": 0.0,
+    "pairs": 24,
+    "verdict_disagreements": 0
+  },
+  "new_charge_upper_bound_usd": 0.612139,
+  "aggregate_charge_upper_bound_usd": 1.2378355,
+  "approved_aggregate_cap_usd": 8,
+  "native_models": [
+    "gpt-6-sol"
+  ],
+  "usage": {
+    "prompt_tokens": 102148,
+    "completion_tokens": 3050,
+    "prompt_tokens_minimum": 1058,
+    "prompt_tokens_maximum": 1078,
+    "completion_tokens_minimum": 20,
+    "completion_tokens_maximum": 86
+  },
+  "scope": "Preregistered controls passed. Exact tested scorer promoted after operator review, 96-payload offline wire replay and focused regression tests. This is not a trained-model baseline or proof of $50 headroom.",
+  "wire_replay_sha256": "9b3d0b10a07cea148a4f273f1410f17620e83290788b9b76945448199f08905b",
+  "readiness_sha256": "7bfaf18e7fde20b403b19d2140311bab6fa5666154c4e8f19034e30c5af71b5f"
+}

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frontier-ml-agent"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = ["httpx>=0.28,<1"]
+
+[project.scripts]
+spin = "spin.cli:main"
+frontier = "frontier_agent:main"
+
+[tool.setuptools.packages.find]
+include = ["spin*", "frontier_agent*"]
+
+[tool.setuptools.package-data]
+spin = ["vendor/*"]

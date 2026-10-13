@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "retrieved": "2026-09-25",
+  "upstream_code": {
+    "repo": "https://github.com/IliasAarab/btzsc",
+    "revision": "4eac6a9561cb0a600ba65d94c62c3ce7f3e89547"
+  },
+  "files": [
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "agnews/test-00000-of-00001.parquet",
+      "bytes": 1280949,
+      "sha256": "b51a89341546018960b5724596ad3192f12d0649c5e45e91a06c0cee4253510f"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "amazonpolarity/test-00000-of-00001.parquet",
+      "bytes": 2974010,
+      "sha256": "69dd2b714829e7aa44c15eb3e26e8773b16c1076b3f7de2dd5abde03c26783e9"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "appreviews/test-00000-of-00001.parquet",
+      "bytes": 566905,
+      "sha256": "085aaf8b64b36619f8e2b243a42d16c0959170b70627209b180fce89adc72a09"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "banking77/test-00000-of-00001.parquet",
+      "bytes": 804682,
+      "sha256": "f42b14bddca9455891438e5e03ad2626e9de908eac0b65dbee4d5fa9eff8a776"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "biasframes_intent/test-00000-of-00001.parquet",
+      "bytes": 310428,
+      "sha256": "82a6da7eff047ac43fde1fdcc1d9b1b986cde08718d324f04af901607f585941"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "biasframes_offensive/test-00000-of-00001.parquet",
+      "bytes": 327567,
+      "sha256": "5b4df757e7241d8fd5456fe04545eea2bfc171b9462069ea369991c9b4cef10e"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "biasframes_sex/test-00000-of-00001.parquet",
+      "bytes": 379857,
+      "sha256": "7cb2a305f07378708941d792d858577eb552faded64958d91b6da3d7360c5057"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "capsotu/test-00000-of-00001.parquet",
+      "bytes": 723183,
+      "sha256": "33e1d9262a8923d35cb2e92c7b72f56a6caf2f55049165896e2b27d5934b39a2"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "emotiondair/test-00000-of-00001.parquet",
+      "bytes": 158115,
+      "sha256": "779970bb63817275a9d4004e4114ed00f2d86dc7670c36e13b4d018f85dc18ae"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "empathetic/test-00000-of-00001.parquet",
+      "bytes": 1092730,
+      "sha256": "c16923bdf05d2a2223ce9c8a696c8db1cfed83156e3b300eba5a547d6f42f078"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "financialphrasebank/test-00000-of-00001.parquet",
+      "bytes": 65448,
+      "sha256": "af946f94e5dc2f5479ae8da33b70624a31f66e28e02d98d9426d399e6195401a"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "imdb/test-00000-of-00001.parquet",
+      "bytes": 8559151,
+      "sha256": "5f2e538b4c3fe71543ba661bdde6dd0c9b07e12cab5da3f170a1e254e61f237e"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "manifesto/test-00000-of-00001.parquet",
+      "bytes": 8569698,
+      "sha256": "78169ff647e0218ef3959c7837a53c3e1e1b65731efdeb22752a1da31ae02a38"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "massive/test-00000-of-00001.parquet",
+      "bytes": 558077,
+      "sha256": "ad109e13b5204ca4b80545d15d9f81167516b1e4ebd834f9d8e870039c9b8b96"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "rottentomatoes/test-00000-of-00001.parquet",
+      "bytes": 95622,
+      "sha256": "e611f582e7357ea5a1ae5bd19e6eef0d7f7bbf233aad3c4c7e4800fbee163945"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "trueteacher/test-00000-of-00001.parquet",
+      "bytes": 6972936,
+      "sha256": "5e84c9d12755f2de3c40bf2e24b321f161db126bba12d0a6ba19b2da6587af46"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "wikitoxic_insult/test-00000-of-00001.parquet",
+      "bytes": 1724127,
+      "sha256": "16701455c8c71451ba98a7ffc9b26af8d0a0a2d34da7c1b30e78d598cb60cda3"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "wikitoxic_obscene/test-00000-of-00001.parquet",
+      "bytes": 1847410,
+      "sha256": "733d7dd830d2fbb30c7b1f2261f68029f6889d2196349eb728350ea46a074298"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "wikitoxic_threat/test-00000-of-00001.parquet",
+      "bytes": 1332140,
+      "sha256": "f088d3cd21c895a7d27cbacf901c1873cb5aca21576ff345d05c43f22ce0ac6a"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "wikitoxic_toxicaggregated/test-00000-of-00001.parquet",
+      "bytes": 2024344,
+      "sha256": "bc706516c9f218e57de4e418691fdfd956cb0baa34574811bfdb692bf28e1b5f"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "yahootopics/test-00000-of-00001.parquet",
+      "bytes": 19108728,
+      "sha256": "c51a3f3de236cc897f5328c39c0946455d82c7465ffb4d3b0ad52b83d56e9b50"
+    },
+    {
+      "repo": "btzsc/btzsc",
+      "revision": "fef2a2ac62b69c58670047dddf045c53d7c3cb5e",
+      "file": "yelpreviews/test-00000-of-00001.parquet",
+      "bytes": 4505433,
+      "sha256": "f640df1fc45beccaa5f7c4a76419530bd6b7dc569200302469e006f34f738248"
+    },
+    {
+      "repo": "fancyzhx/dbpedia_14",
+      "revision": "9abd46cf7fc8b4c64290f26993c540b92aa145ac",
+      "file": "dbpedia_14/test-00000-of-00001.parquet",
+      "bytes": 13272475,
+      "sha256": "05fed41640e97f93ffd442757f6a84170348cf0c7500ecbda9e95ddcd928c631"
+    }
+  ],
+  "licenses": {
+    "btzsc/btzsc": "No umbrella license declared in pinned Hub card; underlying sources have separate terms. Publication audit pending.",
+    "fancyzhx/dbpedia_14": "CC-BY-SA-3.0"
+  }
+}

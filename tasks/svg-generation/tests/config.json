@@ -1,0 +1,14 @@
+{
+  "concurrency": 8,
+  "inference_timeout_seconds": 10800,
+  "require_h100": true,
+  "expected_samples": 254,
+  "judge_model": "gpt-6-sol",
+  "judge_timeout_seconds": 180,
+  "startup_timeout_seconds": 900,
+  "verifier_lifetime_seconds": 13500,
+  "selfcheck_timeout_seconds": 1500,
+  "grading_images": {
+    "inference": "/tests/images/inference"
+  }
+}

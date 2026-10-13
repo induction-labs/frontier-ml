@@ -1,0 +1,58 @@
+summary: Scientific figure reconstruction
+title: Reconstruct scientific figures as editable TikZ code
+modality: Image
+prompt: |
+  Train a vision-language model that takes an image of a scientific figure and writes TikZ/LaTeX code to recreate it. I have provided 50 example figures with reference code from SciTikZ-230K.
+
+  You can train on these and the rest of SciTikZ-230K, but don't use SciTikZ-Bench at all. The model itself has to write the TikZ: no embedding the input image, pixel tracing, classical OCR or looking up stored answers. You can start from any pretrained base model, as long as it isn't a specialist TikZ model (e.g., you may not start from JackieLin0123/SciTikZer-8B).
+
+  Write a script `serve.sh` which serves the model through an OpenAI-style `POST /v1/chat/completions` endpoint. It takes a figure image and returns a complete LaTeX document in a ```latex block. Run offline on one H100, ready within 300 seconds, and finish all 611 test figures within 2 hours.
+
+  Optimize how often the output compiles and how closely the rendered figure and code match the reference.
+description: >-
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine.
+  Do not use SciTikZ-Bench or any mirror of it for anything; SciTikZ-230K is fine.
+interface: >-
+  POST /v1/chat/completions with model=submission, temperature=0, max_tokens=16384 and one user message holding a PNG image_url and the text prompt from validate.py.
+  Return the LaTeX document in choices[0].message.content inside a closed ```latex fence; only the first fence is scored, and responses over 64,000 characters fail that figure.
+evaluation: >-
+  All 611 test figures must finish generating within 7,200 seconds at 16 concurrent requests, or the run fails.
+  Score: compilation rate × geometric mean of SigLIP, CLIP, exp(-LPIPS/0.5), SSIM, 1-DreamSim, exp(-TED/0.4) and CrystalBLEU.
+  Output is compiled with pdfLaTeX (30 seconds, no shell escape or external files) and only the first page is scored.
+  A request that fails after the shared retries, times out or answers in an undocumented shape is scored as an
+  empty answer: it does not compile, and its code metrics are the empty program's.
+  Metric details, render size limits and local setup are in /task/public/SCHEMA.md.
+metric: compilation_times_geomean_paper_metrics
+concurrency: 16
+timeout: 10800
+artifacts: >-
+  Record your starting open-weights checkpoint as base_model and its immutable revision as base_revision
+  in architecture.json. Keep the download scripts or manifests showing where your training data came from.
+review: true
+heldout: true
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: scitikz
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 611
+verifier:
+  base_dockerfile: scorer/Dockerfile
+  resources:
+    cpus: 8
+    memory_mb: 65536
+    storage_mb: 204800
+    gpus: 1
+    gpu_types: [H100]
+  config:
+    inference_timeout_seconds: 7200
+    scoring_timeout_seconds: 3600
+    verifier_lifetime_seconds: 12600
+    render_workers: 4
+starting_artifacts: []
+viewer:
+  metric_label: Compilation × geometric mean of seven paper metrics
+  gates: ["611 generations within 2 hours", "editable neural reconstruction"]
+  datasets:
+  - {label: Scientific figures, title: id, category: level, images: [image], texts: [code], validation: public/validation.jsonl,
+     heldout: {path: private/test.jsonl, images: []}}

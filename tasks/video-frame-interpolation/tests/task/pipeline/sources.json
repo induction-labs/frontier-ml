@@ -1,0 +1,34 @@
+{
+  "schema_version": 2,
+  "selected_on": "2026-09-29",
+  "primary_benchmark": "snu-film-arb",
+  "protocol": {
+    "paper": "https://arxiv.org/abs/2407.08680",
+    "repo": "https://github.com/GSeanCDAT/GIMM-VFI",
+    "inspected_ref": "main",
+    "revision": null,
+    "pin_status": "Resolve and snapshot an immutable commit with fetch-protocol before preparing media.",
+    "files": ["src/SNU_FILM_arb.py", "scripts/bm_SNU_FILM_arb.sh"],
+    "anchor_rule": "First and third paths of each official list row; normalized endpoint times 0 and 1.",
+    "target_rule": "Every consecutive integer source frame between endpoints, at i/factor for i=1..factor-1.",
+    "resolution": "native RGB; no resize or spatial crop",
+    "context": "Two endpoints only, independently for each interval; no visual context across requests.",
+    "scoring": "Balanced LPIPS-Alex v0.1 / sequence FloLPIPS with diagnostic RGB PSNR; see ../METRICS.md. Measured calibration is pending; not a reproduction of published scores."
+  },
+  "dataset": {
+    "name": "snu-film-arb",
+    "homepage": "https://myungsub.github.io/CAIN/",
+    "download_url": "https://www.dropbox.com/s/32wpcpt5izkhoh8/snufilm-test.zip?dl=1",
+    "artifact": "snufilm-test.zip (all RGB frames, not selected triplets), plus original test-medium/hard/extreme.txt lists",
+    "archive_sha256": null,
+    "lists": {
+      "medium": {"file": "test-medium.txt", "factor": 4, "expected_rows": 310},
+      "hard": {"file": "test-hard.txt", "factor": 8, "expected_rows": 310},
+      "extreme": {"file": "test-extreme.txt", "factor": 16, "expected_rows": 310}
+    },
+    "split_unit": "original recording across all subclips, intervals, and factors; explicit operator group map required",
+    "license": "Unresolved for dataset media; the CAIN code license does not establish rights to GoPro/YouTube footage.",
+    "redistribution_cleared": false
+  },
+  "secondary_benchmarks": "Deferred; X-TEST can be added later as a separate stress test, not mixed into the primary set."
+}

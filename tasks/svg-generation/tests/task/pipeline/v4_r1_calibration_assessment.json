@@ -1,0 +1,50 @@
+{
+  "aggregate_charge_upper_bound_usd": 1.8569705,
+  "checks": {
+    "all_96_native_calls_confirmed": true,
+    "all_groups_complete_24": true,
+    "all_scores_finite_and_bounded": true,
+    "at_most_one_repeat_verdict_disagreement": true,
+    "constant_at_most_0_15": true,
+    "injection_exactly_zero": true,
+    "reference_repeat_at_least_0_95": true,
+    "reference_self_at_least_0_95": true,
+    "repeat_macro_delta_at_most_1_over_24": true
+  },
+  "native_models": [
+    "gpt-6-sol"
+  ],
+  "new_charge_upper_bound_usd": 0.619135,
+  "repeat_consistency": {
+    "absolute_macro_score_difference": 0.0,
+    "pairs": 24,
+    "verdict_disagreements": 0
+  },
+  "run_cap_usd": 5.0,
+  "scores": {
+    "constant_circle": 0.0,
+    "reference_repeat": 1.0,
+    "reference_self": 1.0,
+    "text_injection": 0.0
+  },
+  "status": "passed",
+  "usage": {
+    "completion_tokens": 3110,
+    "completion_tokens_maximum": 82,
+    "completion_tokens_minimum": 20,
+    "prompt_tokens": 103240,
+    "prompt_tokens_maximum": 1095,
+    "prompt_tokens_minimum": 1067
+  },
+  "official_scorer_promoted": true,
+  "data_or_rubric_changed_after_run": false,
+  "plan_sha256": "992a9e69c01c60014dc0caf5417eb5c1ec637a7a82c017e76f670206053c1b45",
+  "report_sha256": "a9a4c97c8a0fbbb8506b83ffe11e0535276009371f094909b09cce75d2567326",
+  "wire_replay_sha256": "dcb71fbb77773531af3755ba6cb5a40eff26ae4962479ec89ab456e6e135afde",
+  "ledger_sha256": "4d7b5cd4faa73364dd50eb4192ab27aedd261fff6c3d6fccdc676ef3c511d4e1",
+  "readiness_recipe_sha256": "4dcabcbb394fb9e9067b091b0ba90f4341b8d66e10049d61e87634d9f74e0754",
+  "readiness_sha256": "4ef8b0bf5682ead237f707c568e3d84406cf6062ffb7810fc568943b6f785e87",
+  "renderer": "rsvg-convert version 2.54.7",
+  "renderer_image_id": "sha256:0da16852e69dd2aec24078571b82b62a0190d1c9ed81b4e80e0dea118633bc87",
+  "scope": "Preregistered controls passed for the exact v4 scorer bytes. Not a trained-model baseline or headroom claim."
+}

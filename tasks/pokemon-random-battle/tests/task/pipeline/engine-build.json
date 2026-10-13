@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "source_url": "https://files.pythonhosted.org/packages/cf/69/47d572f526943c519927acff95685bffa1aba7024f8433bc1924d7941ae2/poke_engine-0.0.48.tar.gz",
+  "source_sha256": "070010686f2aedff11e25137e696e301ccd80fd57c805d255464067fc905ca12",
+  "rust": "1.89.0",
+  "maturin": "1.9.4",
+  "base_image": "python:3.12-slim-bookworm",
+  "cargo_locked": true,
+  "rustflags": "--remap-path-prefix=<build-directory>=/build",
+  "features": [
+    "poke-engine/terastallization"
+  ],
+  "default_features": false,
+  "wheel": "poke_engine-0.0.48-cp312-cp312-linux_x86_64.whl",
+  "wheel_sha256": "b91209b2738c06dc14c7b37cf592574a6262bc4001af6349aee3323d35481747",
+  "wheel_bytes": 3654709,
+  "smoke_test": "native serialization and MCTS with Tera actions",
+  "cargo_lock_sha256": "26032d8b855cce6c80722309e27a612529209cfbb16d77983b3905ff1c17276c"
+}

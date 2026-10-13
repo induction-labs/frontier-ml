@@ -1,0 +1,53 @@
+summary: Computer inverse dynamics modeling
+title: Infer the keyboard and mouse actions behind a screen recording, so unlabeled computer-use video can train agents
+modality: Video
+shipped_examples_free: true
+prompt: |
+  Train a model that infers keyboard and mouse actions from five-second screen recordings. I have provided one labeled example clip.
+
+  The test clips come from `p-doom/idm-eval` on Hugging Face. Don't download, look at or train on its clips or labels, or copies of them. The example clip is from there too; you may use that one clip, but no other clip from it. You can start from any pretrained base model, as long as it isn't a specialist IDM model (e.g., you may not start from p-doom/idm).
+
+  Write a script `serve.sh` which serves the model. It should have a `POST /actions` endpoint which takes an MP4 and returns the actions it sees, labeled by frame. It should run offline on one H100, and be ready within 300 seconds.
+
+  Optimize action F1, micro-averaged over key presses, clicks, mouse moves and scrolls.
+description: >-
+  The test clips come from `p-doom/idm-eval` on Hugging Face. Don't download, look at or train on its clips or labels,
+  or copies of them. The example clip is from there too; you may use that one clip, but no other clip from it. You can start from any pretrained
+  base model, as long as it isn't a specialist IDM model (e.g., you may not start from p-doom/idm).
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine. However, you are free to use the validation data samples I have provided however you want.
+interface: >-
+  POST /actions receives multipart/form-data with `video` (MP4) and `id` fields; `id` is the clip's position
+  in the batch (`clip-000`, `clip-001`, ...) and says nothing about the clip. Return a JSON array with
+  one {frame, type, details} object per action, using the frame labels, action types and units in
+  /task/public/SCHEMA.md. Some clips decode to 26 frames at 5 FPS; trim output to F00-F24.
+  Clips are sent one at a time: each request must answer within 300 seconds, and the whole evaluation
+  within 3600 seconds.
+evaluation: >-
+  Action F1, micro-averaged over all four action types. /task/actions.py has the exact matching rules.
+  Each scroll is labelled once, on the frame it happened, so a scroll reported twice is a false positive.
+  Trusted code review checks training-data provenance, permitted initialization and the served model.
+metric: idm_action_f1
+concurrency: 1
+timeout: 3600
+artifacts: None.
+review: true
+heldout: true
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: idm-training
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 43
+verifier:
+  base_image: python:3.12-slim
+  config: {request_timeout_seconds: 300, selfcheck_timeout_seconds: 1200}
+
+starting_artifacts: []
+
+viewer:
+  order: 6
+  metric_label: Micro action F1
+  gates: [code review]
+  datasets:
+  - {key: idm, label: IDM clips, kind: idm, category_label: Clip type, media: [video],
+     validation: public/validation.jsonl, heldout: private/test.jsonl}

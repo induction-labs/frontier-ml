@@ -1,0 +1,8 @@
+jobs/
+spin-data/
+.venv/
+__pycache__/
+*.egg-info/
+.env
+.env.*
+/tests/

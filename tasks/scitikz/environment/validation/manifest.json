@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "files": {
+    "CONTRACT.md": "125279cc187f1e3dc8d52a9784bb385158e78a7c0b57a05873d728f42a5e5eb5",
+    "frontier_ml/__init__.py": "8c5828f5a91649c4926951e6fe19a71718f665266e3ecff7e1d861bc2a661729",
+    "frontier_ml/validation/__init__.py": "8c5828f5a91649c4926951e6fe19a71718f665266e3ecff7e1d861bc2a661729",
+    "frontier_ml/validation/cli.py": "97a2c4b66b0c62e3ebe57b36c2cf2dd7f8e4ee5aa6a2e76be6881808f89deb62",
+    "frontier_ml/validation/errors.py": "a21ca2e8bd30f78627314bd1c9d5a71ac50ea51f2763c31bbb9fb389a5ded4e7",
+    "frontier_ml/validation/evaluation.py": "3e4c7354f89c9ad461103413aa0c0a12b40e7e2c8d19c8fe72db4f553fd88dc7",
+    "frontier_ml/validation/http.py": "da297d69c2b2262b7bf20649e14000d24d17eac90598ed11270470ed2b467243",
+    "frontier_ml/validation/progress.py": "1e76d8d09b46253adeb7df226eed4dc6f0b0b360b59f4fbd574dfb210bdfd039",
+    "scitikz_eed.py": "0823eace0e35782a1136094d47120e91bfd1d018b7cd4c260ddc20ae790400fc",
+    "scitikz_metric.py": "989bab0768654dcb7fd057b777a6a5d142b850d242fa9635297588fc3fd0d936",
+    "scitikz_models.py": "043a94f1780a383f368e40726841d4583d8b5fa2229385f4ca280c1f0ef9f326",
+    "scitikz_render.py": "a7a3f3809aac3f722670ee5c6b2ac253dc1377bc876b0f11ea1a8b987b510806",
+    "scitikz_worker.py": "510603eff06b34162d49c966ac8be338f2733eb48c467c2e962286f0c83aab28",
+    "validate.py": "7880633fff02960d23d3c26add04516c2bc335048e4f10071924ed9c40906548"
+  }
+}

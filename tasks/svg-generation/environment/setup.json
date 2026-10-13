@@ -1,0 +1,32 @@
+{
+  "task": "svg-generation",
+  "artifacts": [
+    {
+      "repo": "openai/gpt-oss-20b",
+      "revision": "6cee5e81ee83917806bbde320786a8fb61efebee",
+      "repo_type": "model",
+      "prefix": "",
+      "exclude": [
+        "original/*",
+        "metal/*"
+      ],
+      "to": "gpt-oss-20b"
+    },
+    {
+      "repo": "inductionlabs/frontier-ml-tasks",
+      "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+      "repo_type": "dataset",
+      "prefix": "svg-generation/artifacts",
+      "exclude": [],
+      "to": "",
+      "optional": true
+    }
+  ],
+  "public": {
+    "repo": "inductionlabs/frontier-ml-tasks",
+    "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+    "repo_type": "dataset",
+    "prefix": "svg-generation/public",
+    "exclude": []
+  }
+}

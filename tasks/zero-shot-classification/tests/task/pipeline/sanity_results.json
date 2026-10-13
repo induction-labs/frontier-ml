@@ -1,0 +1,58 @@
+{
+  "protocol": "zero-shot-classification-v2",
+  "throughput_calibrated": false,
+  "trained_model_baseline": null,
+  "note": "Sanity baselines only. Uniform and confident-first have no trained classifier; oracle reads gold labels. All fail submission compliance.",
+  "validation": {
+    "uniform": {
+      "score": 0.08290674592429874,
+      "samples": 500,
+      "datasets": 1,
+      "macro_f1": 0.0839622716247238,
+      "ece": 0.012571428571428185,
+      "accuracy": 0.084
+    },
+    "confident_first": {
+      "score": 0.007052830816476796,
+      "samples": 500,
+      "datasets": 1,
+      "macro_f1": 0.0839622716247238,
+      "ece": 0.916,
+      "accuracy": 0.084
+    },
+    "oracle": {
+      "score": 1.0,
+      "samples": 500,
+      "datasets": 1,
+      "macro_f1": 1.0,
+      "ece": 0.0,
+      "accuracy": 1.0
+    }
+  },
+  "heldout": {
+    "uniform": {
+      "score": 0.3211624936033897,
+      "samples": 4400,
+      "datasets": 22,
+      "macro_f1": 0.3318167888996305,
+      "ece": 0.024932145302908004,
+      "accuracy": 0.35204545454545455
+    },
+    "confident_first": {
+      "score": 0.16277310673134981,
+      "samples": 4400,
+      "datasets": 22,
+      "macro_f1": 0.3318167888996305,
+      "ece": 0.6479545454545454,
+      "accuracy": 0.35204545454545455
+    },
+    "oracle": {
+      "score": 1.0,
+      "samples": 4400,
+      "datasets": 22,
+      "macro_f1": 1.0,
+      "ece": 0.0,
+      "accuracy": 1.0
+    }
+  }
+}

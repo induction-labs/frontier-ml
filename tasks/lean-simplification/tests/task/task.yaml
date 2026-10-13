@@ -1,0 +1,59 @@
+summary: Lean proof simplification
+title: Simplify Lean 4 proofs
+modality: Text
+prompt: |
+  Build a system that takes a Lean 4 theorem and its proof and returns a shorter proof of the same theorem. Proofs are checked with Lean v4.15.0 and its matching Mathlib, and you can run Lean at inference time too.
+
+  Write a script `serve.sh` which serves it at a `POST /simplify` endpoint. It should run offline on one H100, be ready within 300 seconds, and finish every batch of 8 concurrent requests within 60 seconds.
+
+  Optimize the average relative reduction in proof tokens; proofs that don't check count as zero.
+description: >-
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine.
+  Proofs must check within 200000 heartbeats; the Lean header, disallowed syntax and other limits are in
+  /task/public/SCHEMA.md.
+  Each returned proof must not come from a stored table or retrieval index of proofs keyed by theorem. Retrieving
+  related lemmas or examples to condition a model is fine; retrieving a proof of the requested theorem is not.
+interface: >-
+  POST /simplify with {"statement": "(n : ℕ) : n = n", "proof": "by rfl"}, where statement is the
+  theorem signature between its name and :=. Return exactly {"proof": "by rfl"}, at most 65,536 UTF-8 bytes.
+evaluation: >-
+  Each proof scores 1 - new tokens / original tokens, or zero if it doesn't check or isn't shorter; your
+  score is the mean. Comments, whitespace and a leading `by` don't count as tokens; the exact counter is
+  /task/simplification_metric.py. Requests come in batches of up to 8 proofs, with 60 seconds for every
+  batch; a late batch fails the run.
+metric: mean_valid_token_reduction
+concurrency: 8
+timeout: 5400
+artifacts: >-
+  A reference Lean checker is in /artifacts/lean-checker/ (see checker/README.md); run it and pass
+  `--checker-url` to validate.py to get a score.
+  Record the checkpoint you started from in architecture.json as base_model and base_revision (an immutable commit), or "none" and "from-scratch" if you use no pretrained model. Keep your data download scripts and training logs with the submission: the review checks where your training data came from.
+review: true
+heldout: true
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: lean-simplification
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 354
+verifier:
+  base_dockerfile: checker/verifier.Dockerfile
+  resources:
+    cpus: 8
+    memory_mb: 40960
+  config:
+    verifier_lifetime_seconds: 5400
+    inference_timeout_seconds: 2700
+    batch_budget_seconds: 2700
+    proof_timeout_seconds: 60
+    preflight_timeout_seconds: 1800
+starting_artifacts: []
+
+viewer:
+  metric_label: Mean valid proof-token reduction
+  datasets:
+  - label: Lean proof simplification
+    title: id
+    texts: [statement, proof]
+    validation: public/validation.jsonl
+    heldout: private/test.jsonl

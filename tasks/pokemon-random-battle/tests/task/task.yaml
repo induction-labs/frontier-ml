@@ -1,0 +1,140 @@
+summary: Improve a Generation 9 Pokémon Random Battle bot
+title: Build a Pokémon Gen 9 Random Battle bot
+modality: Text
+prompt: |
+  Build a Pokémon battle bot for Generation 9 Random Battle singles. Pilot a randomly generated team of six, choosing moves, switches and Terastallization with incomplete information about the opponent. Research and choose your own approach. You may use existing bots, including unchanged Foul Play, improve them, or train your own policy.
+
+  Serve batched decisions offline through POST /act. Maximize battle wins across fixed held-out matchups against the pinned Foul Play opponent. Draws count as half a win.
+description: >-
+  Existing public bots and pretrained policies, including unchanged Foul Play, are
+  permitted submissions.  The pinned simulator uses
+  gen9randombattle and its upstream random-team generator, including its species
+  pool, sets and balancing levels. Use all six team members with one active at a
+  time and one Terastallization per battle. There is no team preview or choice of
+  opening lead. Opponent team members and sets remain hidden until revealed by
+  gameplay; exact HP, pending actions and RNG state remain private.
+  Use only the supplied observation
+  and public mechanics. Do not access private evaluation files, recognize fixed
+  test cases, or cache their answers. Include readable serving source, configuration
+  and provenance for reused code and models. If you train, include training code,
+  data provenance and readable logs. Export any model weights as safetensors;
+  a bot without learned weights does not need a checkpoint.
+interface: >-
+  POST /act with JSON {"observations": [observation, ...]}, at most 32 observations
+  and 8 MiB per request. Each observation contains format, player, turn, request
+  (own private Showdown request), public_log, legal_actions, and action_features.
+  Legal actions are single-Pokémon Showdown command strings; the parallel
+  numeric feature rows are optional convenience inputs derived solely from visible
+  information. Return exactly {"actions": [index, ...]} with one integer index into
+  each observation's legal_actions, in request order. No extra fields or omitted
+  actions. Treat requests as stateless; public_log contains the complete visible
+  history so far. Normal turns, forced switches and simulator-updated choices use
+  this same endpoint. An unavailable choice that reveals new information produces
+  an updated observation; accepted opponent choices remain locked.
+evaluation: >-
+  32 public games with fresh random teams and battle seeds on every validation run;
+  3000 final games exclusively against
+  Foul Play using the same stored teams and battle seeds for every submission.
+  The 1500 matchups are generated once, each played from both candidate sides.
+  The pinned opponent uses its upstream default
+  search settings: 100 ms per sampled state, one search process and one thread.
+  Sixteen trusted CPU workers run up to 32 active games, replacing completed games
+  immediately. The two policies decide concurrently from the same pre-turn views.
+  For Revival Blessing, the adapter compares legal revived-team afterstates using
+  the same native search, dividing that search budget across revival targets.
+  The adapter applies upstream's four-move truncation before computing native move
+  indices, preventing invalid fifth-slot indices during inference.
+  Speed inference skips selected switches, matching upstream's Choice Scarf guard.
+  Intermediate form changes absent from the final request defer own-stat refresh;
+  the same Pokémon is identified by its player/nickname, and exact final stats
+  are refreshed before search. Opponent information remains player-visible only.
+  Foul Play's search is stochastic, so fixed matchups do not imply identical outcomes.
+  Pair matchups with team assignments
+  swapped and balance player seats. Raw battle points are win 1, natural tie 0.5,
+  loss 0, averaged over all 3000 games. If the Foul Play opponent makes an illegal choice, it forfeits that
+  game, which counts as a candidate win. Final reward is
+  max(0, min(1, (mean_battle_points - 0.5) / 0.5)): 50% or below earns 0,
+  75% earns 0.5, and 100% earns 1. The 50% reference is fixed, not remeasured
+  per submission; an unchanged Foul Play submission receives its measured result
+  on this same scale. A game reaching 200 turns or 512 decision rounds scores 0 for
+  the candidate. Your server's total response time, summed over all requests on the trusted in-sandbox move timer,
+  must stay within 18,000 seconds; the opponent's search and the simulation do not count.
+  A 12-hour wall-clock limit only stops a stalled evaluation. Every complete
+  POST /act response must arrive within 1 second on the H100, including batches of
+  up to 32 moves. A trusted local HTTP client times the entire response, including
+  feature processing, search and inference; Modal control-plane transport is excluded
+  from this move deadline. A response over 1 second forfeits every game in that batch: each
+  counts as a loss, the late answer is discarded and the evaluation goes on with the other games.
+  Its time still counts toward the 18,000-second total. The grader does not wait for a late
+  answer, so a server still working on it when the next batch arrives can make that batch late too.
+  Each request including that transport is separately
+  capped at 60 seconds within the full evaluation budget. A request that fails in transport (a grading-sandbox
+  command failure or timeout, or a dropped connection) is retried once within those 60 seconds; a response over the
+  1-second move deadline or an invalid response is never retried. Invalid/missing actions,
+  failed review, startup failure or any other timeout give score zero for the whole run.
+  Public validation reports raw diagnostic battle points; final grading applies
+  the reward normalization and compliance review. Public validation defaults to two
+  opponent workers and sequential policy decisions to avoid contention on a small
+  shared VM. Its --move-seconds option is for quality debugging only and cannot
+  certify or relax the final 1-second deadline. No live ladder or external account is involved.
+metric: mean_battle_points
+concurrency: 1
+request_failure_policy: fail_run
+timeout: 43200
+artifacts: >-
+  No starting checkpoint is prescribed. Existing public code and weights are allowed.
+  /task/public/ contains the pinned simulator runtime,
+  Foul Play source/runtime data, SCHEMA.md and a small training/server example.
+  Install the validation opponent's dependencies with public/setup_foul_play.sh
+  using Python 3.12; point FOUL_PLAY_PYTHON at that environment's Python.
+  Linux x86-64 uses the supplied engine wheel; other platforms require Rust >=1.89.
+  The trusted verifier preinstalls these dependencies. If your submission uses
+  poke-engine, copy the exact organizer-built CPython 3.12 Linux x86-64 wheel from
+  /task/public/engine/ and install it offline at startup. This exact wheel is a
+  task-specific audited dependency, in addition to unmodified published wheels
+  permitted by the shared contract. Candidate-built native wheels are not covered
+  by this audit. The corresponding upstream source and build receipt are alongside it.
+  A bot without a learned checkpoint may declare base_model="none" and
+  base_revision="none" in architecture.json, with an empty training_evidence_files
+  list if no training was performed. List reused code repositories and revisions
+  separately and include the actual serving source in inference_evidence_files.
+  /task/pokemon_random_battle_teams.py supplies development seeds for the upstream
+  random-team generator.
+  The same runtime can generate additional development
+  battles for imitation learning or self-play. Read the public schema before
+  implementing an observation encoder.
+review: true
+heldout: true
+system_packages: [nodejs]
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: pokemon-random-battle
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 3000
+score_normalization:
+  aggregate: single
+  components:
+  - {name: mean_battle_points, path: score, floor: 0.5, ceiling: 1.0}
+  provenance: >-
+    User-selected anchors: 0 = 50% mean battle points against Foul Play;
+    1 = 100%. Draws count as half a win. The floor is a fixed reference,
+    not an empirically calibrated self-play result or a promised minimum
+    for an unchanged bot (2026-09-28).
+verifier:
+  base_dockerfile: verifier.Dockerfile
+  resources:
+    cpus: 16
+  config:
+    evaluation_sha256: a131718ef14b4a75d71f21d62952deb6e661c18238eb659b44d93e5d77fa03b9
+starting_artifacts: []
+
+viewer:
+  metric_label: Reward above 50% battle points against Foul Play
+  gates: [policy provenance and permitted information, moves within 1 second (a late batch forfeits its games), 3000 games within 18,000 s of server time]
+  datasets:
+  - label: Gen 9 Random Battle matchups
+    title: id
+    texts: [opponent, seat, pair]
+    validation: public/validation.jsonl
+    heldout: private/test.jsonl

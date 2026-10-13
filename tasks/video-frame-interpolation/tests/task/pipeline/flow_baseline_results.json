@@ -1,0 +1,179 @@
+{
+  "status": "active_zero_reference",
+  "production_calibration_activated": true,
+  "run_id": "62ad35e881a74d7e822f0920a0009f21",
+  "modal_environment": "main",
+  "modal_volume": "frontier-vfi-baseline",
+  "modal_app": "https://modal.com/apps/induction/main/ap-tLmICzZZWrRoxdYwxDb4SF",
+  "remote_artifacts": "62ad35e881a74d7e822f0920a0009f21/artifacts",
+  "remote_source": "62ad35e881a74d7e822f0920a0009f21/source",
+  "model": {
+    "checkpoint": {
+      "bytes": 21106607,
+      "path": "raft_large_C_T_SKHT_V2-ff5fadd5.pth",
+      "sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+      "url": "https://download.pytorch.org/models/raft_large_C_T_SKHT_V2-ff5fadd5.pth"
+    },
+    "dependencies": {
+      "Pillow": "11.3.0",
+      "numpy": "1.26.4",
+      "torch": "2.5.1+cu118",
+      "torchvision": "0.20.1+cu118"
+    },
+    "model": "torchvision.raft_large",
+    "schema_version": 1,
+    "source": {
+      "path": "torchvision_raft_source.py",
+      "sha256": "16948b3d78acba0bb9473a7f0f95c2af4dfbb2705aa4c2747433ebc3d73708d9",
+      "url": "https://raw.githubusercontent.com/pytorch/vision/v0.20.1/torchvision/models/optical_flow/raft.py"
+    },
+    "task_time_training": false,
+    "upstream_training": {
+      "datasets": [
+        "FlyingChairs",
+        "FlyingThings3D",
+        "Sintel",
+        "KITTI",
+        "HD1K"
+      ],
+      "evidence": "https://raw.githubusercontent.com/pytorch/vision/v0.20.1/torchvision/models/optical_flow/raft.py",
+      "specialist_vfi_weights": false,
+      "task": "supervised optical flow"
+    },
+    "weights": "Raft_Large_Weights.C_T_SKHT_V2"
+  },
+  "variant": "uniform_splat",
+  "configuration": {
+    "confidence_floor": 0.001,
+    "consistency_absolute": 0.5,
+    "consistency_exponent_cap": 10.0,
+    "consistency_relative": 0.01,
+    "deterministic_algorithms": true,
+    "flow_updates": 20,
+    "max_flow_pixels": 921600,
+    "model": "torchvision.raft_large",
+    "photometric_scale": 5.0,
+    "precision": "float32",
+    "quantization": "clip_multiply_255_truncate",
+    "schema_version": 1,
+    "seed": 0,
+    "splat_epsilon": 1e-08,
+    "tf32": false,
+    "weights": "Raft_Large_Weights.C_T_SKHT_V2"
+  },
+  "code_sha256": {
+    "acquire.py": "5903fbfccf7832a41576972e6b558d6b9bb29d5da2a9f9a03b32dd7c3f1b937f",
+    "baseline.py": "dfac6560f71b4cd26c443746325e5da11c9118a553955176c46ebc5421e2dac9",
+    "config.json": "75c8403f418d23a352ff824f982e3fe860402e6a9caf80f911d395536eb6bc63",
+    "frozen-calibration.json": "b42729e168fd34c95bbbd3f742ff4217a3aa2b8213a4724445357285d9af64dc",
+    "requirements.txt": "c1dc035e03ca127434bd67966938b6d607bfa93703ac84f977670949e84f8dba",
+    "run_modal.py": "c34492cca5df80f66af78647135481ced8ce48e7114b63a3338e32bb1b3870fc",
+    "serve.sh": "f91320a0f048c839d32518a601a97d80c11576b0bbe53d96acc2698989184b8b",
+    "server.py": "d88341d7fd05d36229855bdc6812e7c9105e3afb4a0e96c1ee65c397ba0c2147",
+    "smoke.py": "cdd341bc8e0027b2c7d58d3bce5badb6d7eea6365233eac61abde9563e209360",
+    "vfi_protocol.py": "3e622db59e1a4d7130f685dc91693b2a50ab0565dced5b463d408348be4ce593"
+  },
+  "evaluation_selection": {
+    "method": "sha256-id-v1",
+    "per_factor": 90,
+    "seed": 0
+  },
+  "development_selection": {
+    "rule": "minimum mean public LPIPS/FloLPIPS error relative to linear control, balanced over factors",
+    "public_intervals": 3,
+    "public_ratios": {
+      "confidence_splat": 1.1078227599000712,
+      "uniform_splat": 1.0533713362124886
+    },
+    "frozen_before_private": true
+  },
+  "by_factor": {
+    "16": {
+      "flolpips": 0.12332129700759348,
+      "lpips": 0.08391549384169694,
+      "psnr": 27.546592794365065,
+      "samples": 90
+    },
+    "4": {
+      "flolpips": 0.05501670343283978,
+      "lpips": 0.04162831213325262,
+      "psnr": 34.06128699779175,
+      "samples": 90
+    },
+    "8": {
+      "flolpips": 0.07831669894092354,
+      "lpips": 0.05581610326559121,
+      "psnr": 31.249343023305286,
+      "samples": 90
+    }
+  },
+  "generation_seconds": 147.799531253,
+  "startup_seconds": 3.76840682000001,
+  "metric_seconds": 321.73304182599986,
+  "generated_frames": 2250,
+  "gpu": {
+    "memory_mib": 81079,
+    "name": "NVIDIA H100 80GB HBM3"
+  },
+  "training": false,
+  "specialist_vfi_weights": false,
+  "gimm_relative_error_reduction": {
+    "4": {
+      "lpips": 0.5323262772806081,
+      "flolpips": 0.5551511582978597
+    },
+    "8": {
+      "lpips": 0.44657387704053175,
+      "flolpips": 0.4888587647374797
+    },
+    "16": {
+      "lpips": 0.38190108068325623,
+      "flolpips": 0.391793614723998
+    }
+  },
+  "limitations": [
+    "Initial RAFT-based reference; not established as the strongest permitted training-free method.",
+    "Variant selection used only three shipped intervals from one source clip.",
+    "Timing is sequential loopback HTTP with raw export, not Harbor cross-container transport.",
+    "The score-1 GIMM quality target is measured; attaining it with a permitted $50-trained system remains unproven."
+  ],
+  "active_calibration": {
+    "path": "../calibration.json",
+    "sha256": "8c72e23cb352711cfddff07fea74a4935a99f753ea7b498dbd83a999278630ab",
+    "receipt": "anchor_calibration_results.json",
+    "metric_code_sha256": "e162b3aeb5a3249d1409d88c85d2843d5be52aa6e62148b094a67405d3fee346"
+  },
+  "original_measurement_calibration": {
+    "protocol": "vfi-lpips-alex01-flolpips-sequence-v1",
+    "evaluation_sha256": "375276285d8168e061004e5873daeecbb7e8db7c6e8354ef72d50ad47496e236",
+    "metric_bundle_sha256": "98e13949365e1541fbec7972317356abb77c00956c7126d0d81dd99f045d5fdd",
+    "metric_code_sha256": "14691afed88f76ded927715c900289333013f7286b6d427729ed4f3d2bf585ff",
+    "runtime": {
+      "torch": "2.5.1",
+      "numpy": "1.26.4",
+      "pillow": "11.3.0",
+      "device": "cuda",
+      "precision": "float32",
+      "threads": 8,
+      "torch_build": "2.5.1+cu118",
+      "cuda": "11.8"
+    },
+    "prediction_manifest_sha256": "e252216cbae441bc442f433f0643c5416a0ae95c5a32e90d25634ff5095f9478",
+    "baseline": {
+      "4": {
+        "lpips": 0.04162831213325262,
+        "flolpips": 0.05501670343283978
+      },
+      "8": {
+        "lpips": 0.05581610326559121,
+        "flolpips": 0.07831669894092354
+      },
+      "16": {
+        "lpips": 0.08391549384169694,
+        "flolpips": 0.12332129700759348
+      }
+    },
+    "baseline_id": "permitted-standalone-RAFT-deterministic-synthesis",
+    "baseline_revision": "a49e8861e793942150e6221de5293592a7c349d72edff2f34f7f8e20b8ea7737"
+  }
+}

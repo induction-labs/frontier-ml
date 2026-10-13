@@ -1,0 +1,79 @@
+summary: Adding vision to a ternary language model
+title: Add vision to a ternary language model
+modality: Image
+shipped_examples_free: true
+prompt: |
+  Add a vision encoder and connector to Maple, the ternary language model in `/artifacts/maple/`. You can use a pretrained encoder and fine-tune Maple, but keep its language network ternary. Don't add another language model or an image-to-text front end.
+
+  Write a script `serve.sh` which serves the model through an OpenAI-compatible `POST /v1/chat/completions` endpoint. The server should work offline on one H100 and be ready within 300 seconds.
+
+  Optimize accuracy on college-level questions about images.
+description: >-
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine. However, you are free to use the validation data samples I have provided however you want.
+  Don't use MMMU or re-releases of it like MMMU-Pro at all, even for evaluation.
+  The one exception is the examples in /task/public/.
+interface: >-
+  OpenAI-compatible POST /v1/chat/completions with model=submission and text plus image_url message content;
+  images are base64 data URLs, up to seven per question. Reply with only the option letter for multiple-choice
+  questions, or a short final answer for open questions.
+evaluation: >-
+  Accuracy over the held-out questions, every one of them decided by gpt-6-luna as a judge. See validate.py 
+  for more details.
+  The whole evaluation has to finish within an hour at 16 concurrent requests.
+metric: accuracy
+concurrency: 16
+timeout: 3600
+artifacts: >-
+  In /artifacts/maple/, weights/ has the starting checkpoint and sources/ has mlx-lm-deepgrove and llama.cpp
+  reference implementations, pinned in /task/public/STARTING_ARTIFACT.json. Use that file's model repo and
+  revision as base_model and base_revision. In your training evidence, record the datasets and splits you used.
+review: true
+heldout: true
+requires_env: [FRONTIER_JUDGE_API_KEY]
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: maple-vlm
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 900
+score_normalization:
+  aggregate: single
+  components:
+  - {name: accuracy, path: score, floor: 0.43777777777777777, ceiling: 1.0}
+  provenance: >-
+    0 = 0.4378 (394/900), text-only Maple with its own reasoning: the pinned checkpoint as
+    deepgrove/maple-preview-GGUF@f5466f91 (TQ2_0, F16 head), served by the pinned deepgrove-ai/llama.cpp@7e30f3ad
+    on H100s after dequantizing with the fork's llama-quantize to Q8_0 (head kept F16; its CUDA backend has no
+    ternary kernels), answering every held-out question with every image part removed from
+    validate.build_request's message and no system prompt; thinking sampled (temperature 0.6, top-k 20, top-p 0.95)
+    up to 8,192 tokens and then closed with "\n</think>\n\n"; multiple choice answered by one greedy token
+    restricted by a grammar to the option letters (388/847), open questions by Maple's greedy reply (at most 64
+    tokens; 6/53); every answer decided by the gpt-6-luna answer judge (answers.py) on 2026-10-07. The 8,192-token
+    answers come from 16,384-token traces cut at 8,192 tokens (210 of 900 closed by the budget). For comparison:
+    budgets 2,048 / 4,096 / 16,384 give 0.403 / 0.422 / 0.437; at 16,384 a system prompt saying the images are not
+    shown and to always commit gives 0.439 and one saying Maple can see the images 0.422; Maple's own free reply
+    instead of the restricted letter 0.329. With thinking off the same pipeline reproduces the previous anchor,
+    0.3478 (option-letter argmax, 313/900; 0 was 0.3489 = 314/900 through 2026-10-07, measured with
+    pipeline/text_only_floor.py). Public examples: 57/129 = 0.4419 at 8,192 tokens. Outputs, tools and report:
+    work/maple-floor/thinking-20261007/.
+    1 = all 900 correct.
+verifier:
+  base_image: python:3.12-slim
+  config:
+    judge_model: gpt-6-luna
+    judge_timeout_seconds: 120
+    selfcheck_timeout_seconds: 1200
+
+starting_artifacts:
+- repo: deepgrove/maple-preview
+  revision: ac1ddd79d2b5cb4406f5d2bebdf95406ce505a07
+  to: maple/weights
+  exclude: ["README.md", ".gitattributes", "assets/*"]
+
+viewer:
+  order: 2
+  metric_label: MMMU accuracy
+  gates: [ternary main network]
+  datasets:
+  - {key: mmmu, label: MMMU, kind: mmmu, category_label: Subject, media: [images],
+     validation: public/validation.jsonl, heldout: private/test.jsonl}

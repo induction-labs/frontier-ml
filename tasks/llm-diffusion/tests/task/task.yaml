@@ -1,0 +1,109 @@
+summary: AR to text diffusion model conversion
+title: Convert an autoregressive language model to text diffusion
+modality: Text
+prompt: |
+  Convert the MiniCPM5-2B checkpoint in `/artifacts/minicpm5-2b/` into a text diffusion model that actually generates by iteratively denoising tokens, not by left-to-right decoding.
+
+  Write a script `serve.sh` which serves it through an OpenAI-compatible chat endpoint. The server should run offline on one H100, be ready within 300 seconds, and generate over 450 tokens/second on a single stream.
+
+  Optimize the mean of its language and coding benchmark scores. Our eval setup lets the model reason before it answers, with up to 32,768 generated tokens per request.
+description: >-
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine.
+  That ban also covers eval-split prompts, rewrites of them and teacher-generated answers to them.
+  The examples in /task/public/benchmarks/ are for evaluation only.
+interface: >-
+  OpenAI-compatible POST /v1/chat/completions with model=submission, supporting a 40,960-token context (input plus
+  output). Only message.content is scored: return the model's reasoning in reasoning_content (for example with a
+  reasoning parser) or before the final answer in content.
+evaluation: >-
+  The score is the mean of accuracy/pass@1 across four benchmarks, including GPQA-Diamond and LCB v6, 
+  each normalized from random guessing (0) to the original model's performance (1).
+  The evaluation runs 4 identical copies of your server, each on its own H100, and sends requests to them round-robin.
+  Requests use max_tokens=32768 and temperature=1.0 and arrive up to 32 at a time at each copy; the speed gate below is
+  measured on one copy. A reply cut off at max_tokens
+  scores zero. A request with no reply within 3,600 seconds of being sent, including any time it waits behind other
+  requests on its copy, counts as failed and scores zero for its item; failed requests do not stop the evaluation.
+  Scoring stops 22 hours after its first request: requests not answered by then, including any not yet sent, score
+  zero for their items. The benchmarks are sent in the order GPQA-Diamond, MATH-500, MMLU-Pro, LCB v6.
+
+  For the speed gate, nine of the scored prompts, drawn at random for each evaluation, are sent one at a time
+  with max_tokens=1024 and temperature=1.0; the first is an untimed warm-up. Each of the other eight replies must
+  exceed 450 tokens/second, counting reasoning and answer tokens with the MiniCPM5-2B tokenizer over end-to-end
+  request time.
+metric: gpqa_math500_lcbv6_mmlupro_mean
+request_failure_policy: per_item
+concurrency: 32
+timeout: 82800
+artifacts: >-
+  Take architecture.json's base_model and base_revision from /task/public/STARTING_ARTIFACT.json.
+  In your training evidence, record the datasets, splits and data-generation recipes you used.
+review: true
+heldout: true
+requires_env: [FRONTIER_JUDGE_API_KEY]
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: llm-diffusion
+  evaluation_file: /tests/private/benchmarks/gpqa_diamond.csv
+score_normalization:
+  aggregate: mean
+  components:
+  - {name: gpqa_diamond, path: details.benchmarks.gpqa_diamond.score, floor: 0.25, ceiling: 0.6717171717171717}
+  - {name: math_500, path: details.benchmarks.math_500.score, floor: 0.0, ceiling: 0.98}
+  - {name: livecodebench_v6, path: details.benchmarks.livecodebench_v6.score, floor: 0.0, ceiling: 0.6483412322274882}
+  - {name: mmlu_pro, path: details.benchmarks.mmlu_pro.score, floor: 0.11114824263038549, ceiling: 0.6914285714285714}
+  provenance: >-
+    0 = chance: GPQA 1/4; MATH-500 and LiveCodeBench 0; MMLU-Pro 0.1111, the mean of 1/options over the 1,400
+    scored questions. 1 = the autoregressive openbmb/MiniCPM5-2B@12a3808 with its own chat template (thinking on)
+    and generation_config sampling defaults (top_p 0.95), served by SGLang 0.5.10, thinking up to 32,768 tokens at
+    temperature 1.0 and scored by the suite's scorers (one sample per item): GPQA 0.6717, MATH-500 0.98,
+    LiveCodeBench 0.6483, MMLU-Pro 0.6557, raw harmonic mean 0.7173 (model card: 70.2, 94.6, 69.1, 70.8). GPQA,
+    LiveCodeBench and MMLU-Pro were measured 2026-09-27; MATH-500 was re-measured 2026-09-30 for the judged scorer
+    (490/500): same model, server (lmsysorg/sglang:v0.5.10, --sampling-defaults model, unmodified chat template,
+    40,960-token context) and settings on one Modal H100, one temperature-1.0 sample per problem (495 stop, 5 cut off
+    at 32,768 tokens; 588 s of generation at 32 concurrent), judged by gpt-6-luna; the retired last-\boxed{} rule
+    scores the same 500 replies 0.946 (0.934 on the 2026-09-27 sample), and every one of the 17 differences is an
+    equivalent form the regex missed (spacing commands inside matrices, a listed pair for 1 \pm \sqrt{19}, factored
+    or reordered expressions, an inequality for an interval). Tool: scripts/math500_ceiling_modal.py; GPU 698 s
+    (about $0.77 at Modal's H100 list price), judge 1,529,533 prompt + 35,977 completion tokens (about $0.17).
+    MMLU-Pro was re-measured 2026-10-01 for suite v6's zero-shot prompt (no CoT demonstrations): same model, server
+    (lmsysorg/sglang:v0.5.10, --sampling-defaults model, unmodified chat template, 40,960-token context) and settings
+    on one Modal H100, 968/1,400 (0.6914; 15 replies cut off at 32,768 tokens score zero; median reply 1,760 tokens;
+    0.6557 under v5's five-shot prompt on 2026-09-27: the demonstrations had pulled this reasoning model toward short
+    answers). Tool: scripts/language_anchors_modal.py --preset llm-diffusion --model minicpm5-2b --benchmarks
+    mmlu_pro; GPU 1,328 s of generation (about $1.5); raw output work/language-ceiling/llm-diffusion-mmlupro-v6.json.
+
+verifier:
+  base_image: python:3.12-slim
+  config:
+    verifier_lifetime_seconds: 86400
+    inference_replicas: 4
+    lcb_max_concurrency: 64
+    language_suite: gpqa-math500-lcbv6-mmlupro-v6
+    benchmark_paths:
+      gpqa_diamond: /tests/private/benchmarks/gpqa_diamond.csv
+      math_500: /tests/private/benchmarks/math500.jsonl
+      livecodebench_v6: /tests/private/benchmarks/livecodebench-v6
+      mmlu_pro: /tests/private/benchmarks/mmlu-pro.jsonl
+    livecodebench: {}
+    failed_request_limit_percent: null
+    generation_concurrency: 32
+    max_tokens: 32768
+    temperature: 1.0
+    request_timeout_seconds: 3600
+    scoring_deadline_seconds: 79200
+    minimum_tokens_per_second: 450
+    judge_model: gpt-6-luna
+    judge_timeout_seconds: 120
+
+starting_artifacts:
+- repo: openbmb/MiniCPM5-2B
+  revision: 12a3808a956f869c767195e9266b59c4d21d92e2
+  to: minicpm5-2b
+
+viewer:
+  order: 1
+  metric_label: Mean of 4 normalized benchmarks
+  gates: ["single-stream tok/s ({minimum_tokens_per_second})"]
+  steps:
+  - {label: Speed gate, detail: ["single-stream > {minimum_tokens_per_second} tok/s"]}

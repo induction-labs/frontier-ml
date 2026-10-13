@@ -1,0 +1,96 @@
+{
+  "renderer": "rsvg-convert version 2.54.7",
+  "comparisons": [
+    {
+      "id": "evaluation-0203",
+      "instruction": "a pair of flip flops",
+      "original_svg_sha256": "72b62df75726eda4d4034696ea659fc8f975b26ec2d36279555710f14e6218ef",
+      "original_render_sha256": "3406f0f7cc0e2b9364c038efaf7c3d898cc5edb3675bbd6eb93bcbd089289514",
+      "scorer_render_sha256": "3406f0f7cc0e2b9364c038efaf7c3d898cc5edb3675bbd6eb93bcbd089289514",
+      "identical_original_and_scorer_png": true,
+      "diagnosis": "likely_caption_reference_mismatch",
+      "visual_observation": "The visible artwork contains one foot/sandal profile, not a pair of flip-flops. The explicit pair requirement is not visibly satisfied. This is an operator visual inference, not a new judge annotation.",
+      "self_verdict": {
+        "attributes": true,
+        "relations": true,
+        "style": true,
+        "subjects": false
+      },
+      "repeat_verdict": {
+        "attributes": true,
+        "relations": true,
+        "style": true,
+        "subjects": false
+      }
+    },
+    {
+      "id": "evaluation-0106",
+      "instruction": "a small shop",
+      "original_svg_sha256": "b1dbab835724ebb5fd99368a9d41ee5f394bdd2e6d0ef62713d34c8bfd88525a",
+      "original_render_sha256": "2679154fe04482259f7630019d9786e3b6ccfb833dea97dfb967dfaf6c1ffb15",
+      "scorer_render_sha256": "2679154fe04482259f7630019d9786e3b6ccfb833dea97dfb967dfaf6c1ffb15",
+      "identical_original_and_scorer_png": true,
+      "diagnosis": "ambiguous_minimal_reference",
+      "visual_observation": "The source is a minimal black awning silhouette above a rounded block. It can suggest a storefront, but lacks windows, door or signage. The failed subject judgment may reflect ambiguity or a false negative; the boolean receipt cannot distinguish these.",
+      "self_verdict": {
+        "attributes": true,
+        "relations": true,
+        "style": true,
+        "subjects": false
+      },
+      "repeat_verdict": {
+        "attributes": true,
+        "relations": true,
+        "style": true,
+        "subjects": false
+      }
+    },
+    {
+      "id": "evaluation-0002",
+      "instruction": "a mint green folder icon with a dark green shield containing a white key symbol",
+      "original_svg_sha256": "0e8372922ca1eb42b7da04e7dad2dac2bba0aa2d9d8f0f211f9d47b6382ae4df",
+      "original_render_sha256": "336f5a006ffdac0099f79313d91ffe3da6f653c9fd5c31f8b56278ff4cd86695",
+      "scorer_render_sha256": "336f5a006ffdac0099f79313d91ffe3da6f653c9fd5c31f8b56278ff4cd86695",
+      "identical_original_and_scorer_png": true,
+      "diagnosis": "judge_instability_and_possible_attribute_ambiguity",
+      "visual_observation": "The image visibly contains a pale green/turquoise folder, dark green shield and two white keys. The identical request changes from attributes=false to attributes=true on repeat, demonstrating instability. Whether color naming or the singular key phrase caused the first rejection is not identifiable from the boolean verdict.",
+      "self_verdict": {
+        "attributes": false,
+        "relations": true,
+        "style": true,
+        "subjects": true
+      },
+      "repeat_verdict": {
+        "attributes": true,
+        "relations": true,
+        "style": true,
+        "subjects": true
+      }
+    },
+    {
+      "id": "evaluation-0239",
+      "instruction": "pixel sneaker icon",
+      "original_svg_sha256": "2ce98dd7638a0ad31ee0c1144d18161123df44c16c68fa1fbf69c660e8f43cf6",
+      "original_render_sha256": "bf2232bbfb5a2a2cbfeb5bdad0e476b2f9d148dc69a40918bb39dbce37f6a24c",
+      "scorer_render_sha256": "bf2232bbfb5a2a2cbfeb5bdad0e476b2f9d148dc69a40918bb39dbce37f6a24c",
+      "identical_original_and_scorer_png": true,
+      "diagnosis": "likely_judge_false_negative",
+      "visual_observation": "The rendered image is a recognizable low-contrast pixel-art sneaker in side profile. Both self checks reject its subject. The operator visual assessment suggests a recognition error; it is not evidence for automatically awarding this example full credit.",
+      "self_verdict": {
+        "attributes": true,
+        "relations": true,
+        "style": true,
+        "subjects": false
+      },
+      "repeat_verdict": {
+        "attributes": true,
+        "relations": true,
+        "style": true,
+        "subjects": false
+      }
+    }
+  ],
+  "method": "Operator visual inspection plus bounded direct rendering of the untouched pinned original SVGs in the official2.54.7 image. No additional API calls.",
+  "conclusion": "All four original-source PNGs are byte-identical to scorer PNGs. No sanitizer/rendering discrepancy explains these failures. Caption quality and judge recognition both need repair; constant/injection false positives independently disqualify the current judge.",
+  "data_or_rubric_changes_made": false
+}

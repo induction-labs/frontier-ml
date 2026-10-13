@@ -1,0 +1,3 @@
+{"base_model": "Tongyi-MAI/Z-Image-Turbo", "base_revision": "f332072aa78be7aecdf3ee76d5c247082da564a6",
+ "training_evidence_files": ["TRAINING.md"], "inference_evidence_files": ["serve.sh", "server.py", "methods.py"],
+ "conditioning_renderers": []}

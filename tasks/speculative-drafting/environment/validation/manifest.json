@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "files": {
+    "CONTRACT.md": "3197fb407ae9897e1d12cd9add963167971b6a10036626bb27b333bb27039fca",
+    "frontier_ml/__init__.py": "8c5828f5a91649c4926951e6fe19a71718f665266e3ecff7e1d861bc2a661729",
+    "frontier_ml/validation/__init__.py": "8c5828f5a91649c4926951e6fe19a71718f665266e3ecff7e1d861bc2a661729",
+    "frontier_ml/validation/cli.py": "97a2c4b66b0c62e3ebe57b36c2cf2dd7f8e4ee5aa6a2e76be6881808f89deb62",
+    "frontier_ml/validation/errors.py": "a21ca2e8bd30f78627314bd1c9d5a71ac50ea51f2763c31bbb9fb389a5ded4e7",
+    "frontier_ml/validation/evaluation.py": "3e4c7354f89c9ad461103413aa0c0a12b40e7e2c8d19c8fe72db4f553fd88dc7",
+    "frontier_ml/validation/http.py": "da297d69c2b2262b7bf20649e14000d24d17eac90598ed11270470ed2b467243",
+    "frontier_ml/validation/progress.py": "1e76d8d09b46253adeb7df226eed4dc6f0b0b360b59f4fbd574dfb210bdfd039",
+    "specdraft_walk.py": "f8d9e56f774050021bca6ad75940af79012c97463fe02b8607fbff88e07e35ab",
+    "validate.py": "cf3c4f63c14a97bb0314cab1aeb9c173db6ba10fc97f0035803e8b4bfef560cf"
+  }
+}

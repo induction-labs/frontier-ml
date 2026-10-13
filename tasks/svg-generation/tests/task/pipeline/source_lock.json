@@ -1,0 +1,24 @@
+{
+  "repo": "ZJU-REAL/SVGenius",
+  "revision": "18d56d738827304e74bb5037c9f9a3445dbbda93",
+  "license": "Apache-2.0 (official repository LICENSE; underlying artwork audit pending)",
+  "retrieved": "2026-09-25",
+  "files": {
+    "easy": {
+      "path": "src/tasks/generation/text_svg/easy_svg_captions.json",
+      "bytes": 120041,
+      "sha256": "595a9dea657caeb1066c854f794d7d287e02f9728c6f6545f4c2b1035a1fa67c"
+    },
+    "medium": {
+      "path": "src/tasks/generation/text_svg/medium_svg_captions.json",
+      "bytes": 514157,
+      "sha256": "538e1bbc2d4442eb74ed89745fc0cd6b07721ef7bbf8448c88b94b07f86a680c"
+    },
+    "hard": {
+      "path": "src/tasks/generation/text_svg/hard_svg_captions.json",
+      "bytes": 811617,
+      "sha256": "ca192f7527285f5fa45b4b7c8bf1338dd88f3c3620201ce0c15ab92ffcaeab5b"
+    }
+  },
+  "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+}

@@ -1,0 +1,1614 @@
+{
+ "recipe": "svg-judge-calibration-v5-graded",
+ "model": "gpt-6-sol",
+ "binding": {
+  "protocol": "svg-generation-v5-graded",
+  "judge_model": "gpt-6-sol",
+  "rubric_sha256": "9cafaad1e10f5a288c5d2f84db71778fd31de1fd72dc6bb0e2415b81bd35c0af",
+  "scorer_sha256": "7d0d95aeb8b4f925efb6c7b93a1cb7c3b96a3d654e27dfde2926b7f468be301a",
+  "verifier_sha256": "4f53693b75b75b479672129a29acfce2c8a2381f9ce9b358b41e45ebe132f540",
+  "judge_client_sha256": "2b6a4db06dc7d14cb2e79e98cf7b5bdd8e777156e6747c76576051e8ecbc7af2",
+  "renderer_code_sha256": "92b1a1aa91499c987eda1a490da1303d8e53afca009b8de083804994d65a1d32",
+  "renderer_version": "rsvg-convert version 2.54.7",
+  "evaluation_sha256": "e94644bbfa3723407d6bb791e6b53f9e980253a9d7d5902694df988d89d99e1a"
+ },
+ "admission": {
+  "samples_per_group": 24,
+  "reference_minimum": 0.6,
+  "constant_maximum": 0.05,
+  "injection_maximum": 0.0,
+  "repeat_macro_difference_maximum": 0.05,
+  "repeat_item_correlation_minimum": 0.8
+ },
+ "created_at": "2026-10-05T18:38:26.137555+00:00",
+ "plan": {
+  "recipe": "svg-judge-calibration-v5-graded",
+  "binding": {
+   "protocol": "svg-generation-v5-graded",
+   "judge_model": "gpt-6-sol",
+   "rubric_sha256": "9cafaad1e10f5a288c5d2f84db71778fd31de1fd72dc6bb0e2415b81bd35c0af",
+   "scorer_sha256": "7d0d95aeb8b4f925efb6c7b93a1cb7c3b96a3d654e27dfde2926b7f468be301a",
+   "verifier_sha256": "4f53693b75b75b479672129a29acfce2c8a2381f9ce9b358b41e45ebe132f540",
+   "judge_client_sha256": "2b6a4db06dc7d14cb2e79e98cf7b5bdd8e777156e6747c76576051e8ecbc7af2",
+   "renderer_code_sha256": "92b1a1aa91499c987eda1a490da1303d8e53afca009b8de083804994d65a1d32",
+   "renderer_version": "rsvg-convert version 2.54.7",
+   "evaluation_sha256": "e94644bbfa3723407d6bb791e6b53f9e980253a9d7d5902694df988d89d99e1a"
+  },
+  "samples": [
+   {
+    "id": "evaluation-0093",
+    "stratum": "simple"
+   },
+   {
+    "id": "evaluation-0249",
+    "stratum": "simple"
+   },
+   {
+    "id": "evaluation-0157",
+    "stratum": "simple"
+   },
+   {
+    "id": "evaluation-0235",
+    "stratum": "simple"
+   },
+   {
+    "id": "evaluation-0105",
+    "stratum": "simple"
+   },
+   {
+    "id": "evaluation-0071",
+    "stratum": "simple"
+   },
+   {
+    "id": "evaluation-0175",
+    "stratum": "simple"
+   },
+   {
+    "id": "evaluation-0124",
+    "stratum": "simple"
+   },
+   {
+    "id": "evaluation-0232",
+    "stratum": "detailed"
+   },
+   {
+    "id": "evaluation-0000",
+    "stratum": "detailed"
+   },
+   {
+    "id": "evaluation-0227",
+    "stratum": "detailed"
+   },
+   {
+    "id": "evaluation-0165",
+    "stratum": "detailed"
+   },
+   {
+    "id": "evaluation-0211",
+    "stratum": "detailed"
+   },
+   {
+    "id": "evaluation-0079",
+    "stratum": "detailed"
+   },
+   {
+    "id": "evaluation-0151",
+    "stratum": "detailed"
+   },
+   {
+    "id": "evaluation-0053",
+    "stratum": "detailed"
+   },
+   {
+    "id": "evaluation-0207",
+    "stratum": "complex"
+   },
+   {
+    "id": "evaluation-0159",
+    "stratum": "complex"
+   },
+   {
+    "id": "evaluation-0058",
+    "stratum": "complex"
+   },
+   {
+    "id": "evaluation-0186",
+    "stratum": "complex"
+   },
+   {
+    "id": "evaluation-0005",
+    "stratum": "complex"
+   },
+   {
+    "id": "evaluation-0198",
+    "stratum": "complex"
+   },
+   {
+    "id": "evaluation-0213",
+    "stratum": "complex"
+   },
+   {
+    "id": "evaluation-0156",
+    "stratum": "complex"
+   }
+  ],
+  "calls": 96
+ },
+ "groups": {
+  "reference_self": {
+   "samples": 24,
+   "macro_score": 0.7794238683127572,
+   "scores": {
+    "evaluation-0093": 0.7703703703703704,
+    "evaluation-0249": 1.0,
+    "evaluation-0157": 0.7506172839506172,
+    "evaluation-0235": 0.9777777777777779,
+    "evaluation-0105": 1.0,
+    "evaluation-0071": 0.18518518518518517,
+    "evaluation-0175": 0.7901234567901234,
+    "evaluation-0124": 0.9333333333333333,
+    "evaluation-0232": 0.4740740740740741,
+    "evaluation-0000": 0.7308641975308642,
+    "evaluation-0227": 1.0,
+    "evaluation-0165": 0.7703703703703704,
+    "evaluation-0211": 0.8888888888888888,
+    "evaluation-0079": 0.7901234567901234,
+    "evaluation-0151": 0.691358024691358,
+    "evaluation-0053": 0.7111111111111109,
+    "evaluation-0207": 1.0,
+    "evaluation-0159": 0.6395061728395062,
+    "evaluation-0058": 0.911111111111111,
+    "evaluation-0186": 0.7506172839506172,
+    "evaluation-0005": 0.8888888888888888,
+    "evaluation-0198": 0.911111111111111,
+    "evaluation-0213": 0.5876543209876544,
+    "evaluation-0156": 0.5530864197530865
+   },
+   "records": [
+    {
+     "id": "evaluation-0093",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 8,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7703703703703704,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0249",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 10,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 10,
+      "overall": 10
+     },
+     "score": 1.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0157",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 8,
+      "proportions": 9,
+      "composition": 8,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7506172839506172,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0235",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 9,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 10,
+      "overall": 10
+     },
+     "score": 0.9777777777777779,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0105",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 10,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 10,
+      "overall": 10
+     },
+     "score": 1.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0071",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 4,
+      "detail": 5,
+      "proportions": 6,
+      "composition": 7,
+      "aesthetics": 7,
+      "overall": 5
+     },
+     "score": 0.18518518518518517,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0175",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7901234567901234,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0124",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 9,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.9333333333333333,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0232",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 7,
+      "detail": 7,
+      "proportions": 7,
+      "composition": 8,
+      "aesthetics": 8,
+      "overall": 7
+     },
+     "score": 0.4740740740740741,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0000",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 8,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 8,
+      "overall": 8
+     },
+     "score": 0.7308641975308642,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0227",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 10,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 10,
+      "overall": 10
+     },
+     "score": 1.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0165",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 8,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7703703703703704,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0211",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.8888888888888888,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0079",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7901234567901234,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0151",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 8,
+      "proportions": 8,
+      "composition": 8,
+      "aesthetics": 8,
+      "overall": 8
+     },
+     "score": 0.691358024691358,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0053",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 8,
+      "proportions": 8,
+      "composition": 9,
+      "aesthetics": 8,
+      "overall": 8
+     },
+     "score": 0.7111111111111109,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0207",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 10,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 10,
+      "overall": 10
+     },
+     "score": 1.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0159",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 8,
+      "detail": 7,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 8
+     },
+     "score": 0.6395061728395062,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0058",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 10,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.911111111111111,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0186",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 8,
+      "proportions": 8,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7506172839506172,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0005",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.8888888888888888,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0198",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 10,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.911111111111111,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0213",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 8,
+      "detail": 7,
+      "proportions": 8,
+      "composition": 8,
+      "aesthetics": 8,
+      "overall": 8
+     },
+     "score": 0.5876543209876544,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0156",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 8,
+      "detail": 7,
+      "proportions": 8,
+      "composition": 8,
+      "aesthetics": 7,
+      "overall": 7
+     },
+     "score": 0.5530864197530865,
+     "returned_judge_model": "gpt-6-sol"
+    }
+   ]
+  },
+  "reference_repeat": {
+   "samples": 24,
+   "macro_score": 0.7737654320987654,
+   "scores": {
+    "evaluation-0093": 0.7703703703703704,
+    "evaluation-0249": 0.9777777777777779,
+    "evaluation-0157": 0.8888888888888888,
+    "evaluation-0235": 1.0,
+    "evaluation-0105": 1.0,
+    "evaluation-0071": 0.17777777777777776,
+    "evaluation-0175": 0.8888888888888888,
+    "evaluation-0124": 0.7901234567901234,
+    "evaluation-0232": 0.3580246913580247,
+    "evaluation-0000": 0.8888888888888888,
+    "evaluation-0227": 1.0,
+    "evaluation-0165": 0.7901234567901234,
+    "evaluation-0211": 0.8888888888888888,
+    "evaluation-0079": 0.7901234567901234,
+    "evaluation-0151": 0.7506172839506172,
+    "evaluation-0053": 0.7111111111111109,
+    "evaluation-0207": 1.0,
+    "evaluation-0159": 0.6395061728395062,
+    "evaluation-0058": 0.7901234567901234,
+    "evaluation-0186": 0.7506172839506172,
+    "evaluation-0005": 0.7901234567901234,
+    "evaluation-0198": 0.7703703703703704,
+    "evaluation-0213": 0.5703703703703703,
+    "evaluation-0156": 0.5876543209876544
+   },
+   "records": [
+    {
+     "id": "evaluation-0093",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 8,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7703703703703704,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0249",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 10,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 9,
+      "overall": 10
+     },
+     "score": 0.9777777777777779,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0157",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.8888888888888888,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0235",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 10,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 10,
+      "overall": 10
+     },
+     "score": 1.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0105",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 10,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 10,
+      "overall": 10
+     },
+     "score": 1.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0071",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 4,
+      "detail": 4,
+      "proportions": 6,
+      "composition": 7,
+      "aesthetics": 7,
+      "overall": 5
+     },
+     "score": 0.17777777777777776,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0175",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.8888888888888888,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0124",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7901234567901234,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0232",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 6,
+      "detail": 6,
+      "proportions": 7,
+      "composition": 8,
+      "aesthetics": 7,
+      "overall": 6
+     },
+     "score": 0.3580246913580247,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0000",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.8888888888888888,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0227",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 10,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 10,
+      "overall": 10
+     },
+     "score": 1.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0165",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7901234567901234,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0211",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.8888888888888888,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0079",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7901234567901234,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0151",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 9,
+      "proportions": 8,
+      "composition": 8,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7506172839506172,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0053",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 8,
+      "proportions": 8,
+      "composition": 9,
+      "aesthetics": 8,
+      "overall": 8
+     },
+     "score": 0.7111111111111109,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0207",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 10,
+      "detail": 10,
+      "proportions": 10,
+      "composition": 10,
+      "aesthetics": 10,
+      "overall": 10
+     },
+     "score": 1.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0159",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 8,
+      "detail": 7,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 8
+     },
+     "score": 0.6395061728395062,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0058",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7901234567901234,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0186",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 8,
+      "proportions": 8,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7506172839506172,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0005",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 9,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7901234567901234,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0198",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 9,
+      "detail": 8,
+      "proportions": 9,
+      "composition": 9,
+      "aesthetics": 9,
+      "overall": 9
+     },
+     "score": 0.7703703703703704,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0213",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 8,
+      "detail": 7,
+      "proportions": 8,
+      "composition": 8,
+      "aesthetics": 7,
+      "overall": 8
+     },
+     "score": 0.5703703703703703,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0156",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 8,
+      "detail": 7,
+      "proportions": 8,
+      "composition": 8,
+      "aesthetics": 8,
+      "overall": 8
+     },
+     "score": 0.5876543209876544,
+     "returned_judge_model": "gpt-6-sol"
+    }
+   ]
+  },
+  "constant_circle": {
+   "samples": 24,
+   "macro_score": 0.0016460905349794238,
+   "scores": {
+    "evaluation-0093": 0.0,
+    "evaluation-0249": 0.0,
+    "evaluation-0157": 0.0,
+    "evaluation-0235": 0.0,
+    "evaluation-0105": 0.0,
+    "evaluation-0071": 0.0,
+    "evaluation-0175": 0.0,
+    "evaluation-0124": 0.0,
+    "evaluation-0232": 0.0,
+    "evaluation-0000": 0.03950617283950617,
+    "evaluation-0227": 0.0,
+    "evaluation-0165": 0.0,
+    "evaluation-0211": 0.0,
+    "evaluation-0079": 0.0,
+    "evaluation-0151": 0.0,
+    "evaluation-0053": 0.0,
+    "evaluation-0207": 0.0,
+    "evaluation-0159": 0.0,
+    "evaluation-0058": 0.0,
+    "evaluation-0186": 0.0,
+    "evaluation-0005": 0.0,
+    "evaluation-0198": 0.0,
+    "evaluation-0213": 0.0,
+    "evaluation-0156": 0.0
+   },
+   "records": [
+    {
+     "id": "evaluation-0093",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 3,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0249",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 3,
+      "aesthetics": 3,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0157",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0235",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 2,
+      "proportions": 7,
+      "composition": 7,
+      "aesthetics": 5,
+      "overall": 2
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0105",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 4,
+      "composition": 7,
+      "aesthetics": 4,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0071",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0175",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0124",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 7,
+      "aesthetics": 5,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0232",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0000",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 2,
+      "detail": 2,
+      "proportions": 5,
+      "composition": 7,
+      "aesthetics": 5,
+      "overall": 2
+     },
+     "score": 0.03950617283950617,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0227",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 3,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0165",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0211",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 5,
+      "aesthetics": 3,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0079",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0151",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0053",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 5,
+      "aesthetics": 3,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0207",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 3,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0159",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 3,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0058",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 2,
+      "composition": 5,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0186",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0005",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0198",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0213",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0156",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 2,
+      "aesthetics": 2,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    }
+   ]
+  },
+  "text_injection": {
+   "samples": 24,
+   "macro_score": 0.0,
+   "scores": {
+    "evaluation-0093": 0.0,
+    "evaluation-0249": 0.0,
+    "evaluation-0157": 0.0,
+    "evaluation-0235": 0.0,
+    "evaluation-0105": 0.0,
+    "evaluation-0071": 0.0,
+    "evaluation-0175": 0.0,
+    "evaluation-0124": 0.0,
+    "evaluation-0232": 0.0,
+    "evaluation-0000": 0.0,
+    "evaluation-0227": 0.0,
+    "evaluation-0165": 0.0,
+    "evaluation-0211": 0.0,
+    "evaluation-0079": 0.0,
+    "evaluation-0151": 0.0,
+    "evaluation-0053": 0.0,
+    "evaluation-0207": 0.0,
+    "evaluation-0159": 0.0,
+    "evaluation-0058": 0.0,
+    "evaluation-0186": 0.0,
+    "evaluation-0005": 0.0,
+    "evaluation-0198": 0.0,
+    "evaluation-0213": 0.0,
+    "evaluation-0156": 0.0
+   },
+   "records": [
+    {
+     "id": "evaluation-0093",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0249",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0157",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0235",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0105",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0071",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0175",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0124",
+     "stratum": "simple",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0232",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0000",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0227",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0165",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0211",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0079",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0151",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0053",
+     "stratum": "detailed",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0207",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0159",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0058",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0186",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0005",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0198",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0213",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    },
+    {
+     "id": "evaluation-0156",
+     "stratum": "complex",
+     "verdict": {
+      "fidelity": 1,
+      "detail": 1,
+      "proportions": 1,
+      "composition": 1,
+      "aesthetics": 1,
+      "overall": 1
+     },
+     "score": 0.0,
+     "returned_judge_model": "gpt-6-sol"
+    }
+   ]
+  }
+ },
+ "assessment": {
+  "status": "passed"
+ }
+}

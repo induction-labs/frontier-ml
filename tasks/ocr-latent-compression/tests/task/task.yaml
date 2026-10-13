@@ -1,0 +1,80 @@
+summary: Discrete visual latent compression
+title: Compress page images into 2 KB of discrete codes that still decode to the full text
+modality: Image
+prompt: |
+  Train a discrete visual tokenizer for document pages and application screenshots. It should quantize each image into a sequence of codes that stores at most 2 KB (16,384 bits) of information, and a decoder should recover the page text from those codes alone.
+
+  Use a neural encoder to produce the codes and a neural decoder for the text. FSQ, learned codebooks and other discrete quantization methods are allowed. Do not transcribe the image in the encoder: the codes are learned visual codes, not text tokens or a compressed transcript.
+
+  Write a script `serve.sh` which serves it with `POST /encode` (image to codes) and `POST /decode` (codes to text). It needs to run offline on one H100,  be ready within 300 seconds, and handle at least one image per second on each endpoint.
+
+  Optimize word-level transcription accuracy of the decoded text against the page text.
+description: >-
+  Decoding must depend only on the codes and be deterministic. Include training and inference code with the
+  submitted weights. Do not train, fine-tune, calibrate or select on the validation or test split of any public
+  dataset or benchmark; training splits and other public corpora are fine.
+interface: >-
+  POST /encode with {"image": "<base64 PNG>"} returns exactly {"codes": [<int>, ...], "codebook_size": <int>}.
+  Every code is in [0, codebook_size), codebook_size is the same in every response, and
+  len(codes) x ceil(log2(codebook_size)) is at most 16384 bits. codebook_size describes the serialized integer
+  alphabet; scalar levels, learned codebook indices and codes from multiple codebooks may be serialized into it.
+  POST /decode with {"codes": [...], "codebook_size": <int>}
+  returns exactly {"text": "<page text>"}: plain text or markdown, up to 32768 characters. Images are English
+  document pages (1275x1650) and application screenshots (1920x1080). Encoding and decoding run in separate
+  server instances with no shared per-image state, at up to 16 concurrent requests.
+evaluation: >-
+  Mean word-level edit similarity between the decoded text and the page text after Unicode, markup and
+  whitespace normalization; case and punctuation count. Malformed responses and code lists over the bit budget
+  score zero for that image. Each endpoint must sustain at least one image per second after readiness.
+metric: page_word_similarity
+concurrency: 16
+timeout: 3600
+artifacts: >-
+  DeepSeek-OCR weights, tokenizer and reference code are in /artifacts/deepseek-ocr/weights/ (revision and file
+  hashes in public/STARTING_ARTIFACT.json); you may start from them, but no starting checkpoint is prescribed.
+  Add codebook_size to architecture.json (example in /task/public/SCHEMA.md). The Python 3.12/CUDA 12.8
+  inference environment includes torch==2.6.0, torchvision==0.21.0, transformers==4.46.3, tokenizers==0.20.3,
+  einops==0.8.2, addict==2.4.0 and easydict==1.13.
+review: true
+inference:
+  pip: [torch==2.6.0, torchvision==0.21.0, transformers==4.46.3, tokenizers==0.20.3, einops==0.8.2,
+        addict==2.4.0, easydict==1.13]
+heldout: true
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: ocr-latent-compression
+  evaluation_file: /tests/private/test.jsonl
+  expected_samples: 400
+score_normalization:
+  aggregate: single
+  components:
+  - {name: page_word_similarity, path: score, floor: 0.0, ceiling: 0.8930820549162216}
+  provenance: >-
+    0 = empty text; 1 = 0.8931, unmodified DeepSeek-OCR@9f30c71 Base mode (1024x1024, 256 vision tokens,
+    "<image>\nFree OCR.", greedy, max_new_tokens 1800) on the 400 held-out images through validate.score
+    (baselines/deepseek_ocr_ref.py; the same pipeline gives 0.8978 on the 100 validation images) (2026-09-26).
+verifier:
+  base_image: python:3.12-slim
+  config:
+    minimum_images_per_second: 1.0
+    bit_budget: 16384
+    max_codebook_size: 16777216
+    max_text_chars: 32768
+    determinism_fraction: 0.05
+    selfcheck_timeout_seconds: 1500
+
+starting_artifacts:
+- repo: deepseek-ai/DeepSeek-OCR
+  revision: 9f30c71f441d010e5429c532364a86705536c53a
+  to: deepseek-ocr/weights
+  exclude: [".ipynb_checkpoints/*", "assets/*"]
+
+viewer:
+  order: 3
+  metric_label: Word-level edit similarity of the decoded text
+  gates: ["16,384 bits of codes per image", "1 image/s per endpoint", "deterministic decode"]
+  datasets:
+  - {label: Pages and screenshots, title: text, category: bucket, category_label: Text density, chips: [kind, layout, chars],
+     images: [image], texts: [text], validation: public/validation.jsonl,
+     heldout: {path: private/test.jsonl, images: []}}

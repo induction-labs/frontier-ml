@@ -1,0 +1,12 @@
+{
+  "concurrency": 16,
+  "inference_timeout_seconds": 3600,
+  "require_h100": true,
+  "expected_samples": 900,
+  "judge_model": "gpt-6-luna",
+  "judge_timeout_seconds": 120,
+  "selfcheck_timeout_seconds": 1200,
+  "grading_images": {
+    "inference": "/tests/images/inference"
+  }
+}

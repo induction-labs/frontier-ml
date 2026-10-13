@@ -1,0 +1,25 @@
+{
+  "concurrency": 32,
+  "inference_timeout_seconds": 28800,
+  "require_h100": true,
+  "verifier_lifetime_seconds": 36000,
+  "language_suite": "gpqa-math500-lcbv6-mmlupro-v6",
+  "benchmark_paths": {
+    "gpqa_diamond": "/tests/private/benchmarks/gpqa_diamond.csv",
+    "math_500": "/tests/private/benchmarks/math500.jsonl",
+    "livecodebench_v6": "/tests/private/benchmarks/livecodebench-v6",
+    "mmlu_pro": "/tests/private/benchmarks/mmlu-pro.jsonl"
+  },
+  "livecodebench": {},
+  "failed_request_limit_percent": null,
+  "generation_concurrency": 32,
+  "max_tokens": 16384,
+  "temperature": 0.7,
+  "request_timeout_seconds": 250,
+  "judge_model": "gpt-6-luna",
+  "judge_timeout_seconds": 120,
+  "grading_images": {
+    "inference": "/tests/images/inference",
+    "lcb": "/tests/images/lcb"
+  }
+}

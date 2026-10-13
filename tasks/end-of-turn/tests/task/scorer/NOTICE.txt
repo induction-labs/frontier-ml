@@ -1,0 +1,65 @@
+End-of-turn source and evaluation provenance (trusted operator metadata)
+
+Source audio and three independent annotation tracks:
+https://huggingface.co/datasets/mundo-ai/turn-benchmark-dev
+revision 8fa18a24be51528a45397b35cbcaecd84202062b
+
+Gold construction and EOT metric:
+https://github.com/SesameAILabs/turnbench
+revision 76ccd045f121ccfa921abac2ad3107027e736911
+The gold/floor routines preserve the upstream algorithms. The upstream event
+matcher, aggregation and qualification are not used for scoring: the harness
+scores a per-frame probability stream against the same gold windows (below).
+Linear latency percentiles use a standard-library equivalent of NumPy's
+default percentile operation. MIT notices are embedded in both adapted
+Python modules.
+
+This task partitions the 38 labelled development conversations into eight
+public conversations (1.6255 hours) and thirty evaluation conversations
+(5.6820 hours). This is a dev-derived benchmark, not the official test
+leaderboard. No inaccessible test labels are inferred or substituted.
+
+The partition uses whole connected speaker groups, target count eight,
+conversation-type coverage, and type-frequency distribution. A stable salted
+hash resolves ties. Labels, model predictions, and scores are not inputs.
+The public IDs are 20,21,22,94,95,122,124,125; their six speakers are disjoint
+from the twenty evaluation speakers. Both partitions contain all six types.
+The importer audits the partition and byte hashes. Original 48 kHz mono,
+24-bit FLAC channels are copied without decoding or resampling. Lossy preview
+columns are never model inputs. Data license and attribution travel with both
+prepared partitions. The prepared data is mirrored under end-of-turn/ in
+inductionlabs/frontier-ml-tasks at the immutable revision in task.yaml; builds,
+the viewer, and grading download that mirror without upstream credentials.
+
+Scoring (2026-09-26). The server returns, per speaker, a causal probability
+stream at a fixed hop between 20 and 200 ms; frame i is reported at
+(i + 1) x hop. Windows follow the upstream anchors: [t - 0.25 s, min(t + 1 s,
+the same speaker's next end of turn)] around each annotated end of turn (the
+upstream late window is 3 s) and [start - 0.25 s, end] around each believable
+pause; disputed regions are masked, and frames inside a positive window are
+masked when scoring pauses. A window's statistic is its highest probability.
+The threshold is swept over the pooled held-out statistics and the harness
+scalar is recall at FPR <= 0.05; the operating points at 0.10 and 0.15, the
+whole curve, per-conversation counts at the chosen threshold and signed
+latency percentiles are reported alongside. The upstream leaderboard's recall
+at a server-chosen operating point with FPR <= 0.15 is therefore not
+comparable. Interruption detection is a separate upstream task, not scored here.
+
+Both full lossless channels are supplied for efficient inference. Causality
+is reviewed per frame: the probability reported for frame i may depend only
+on audio through (i + 1) x hop, including any model lookahead. There is no
+fixed grid, single-channel restriction, or per-frame latency gate. The one timing
+gate is the whole-pass wall-clock budget in task.yaml: 10,800 s for the thirty
+evaluation conversations (20,455 s of audio) sent one at a time, i.e. at least
+3x real time with about a minute of request transfer per conversation on the
+clock. The public validator applies the same 3x rule to the audio it loads.
+
+Fetch the pinned prepared data:
+frontier fetch end-of-turn
+
+Reproduce it from the upstream source with an authorized HF login:
+python tasks/end-of-turn/end_of_turn.py prepare data/end-of-turn
+python tasks/end-of-turn/end_of_turn.py verify data/end-of-turn
+
+Optional original unlabelled test audio, kept outside the task's scored data:
+python tasks/end-of-turn/end_of_turn.py prepare-unlabelled-test DEST

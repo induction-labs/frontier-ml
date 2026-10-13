@@ -1,0 +1,23 @@
+{
+  "concurrency": 8,
+  "inference_timeout_seconds": 3600,
+  "require_h100": true,
+  "expected_samples": 551,
+  "train_seconds": 3600,
+  "corpus_sha256": {
+    "bnc_spoken.train.txt": "8f3042f4104cf356052fda784682d8e8170fd1fd8c795a1c3e172f9eb2ebfa3c",
+    "childes.train.txt": "c898c0a44f4380ce7a66766acd01e70eebbbd9410a1701ddf89452ea6f5aea45",
+    "gutenberg.train.txt": "4ddcf5774a7947293ceb56dc76774f553b534231e7ac636c071559229cf2cb9b",
+    "open_subtitles.train.txt": "9b21adecf57dd97f611d9442a2f993d2f843278eb24fc98f4165322c1ba5670a",
+    "simple_wiki.train.txt": "0ac614aa069ea3908c07c9755bf80bb500d4cee15cd972e9f93cccf89639e9a7",
+    "switchboard.train.txt": "89c99649777be2f76f5054e9f1aa364b7e1a62844e219fe810205be6d99399b5"
+  },
+  "audit_positions": 500,
+  "causal_documents": 16,
+  "request_timeout_seconds": 120,
+  "verifier_lifetime_seconds": 10800,
+  "selfcheck_timeout_seconds": 1500,
+  "grading_images": {
+    "inference": "/tests/images/inference"
+  }
+}

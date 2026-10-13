@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "binding": {
+    "protocol": "svg-generation-v4-semantic",
+    "judge_model": "gpt-6-sol",
+    "rubric_sha256": "ba2fe25407a7aef2617369d27f813cb18661505377f1ba87414186eed22dc5de",
+    "scorer_sha256": "11b3eb2419d9d59bc39f287a660dc98fec5b12416cebcb2f81daf6aaa2f2abe0",
+    "verifier_sha256": "9600be4db1216de0e6054428b86ce05e43762e4785b500bbd9ab680347b5fe66",
+    "judge_client_sha256": "2b6a4db06dc7d14cb2e79e98cf7b5bdd8e777156e6747c76576051e8ecbc7af2",
+    "renderer_code_sha256": "92b1a1aa91499c987eda1a490da1303d8e53afca009b8de083804994d65a1d32",
+    "renderer_version": "rsvg-convert version 2.54.7",
+    "evaluation_sha256": "e94644bbfa3723407d6bb791e6b53f9e980253a9d7d5902694df988d89d99e1a"
+  },
+  "report_sha256": "ae82b131849d35d26450aa22739b1f11471c84c26d11a4f0c81dab0c5a2ddc7c",
+  "wire_replay_sha256": "c39df75fd4946ae1a94b6c83ed10698acfc235ecaf26cbd46aa1278c8585ff25",
+  "plan_sha256": "d30da8d07131373a079b4ec7a4f5068ac81dc937c77760ebf46e7c6f049acc36",
+  "readiness_recipe_sha256": "4dcabcbb394fb9e9067b091b0ba90f4341b8d66e10049d61e87634d9f74e0754",
+  "calibration": "svg-judge-calibration-v4-semantic-r2",
+  "previous_readiness": "judge_readiness_v4_r1.json",
+  "scope": "Exact v4 semantic scorer (recalibrated after the 2026-09-30 failed_prediction change) with the production verifier wrapper; complete 24/group preregistered controls plus 96-payload offline canonical-JSON and archived-response replay. Judge calibration only; trained-model baseline and headroom remain unmeasured."
+}

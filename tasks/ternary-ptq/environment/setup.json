@@ -1,0 +1,29 @@
+{
+  "task": "ternary-ptq",
+  "artifacts": [
+    {
+      "repo": "Qwen/Qwen3.5-4B",
+      "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+      "repo_type": "model",
+      "prefix": "",
+      "exclude": [],
+      "to": "qwen3.5-4b"
+    },
+    {
+      "repo": "inductionlabs/frontier-ml-tasks",
+      "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+      "repo_type": "dataset",
+      "prefix": "ternary-ptq/artifacts",
+      "exclude": [],
+      "to": "",
+      "optional": true
+    }
+  ],
+  "public": {
+    "repo": "inductionlabs/frontier-ml-tasks",
+    "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+    "repo_type": "dataset",
+    "prefix": "ternary-ptq/public",
+    "exclude": []
+  }
+}

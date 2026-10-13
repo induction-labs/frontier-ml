@@ -1,0 +1,113 @@
+summary: Ternary post-training quantization
+title: Quantize Qwen3.5-4B to ternary weights with minimal accuracy loss
+modality: Text
+prompt: |
+  Quantize Qwen3.5-4B in `/artifacts/qwen3.5-4b/` for text generation only. More than 95% of text model parameters outside the input embedding and output head must be ternary, with roughly one ternary code per original weight (stored parameters may exceed the original count by at most 10%); the embedding, head and activations may remain floating point. You may keep the vision tower and the MTP head in floating point as well, since they will not be used or evaluated.
+
+  Write `serve.sh` to serve an OpenAI-compatible chat endpoint offline on one H100, ready within 300 seconds.
+
+  Try to preserve as much performance as possible.
+description: >-
+  Do not train, fine-tune, calibrate or select on the validation or test split of any public dataset or benchmark; training splits and other public corpora are fine. That includes their prompts without answers, rewrites of them, and model answers to them.
+  The examples in /task/public/benchmarks/ are for evaluation only.
+  Inference has to use the ternary weights, not the original ones.
+interface: >-
+  OpenAI-compatible POST /v1/chat/completions with model=submission, supporting an 8192-token context
+  (input plus output).
+evaluation: >-
+  First, a weight audit reads the tensors listed in quantization_manifest.json; if the 95% ternary threshold
+  isn't met, the score is zero. Leave the vision tower and MTP head unchanged in full precision as they are
+  not counted towards the ternary parameter ratio, and will not be used or evaluated. Scale values for audited
+  language tensors count as non-ternary.
+
+  You must store roughly one ternary code per original weight. All weights you store in output/, apart from the
+  embedding, head, vision tower and MTP head, may total at most 10% more parameters than the original model
+  (packed bytes count as four parameters). Do not add parameters to make up for the limited
+  expressivity of ternary weights, for example by stacking several ternary stages per weight.
+
+  The score is the mean of accuracy/pass@1 across four benchmarks, two of which are GPQA-Diamond and LCB v6, 
+  each normalized from random guessing (0) to the original model's performance (1).
+  Requests use max_tokens=4096 and are sent up to 16 at a time, and each gets 300 seconds. A request that times out
+  (it is not retried) or that still fails after two retries scores zero for its item; failed requests do not stop the
+  evaluation.
+metric: gpqa_math500_lcbv6_mmlupro_mean
+request_failure_policy: per_item
+concurrency: 16
+timeout: 82800
+artifacts: >-
+  Include quantization_manifest.json at the top level of output/, with base_model and base_revision (see
+  /task/public/STARTING_ARTIFACT.json) and a tensors mapping keyed by every original main language model tensor name;
+  vision-tower tensors (model.visual.*) and MTP-head tensors (mtp.*) are optional. Each entry
+  names a safetensors file, tensor and encoding (literal, packed_2bit or float), plus an optional scale as a
+  {file, tensor} reference. Every file path is relative to output/ (for example weights/model-00001.safetensors
+  when the shards are in output/weights/), and only output/quantization_manifest.json is read. packed_2bit stores codes 0=-1, 1=0, 2=+1, four per byte starting from the least
+  significant bits. You may untie the output head: add lm_head.weight (shaped like the embedding) to the mapping
+  and set tie_word_embeddings=false.
+
+  In your training evidence, include the quantization code and scale conventions, and record the datasets,
+  splits and data-generation recipes you used.
+review: true
+heldout: true
+requires_env: [FRONTIER_JUDGE_API_KEY]
+data:
+  repo: inductionlabs/frontier-ml-tasks
+  revision: 925401fb8425ec9da5d198fa975b4ced6563c706
+  path: ternary-ptq
+  evaluation_file: /tests/private/benchmarks/gpqa_diamond.csv
+score_normalization:
+  aggregate: mean
+  components:
+  - {name: gpqa_diamond, path: details.benchmarks.gpqa_diamond.score, floor: 0.25, ceiling: 0.5707070707070707}
+  - {name: math_500, path: details.benchmarks.math_500.score, floor: 0.0, ceiling: 0.866}
+  - {name: livecodebench_v6, path: details.benchmarks.livecodebench_v6.score, floor: 0.0, ceiling: 0.4246445497630332}
+  - {name: mmlu_pro, path: details.benchmarks.mmlu_pro.score, floor: 0.11114824263038549, ceiling: 0.7164285714285714}
+  provenance: >-
+    0 = chance: GPQA 1/4; MATH-500 and LiveCodeBench 0; MMLU-Pro 0.1111, the mean of 1/options over the 1,400
+    scored questions. 1 = bf16 Qwen/Qwen3.5-4B@851bf6e with thinking off (its chat template's enable_thinking=false
+    branch), served by SGLang 0.5.10 and scored by evaluate_suite under this task's settings (4,096 tokens,
+    temperature 0, 16 concurrent): GPQA 0.5707, MATH-500 0.866, LiveCodeBench 0.4246, MMLU-Pro 0.7193, raw
+    harmonic mean 0.6013. GPQA, LiveCodeBench and MMLU-Pro were measured 2026-09-27; MATH-500 was re-measured
+    2026-09-30 for the judged scorer (433/500): same model, server (lmsysorg/sglang:v0.5.10, --sampling-defaults
+    model, --chat-template with enable_thinking defaulting to false, 8,192-token context) and settings on one Modal
+    H100, 500 replies (447 stop, 53 cut off at 4,096 tokens), judged by gpt-6-luna; the retired last-\boxed{} rule
+    scores the same 500 replies 0.854, the 2026-09-27 figure, and every one of the 6 differences is an equivalent
+    form the regex missed (solution order, factored form, decimals in a vector). Tool: scripts/math500_ceiling_modal.py;
+    GPU 383 s (about $0.42 at Modal's H100 list price), judge 668,646 prompt + 31,065 completion tokens (about
+    $0.08). With thinking on, 4,096 tokens cut off nearly every reply (GPQA 0.025). MMLU-Pro was re-measured
+    2026-10-01 for suite v6's zero-shot prompt (no CoT demonstrations): same model, server (lmsysorg/sglang:v0.5.10,
+    --sampling-defaults model, thinking-off template, 8,192-token context) and settings on one Modal H100, 1,003/1,400
+    (0.7164; 112 replies cut off at 4,096 tokens score zero; 0.7193 under v5's five-shot prompt on 2026-09-27). Tool:
+    scripts/language_anchors_modal.py --preset ternary-ptq --model qwen3.5-4b --benchmarks mmlu_pro; GPU 821 s of
+    generation (about $0.9); raw output work/language-ceiling/ternary-ptq-mmlupro-v6.json.
+
+verifier:
+  base_image: python:3.12-slim
+  config:
+    verifier_lifetime_seconds: 86400
+    language_suite: gpqa-math500-lcbv6-mmlupro-v6
+    benchmark_paths:
+      gpqa_diamond: /tests/private/benchmarks/gpqa_diamond.csv
+      math_500: /tests/private/benchmarks/math500.jsonl
+      livecodebench_v6: /tests/private/benchmarks/livecodebench-v6
+      mmlu_pro: /tests/private/benchmarks/mmlu-pro.jsonl
+    livecodebench: {}
+    failed_request_limit_percent: null
+    generation_concurrency: 16
+    max_tokens: 4096
+    temperature: 0
+    request_timeout_seconds: 300
+    selfcheck_timeout_seconds: 1000
+    judge_model: gpt-6-luna
+    judge_timeout_seconds: 120
+
+starting_artifacts:
+- repo: Qwen/Qwen3.5-4B
+  revision: 851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a
+  to: qwen3.5-4b
+
+viewer:
+  order: 7
+  metric_label: Mean of 4 normalized benchmarks
+  gates: ["> 95 % ternary weights outside embedding/head", "stored parameters <= 110 % of the original"]
+  steps:
+  - {label: Weight audit, detail: [ternary fraction > 0.95 outside the input embedding and output head]}

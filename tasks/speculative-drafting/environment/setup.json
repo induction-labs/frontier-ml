@@ -1,0 +1,32 @@
+{
+  "task": "speculative-drafting",
+  "artifacts": [
+    {
+      "repo": "Qwen/Qwen3-8B",
+      "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "repo_type": "model",
+      "prefix": "",
+      "exclude": [
+        "*.safetensors",
+        "model.safetensors.index.json"
+      ],
+      "to": "qwen3-8b"
+    },
+    {
+      "repo": "inductionlabs/frontier-ml-tasks",
+      "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+      "repo_type": "dataset",
+      "prefix": "speculative-drafting/artifacts",
+      "exclude": [],
+      "to": "",
+      "optional": true
+    }
+  ],
+  "public": {
+    "repo": "inductionlabs/frontier-ml-tasks",
+    "revision": "925401fb8425ec9da5d198fa975b4ced6563c706",
+    "repo_type": "dataset",
+    "prefix": "speculative-drafting/public",
+    "exclude": []
+  }
+}
