@@ -25,6 +25,7 @@ from harbor.models.job.plugin import BaseJobPlugin
 
 from spin.wallet import SpinClient, cents, static_pricing as price_table
 from . import live_trajectory, review_trajectory, selfcheck_service, submissions
+from .cutoff import tokens as cutoff
 from .agent_surface import package_present
 from .runtime import submission_volume
 from .runtime.environments import is_modal, modal_profile, use_recoverable_modal
@@ -46,7 +47,17 @@ SELFCHECK_START_SECONDS = 120
 
 class FrontierPlugin(BaseJobPlugin):
     def __init__(self, budget_usd="50", wallet_seconds=None, keep_submission_volume="0", static_pricing=True,
-                 selfchecks=selfcheck_service.DEFAULT_LIMIT, live_trajectory_seconds=live_trajectory.DEFAULT_SECONDS):
+                 selfchecks=selfcheck_service.DEFAULT_LIMIT, live_trajectory_seconds=live_trajectory.DEFAULT_SECONDS,
+                 cutoff_proxy=None):
+        # `--pk cutoff_proxy=https://...`: the agent's Hugging Face, git and OpenRouter clients go through a cutoff
+        # proxy (frontier_ml/cutoff), which shows those three as of its fixed date. Each trial gets a token signed
+        # with FML_CUTOFF_PROXY_SECRET, the secret the proxy runs with.
+        self.cutoff_proxy = str(cutoff_proxy).rstrip("/") if cutoff_proxy else None
+        self.cutoff_secret = os.environ.get(CUTOFF_SECRET_ENV, "").strip()
+        if self.cutoff_proxy and not self.cutoff_secret:
+            raise ValueError(f"cutoff_proxy needs {CUTOFF_SECRET_ENV}, the secret the proxy was started with")
+        if self.cutoff_proxy and not broker_url_allowed(self.cutoff_proxy):
+            raise ValueError("cutoff_proxy must be an https:// URL (plain http needs SPIN_ALLOW_HTTP=1)")
         # `--pk budget_usd=0` (`frontier run --budget 0`) is a run with no compute budget: no wallet is created.
         self.budget_cents = 0 if _is_zero(budget_usd) else cents(str(budget_usd))
         # Evaluation wallets spend their budget in fixed GPU prices so a budget buys the same compute whatever
@@ -99,6 +110,7 @@ class FrontierPlugin(BaseJobPlugin):
             for config in job._remaining_trial_configs:
                 self._reattach_submission_volume(config)
             return
+        cutoff_note = await self._cutoff_note() if self.cutoff_proxy else None
         for config in job._remaining_trial_configs:
             path = config.task.path
             if path is None or not package_present(Path(path)):
@@ -125,6 +137,8 @@ class FrontierPlugin(BaseJobPlugin):
             # credential, not a provider account key; publish_trajectories redacts hf_ tokens from published sessions.
             config.environment.env = {**config.environment.env, "HF_TOKEN": agent_hf_token()}
             config.extra_instructions = [*config.extra_instructions, HF_TOKEN_NOTE]
+            if cutoff_note:
+                config.extra_instructions = [*config.extra_instructions, cutoff_note]
             if any(key in config.environment.env for key in ("SPIN_BROKER_TOKEN", "SPIN_API_KEY")):
                 raise ValueError("The plugin creates a separate wallet for every trial; remove supplied Spin credentials")
             if _is_modal(config.environment):
@@ -360,8 +374,21 @@ class FrontierPlugin(BaseJobPlugin):
         keys = ("wallet_id", "state", "budget_cents", "static_pricing")
         path.write_text(json.dumps({key: session[key] for key in keys if key in session}, indent=2) + "\n")
 
+    async def _cutoff_note(self):
+        """Ask the proxy for its date (which also proves it is reachable before any trial starts) and say what the
+        agent will see."""
+        async with httpx.AsyncClient(timeout=30) as client:
+            response = await client.get(self.cutoff_proxy + "/healthz")
+            response.raise_for_status()
+        return CUTOFF_NOTE.format(date=response.json()["cutoff"])
+
     async def _start(self, event):
         identifier = str(event.trial_id)
+        if self.cutoff_proxy:
+            # Valid for as long as the trial's wallet would be; the label is what the proxy's access log records.
+            label = "".join(char if char.isalnum() or char in "_-" else "-" for char in event.trial_name)[:96]
+            token = cutoff.mint(self.cutoff_secret, label, seconds=self._wallet_seconds(event.config))
+            event.config.environment.env.update(cutoff.agent_env(self.cutoff_proxy, token))
         if identifier in self.sessions:
             return
         # START runs before Harbor starts the environment. No provider account
@@ -506,6 +533,15 @@ async def _start_service(service, trial_name):
         await asyncio.sleep(SELFCHECK_RETRY_SECONDS * attempt)
 
 
+CUTOFF_SECRET_ENV = "FML_CUTOFF_PROXY_SECRET"
+CUTOFF_NOTE = (
+    "This run sees Hugging Face, GitHub and OpenRouter as they were on {date}. HF_ENDPOINT and git's github.com URLs "
+    "already point at a proxy that leaves out repositories, commits, releases and models published later; a newer "
+    "one answers as not found. For OpenRouter, use the key from `spin openrouter key create` with "
+    "$SPIN_OPENROUTER_BASE_URL as the base_url in place of the one it prints. For GitHub files outside git, use the "
+    "same paths as on github.com under $FML_CUTOFF_PROXY/gh/ (archives, releases/download) and "
+    "$FML_CUTOFF_PROXY/gh-raw/<owner>/<repo>/<ref>/<path> (raw files). Leased machines do not inherit your "
+    "environment: export HF_ENDPOINT, FML_CUTOFF_PROXY and the GIT_CONFIG_* variables there as well.")
 HF_TOKEN_NOTE = ("HF_TOKEN in your environment is a read-only Hugging Face token for downloading models and datasets.")
 
 

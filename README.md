@@ -99,6 +99,7 @@ Pass options to the `frontier` plugin with `--pk <option>=<value>`.
 | `wallet_seconds` | Agent time limit + 2 hours | Wallet lifetime in seconds |
 | `keep_submission_volume` | `0` | Set `1` to retain graded submissions on Modal for later regrading |
 | `live_trajectory_seconds` | `120` | Interval between live Claude Code trajectory updates in `harbor view`; `0` disables updates |
+| `cutoff_proxy` | none | URL of a [cutoff proxy](#fixed-date-evaluation); the agent sees Hugging Face, GitHub and OpenRouter as of that proxy's date |
 
 ### Test the infrastructure
 
@@ -110,6 +111,50 @@ FML_REVIEW_SKIP=1 uv run harbor run -y -p tasks/pii-redaction -e modal -a oracle
 ```
 
 This uses the task's minimal interface server and skips submission review. The server scores zero; this run checks that the infrastructure works.
+
+<br/>
+
+## Fixed-date evaluation
+
+Agents have internet access, so a run next year can use models, datasets and code that did not exist for a run today. To compare runs over time, put the agent behind the cutoff proxy, which answers for three sources as they stood on a date you choose:
+
+- **Hugging Face**: every branch or tag resolves to its last commit before the date; repositories created later are not found, and searches leave them out.
+- **GitHub**: clones, archives, raw files and release downloads stop at the date.
+- **OpenRouter**: only models listed before the date can be called through Spin.
+
+Deploy the proxy on Modal, where it scales with the number of runs:
+
+```bash
+export FML_CUTOFF_DATE=2026-10-01
+export FML_CUTOFF_PROXY_SECRET=$(openssl rand -hex 32)   # signs each trial's access token
+export FML_CUTOFF_GITHUB_TOKEN=...                       # any GitHub token; lifts the 60 requests/hour API limit
+uv run frontier-cutoff-proxy allowlist --tasks tasks --out allow.json
+FML_CUTOFF_HF_ALLOW=allow.json uv run modal deploy frontier_ml/cutoff/modal_app.py
+```
+
+`allowlist` records each task's own starting weights so they stay downloadable when they are newer than the date. The deploy prints a URL ending in `-front.modal.run`. With the same `FML_CUTOFF_PROXY_SECRET` exported, pass that URL to a run:
+
+```bash
+uv run harbor run -y -p tasks/pii-redaction -e modal -a claude-code -m anthropic/claude-opus-5-5 \
+  --plugin frontier --pk budget_usd=50 --pk cutoff_proxy=https://<workspace>--cutoff-proxy-20261001-front.modal.run
+```
+
+The agent's prompt states the date. Its Hugging Face and git clients are pointed at the proxy through environment variables, and it is told which base URL to use for OpenRouter.
+
+To see what each run fetched, was pinned to, or was refused, drain the proxy's request log:
+
+```bash
+FML_CUTOFF_DATE=2026-10-01 uv run python frontier_ml/cutoff/modal_app.py sync --out cutoff-logs
+```
+
+Limitations:
+
+- The proxy redirects the agent's tools; it does not block the real sites. An agent that calls `huggingface.co` or `github.com` directly, or uses web search, sees the present. The request log shows only what went through the proxy.
+- PyPI, package indexes and other sites are not covered.
+- A commit's date is whatever its author's machine recorded, and a repository whose history was rewritten after the date has no earlier commit left to serve.
+- With self-hosted Spin, set `FML_CUTOFF_OPENROUTER_UPSTREAM` to your server's `/v1` URL before deploying.
+
+For a single machine, `uv run frontier-cutoff-proxy serve --cutoff 2026-10-01 --state-dir <dir>` runs the same proxy locally; expose it over HTTPS yourself.
 
 <br/>
 
