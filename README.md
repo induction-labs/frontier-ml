@@ -1,6 +1,6 @@
 <img src="assets/banner.svg" alt="FrontierML by Induction Labs" width="420">
 
-🌐 [Website](https://frontierml.org) | 🤗 [Artifacts](https://huggingface.co/datasets/inductionlabs/frontier-ml-tasks) | 🤗 [Trajectories](https://huggingface.co/datasets/inductionlabs/frontier-ml-trajectories)
+🌐 [Website](https://frontierml.org) | 🤗 [Artifacts](https://huggingface.co/datasets/inductionlabs/frontier-ml-tasks) | 🤗 [Trajectories](https://huggingface.co/datasets/inductionlabs/frontier-ml-trajectories) | ⚓ [Harbor Hub](https://hub.harborframework.com/datasets/induction-labs/frontier-ml)
 
 FrontierML is a benchmark that measures how well agents turn capital into model performance on challenging, end-to-end machine learning tasks. Given more money, can an agent build a better model?
 
@@ -19,8 +19,8 @@ For agent spending, we provide a hosted version of [Spin](https://spin.induction
 ### Set up the environment
 
 ```bash
-git clone https://github.com/induction-labs/frontier-ml-release
-cd frontier-ml-release
+git clone https://github.com/induction-labs/frontier-ml
+cd frontier-ml
 uv sync
 
 export MODAL_TOKEN_ID=... MODAL_TOKEN_SECRET=...   # or use `uv run modal token new`
